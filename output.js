@@ -1,782 +1,458 @@
-//Wed Mar 25 2026 13:37:23 GMT+0000 (Coordinated Universal Time)
+//Wed Mar 25 2026 13:39:38 GMT+0000 (Coordinated Universal Time)
 //Base:<url id="cv1cref6o68qmpt26ol0" type="url" status="parsed" title="GitHub - echo094/decode-js: JS混淆代码的AST分析工具 AST analysis tool for obfuscated JS code" wc="2165">https://github.com/echo094/decode-js</url>
 //Modify:<url id="cv1cref6o68qmpt26olg" type="url" status="parsed" title="GitHub - smallfawn/decode_action: 世界上本来不存在加密，加密的人多了，也便成就了解密" wc="741">https://github.com/smallfawn/decode_action</url>
-var hs = {
-  "post_add": function (_0x5852fc) {
-    console.log("开始发布笔记");
-    if (_0x5852fc) {
-      console.verbose("正在获取发布笔记列表，请稍等...");
-      let _0xb07d3f = common.get_task_detail(_0x5852fc);
-      var _0x5770c8 = JSON.parse(_0xb07d3f.data.args);
-      hspost_add_time_blank = parseInt(_0x5770c8.time_blank);
-      post_type = _0x5770c8.post_type;
-      setting.hs_dk = _0x5770c8.hs_dk;
-      watermark = _0x5770c8.watermark;
-      hs_yjcp = _0x5770c8.yjcp;
-      var _0x333d32 = common.get_posts(_0x5770c8.post);
-      let _0x272286 = [];
-      for (let _0x3f8813 = 0; _0x3f8813 < _0x333d32.length; _0x3f8813++) {
-        {
-          _0x272286.push(_0x333d32[_0x3f8813].id);
+var init = {
+  "run": function () {
+    try {
+      com.stardust.autojs.core.pref.Pref.INSTANCE.get().edit().putBoolean("key_foreground_service", true).commit();
+    } catch (_0x7dff9f) {
+      {
+        console.verbose("ajx开启前台服务异常");
+      }
+    }
+    check_sys_version();
+    check_android_v();
+    check_total_memory();
+    device.keepScreenOn(86400000);
+    threads.start(function () {
+      common.set_phone_info();
+      common.init_ui();
+    });
+    if (setting.s.contains("access_token")) {
+      {
+        common.check_configure();
+      }
+    }
+    common.start_task_list();
+  },
+  "install": function (_0x436123) {
+    setting.is_install_app = true;
+    if (device.release.split(".")[0] < 7 && !setting.is_root) {
+      let _0x2a0e96 = "您的安卓系统版本小于7.0，请先授予Root权限";
+      console.error(_0x2a0e96);
+      toast(_0x2a0e96);
+    } else {
+      {
+        if (!install(_0x436123)) {
+          {
+            let _0x4af3d5 = "App安装失败！";
+            console.error(_0x4af3d5);
+            toast(_0x4af3d5);
+          }
         }
       }
-      if (!setting.phsadd_msg.contains("local_already_add_hspost")) {
-        setting.phsadd_msg.put("local_already_add_hspost", []);
+    }
+    setting.is_install_app = false;
+  }
+};
+function check_sys_version() {
+  let _0xdfaec4 = common.getVersionName("com.ydydyd8818");
+  if (_0xdfaec4) {
+    {
+      try {
+        var _0x42e081 = setting.api_domain + "check_xyzs_version7";
+        var _0x1d48b0 = http.post(_0x42e081, {
+          "v": _0xdfaec4,
+          "v2": setting.v2
+        });
+        var _0x3438a2 = _0x1d48b0.body.json();
+      } catch (_0x259942) {
+        console.verbose("尝试切换备用域名");
+        try {
+          setting.api_domain = setting.api_domain2;
+          var _0x42e081 = setting.api_domain + "check_xyzs_version7";
+          var _0x1d48b0 = http.post(_0x42e081, {
+            "v": _0xdfaec4,
+            "v2": setting.v2
+          });
+          var _0x3438a2 = _0x1d48b0.body.json();
+        } catch (_0x1e81cc) {
+          var _0x32e37a = "无法访问网络！无法访问网络！无法访问网络！";
+          console.error(_0x32e37a);
+          console.error(_0x32e37a);
+          console.error(_0x32e37a);
+          console.error(_0x32e37a);
+          console.error(_0x32e37a);
+          console.error(_0x32e37a);
+          console.error(_0x32e37a);
+          console.error(_0x32e37a);
+          console.error(_0x32e37a);
+          console.error(_0x32e37a);
+          toast(_0x32e37a);
+          ui.run(function () {
+            ui.viewpager.currentItem = 4;
+          });
+        }
       }
-      if (JSON.stringify(_0x272286) === JSON.stringify(setting.phsadd_msg.get("local_all_post"))) {
-        let _0x29520d = setting.phsadd_msg.get("local_already_add_hspost");
-        if (Array.isArray(_0x29520d) && _0x29520d.length === 0) {} else {
+      try {
+        setting.v = _0xdfaec4;
+        setting.v_cloud = _0x3438a2.v_cloud;
+        setting.v2_cloud = _0x3438a2.v2_cloud;
+        if (_0x3438a2.code == 0) {
+          console.info("当前" + sys_msg.sys_name + "版本：" + setting.v_cloud + "，已为最新版");
+          console.info(sys_msg.sys_name + "内核版本：" + setting.v2_cloud + "，已为最新版");
+          ui.run(function () {
+            ui.xintiao.setText("网络正常|服务器连接正常");
+          });
+        } else if (_0x3438a2.code == -1) {
+          let _0x44b3ee = "当前本版低，请前往总控扫码下载最新版";
+          console.log(_0x44b3ee);
+          console.log(_0x44b3ee);
+          console.log(_0x44b3ee);
+        } else if (_0x3438a2.code == -2) {
           {
-            common.web_log("继续上次进度发布笔记", "success");
-            for (let _0x3f8813 = 0; _0x3f8813 < _0x333d32.length; _0x3f8813++) {
+            sleep(2000);
+            toast("检测到新版本，即将自动更新");
+            console.info("更新中...");
+            let _0x545400 = engines.myEngine().cwd();
+            _0x1d48b0 = http.get(_0x3438a2.hot_update_url);
+            files.writeBytes(_0x545400 + "/1.zip", _0x1d48b0.body.bytes());
+            $zip.unzip(_0x545400 + "/1.zip", _0x545400);
+            var _0x3b98a8 = files.listDir(_0x545400 + "/yxx_client");
+            for (let _0x4b5722 = 0; _0x4b5722 < _0x3b98a8.length; _0x4b5722++) {
               {
-                if (_0x29520d.indexOf(_0x333d32[_0x3f8813].id) > -1) {
-                  delete _0x333d32[_0x3f8813];
+                if ([".git", "project.json"].indexOf(_0x3b98a8[_0x4b5722]) > -1) {
+                  continue;
+                }
+                if (files.isFile(_0x545400 + "/yxx_client/" + _0x3b98a8[_0x4b5722])) {
+                  console.verbose("更新文件：" + _0x3b98a8[_0x4b5722]);
+                  files.write(_0x545400 + "/" + _0x3b98a8[_0x4b5722], files.read(_0x545400 + "/yxx_client/" + _0x3b98a8[_0x4b5722]));
                 }
               }
             }
+            console.info("准备重启");
+            toast("即将重启");
+            engines.stopAll();
+            engines.execScriptFile(engines.myEngine().cwd() + "/main.js");
+            toast("已更新至最新版！");
           }
         }
-      } else {
-        setting.phsadd_msg.put("local_all_post", _0x272286);
-      }
-    }
-    threads.start(function () {
-      {
-        setting.album_index = -1;
-        console.verbose("开始后台下载图片视频..");
-        let _0x4bac7f = [];
-        _0x333d32.forEach(function (_0x418618, _0x497f3f) {
-          console.verbose("开始下载第" + (_0x497f3f + 1) + "套图片");
-          if (_0x4bac7f.indexOf(_0x418618.title_md5) == -1) {
-            _0x4bac7f.push(_0x418618.title_md5);
-            let _0x380d25 = get_images(_0x418618, _0x5770c8);
-            if (watermark == "open") {
-              _0x380d25 = common.watermark(_0x380d25, setting.xy_name, setting.xy_name2);
-            }
-            common.download_img(_0x418618.title_md5, _0x380d25, false);
-            common.download_video(_0x418618);
-          } else {
-            console.verbose("第" + (_0x497f3f + 1) + "套笔记素材已下载..");
-          }
-          setting.album_index = _0x497f3f;
-        });
-        console.info("所有笔记图片视频素材下载完成");
-      }
-    });
-    _0x333d32.forEach(function (_0x2435e8, _0x4e75bb) {
-      hs_add_wait(_0x4e75bb, _0x333d32);
-      common.hs_home();
-      let _0x30e75b = "正在下载图片或视频，请稍等...";
-      while (_0x4e75bb > setting.album_index) {
+      } catch (_0x1b18d0) {
         {
-          console.log(_0x30e75b);
-          toast(_0x30e75b);
-          sleep(5000);
+          console.verbose("热更新出错");
+          var _0x32e37a = "无网络连接|请检查网络";
+          console.error(_0x32e37a);
+          toast(_0x32e37a);
+          ui.run(function () {
+            ui.xintiao.setText(_0x32e37a);
+            ui.xintiao.setTextColor(colors.parseColor("#FF5722"));
+          });
+          console.verbose(_0x1b18d0);
         }
-      }
-      threads.start(function () {
-        toastLog("笔记标题：" + _0x2435e8.title);
-        common.web_log("开始发布：" + _0x2435e8.title, "success");
-      });
-      enter_fbbj();
-      if (_0x2435e8.vcode || _0x2435e8.auto_video) {
-        {
-          select_video_aibum(_0x2435e8);
-        }
-      } else {
-        select_aibum(_0x2435e8);
-      }
-      console.verbose("等待发布笔记页面加载完成..");
-      text("发布笔记").waitFor();
-      sleep(500);
-      toastLog("准备开始填写笔记内容...");
-      sleep(2000);
-      setText(0, _0x2435e8.title);
-      sleep(1000);
-      setText(1, _0x2435e8.content);
-      sleep(1000);
-      console.verbose("笔记内容填写完毕");
-      sleep(2000);
-      if (_0x2435e8.location && id("com.xingin.xhs:id/anc").exists()) {
-        {
-          id("com.xingin.xhs:id/anc").findOne().click();
-          sleep(1000);
-          console.verbose("开始选择地点");
-          text("搜索地点").waitFor();
-          setText(_0x2435e8.location);
-          sleep(2000);
-          id("com.xingin.xhs:id/eh5").findOne().click();
-          sleep(1000);
-        }
-      }
-      if (_0x2435e8.post_sort && id("com.xingin.xhs:id/jig").exists()) {
-        {
-          post_sort_arr = _0x2435e8.post_sort.split("#").filter(del_empty);
-          for (let _0x787006 = 0; _0x787006 < post_sort_arr.length; _0x787006++) {
-            {
-              id("com.xingin.xhs:id/jig").findOne().click();
-              sleep(1000);
-              common.my_input(post_sort_arr[_0x787006]);
-              sleep(1000);
-            }
-          }
-        }
-      }
-      if (post_type == "存草稿") {
-        console.verbose("存草稿");
-        text("存草稿").findOne().click();
-        sleep(500);
-        text("确定").findOne().click();
-        sleep(1000);
-      } else {
-        toastLog("点击 发布笔记");
-        text("发布笔记").findOne().click();
-        sleep(2000);
-      }
-      let _0x2ff08c = Math.ceil((_0x4e75bb + 1) / _0x333d32.length * 100);
-      console.verbose("笔记发布进度：" + _0x2ff08c + "%");
-      if (_0x2ff08c != 100) {
-        common.reload_task_table(_0x5852fc, "run", "", _0x2ff08c);
-      }
-      common.web_log("\"" + _0x2435e8.title + "\"发布成功", "success");
-      toastLog("\"" + _0x2435e8.title + "\"发布成功");
-      let _0x12d786 = setting.phsadd_msg.get("local_already_add_hspost");
-      _0x12d786.push(_0x2435e8.id);
-      setting.phsadd_msg.put("local_already_add_hspost", _0x12d786);
-      common.hs_home();
-    });
-    toastLog("全部笔记发布成功");
-    threads.start(function () {
-      {
-        common.web_log("发布红薯笔记任务执行成功", "success");
-        common.reload_task_table(_0x5852fc, "end");
-        setting.phsadd_msg.put("local_already_add_hspost", []);
-      }
-    });
-    threads.start(function () {
-      _0x333d32.forEach(function (_0x4f07de, _0x526c45) {
-        {
-          common.remove_img(_0x4f07de.title_md5);
-          common.remove_video("v_" + _0x4f07de.title_md5);
-        }
-      });
-      console.log("残留文件清除成功");
-    });
-  },
-  "yanghao": function (_0x44ba85) {
-    if (_0x44ba85) {
-      let _0x80ec7 = common.get_task_detail(_0x44ba85);
-      var _0x48d35e = JSON.parse(_0x80ec7.data.args);
-    } else {
-      {
-        var _0x48d35e = JSON.parse(common.get_hstaskc().hs_yanghao);
-      }
-    }
-    setting.hs_dk = _0x48d35e.hs_dk;
-    common.hs_home();
-    hs_yanghao_main(_0x48d35e);
-    if (_0x44ba85) {
-      common.web_log("红薯养号", "success");
-      common.reload_task_table(_0x44ba85, "end");
-    }
-  },
-  "flow_search": function (_0x1aec26) {
-    if (_0x1aec26) {
-      {
-        let _0x6648f6 = common.get_task_detail(_0x1aec26);
-        var _0x183a92 = JSON.parse(_0x6648f6.data.args);
-      }
-    } else {
-      var _0x183a92 = JSON.parse(common.get_hstaskc().hs_search);
-    }
-    setting.hs_dk = _0x183a92.hs_dk;
-    common.hs_home();
-    start_hsflow_search(_0x183a92);
-    if (_0x1aec26) {
-      common.web_log("红薯搜索养号", "success");
-      common.reload_task_table(_0x1aec26, "end");
-    }
-  },
-  "post_del": function (_0x345287) {
-    if (_0x345287) {
-      let _0x24d1b9 = common.get_task_detail(_0x345287);
-      var _0x2dfa50 = JSON.parse(_0x24d1b9.data.args);
-    } else {
-      {
-        var _0x2dfa50 = JSON.parse(common.get_hstaskc().post_del);
-      }
-    }
-    setting.hs_dk = _0x2dfa50.hs_dk;
-    common.hs_home();
-    post_del(_0x2dfa50);
-    if (_0x345287) {
-      {
-        common.web_log("红薯删除笔记", "success");
-        common.reload_task_table(_0x345287, "end");
       }
     }
   }
-};
-function enter_fbbj() {
-  console.verbose("准备开始发布...");
-  if (text("继续编辑图文笔记吗？").exists()) {
-    console.verbose("出现'继续编辑图文笔记吗？' 点击'存草稿'");
-    text("存草稿").findOne().click();
-    sleep(1000);
-  }
-  id("dx0").findOne().click();
-  sleep(2000);
-  id("com.xingin.xhs:id/o_").findOne().click();
-  sleep(1000);
-  toastLog("相册列表加载完毕");
 }
-function hs_add_wait(_0x4803c0, _0x2d510d) {
-  let _0x277bcf = "";
-  if (_0x4803c0 > 0 && hspost_add_time_blank) {
-    threads.start(function () {
+function check_android_v() {
+  let _0x30b99a = device.release;
+  try {
+    {
+      setting.is_root = $shell.checkAccess("root");
+    }
+  } catch (_0x2b8a25) {
+    {
+      setting.is_root = false;
+      console.verbose("ajx判断root权限异常");
+    }
+  }
+  if (_0x30b99a.split(".")[0] < 7) {
+    if (setting.is_root) {
       {
-        _0x277bcf = "共" + _0x2d510d.length + "个红薯笔记，" + hspost_add_time_blank + "秒后开始发布第" + (_0x4803c0 + 1) + "个红薯笔记";
-        console.log(_0x277bcf);
-        toast(_0x277bcf);
-        common.web_log(_0x277bcf, "info");
+        setting.android_ver_color = "#ff5d85ff";
+        setting.android_ver_text = _0x30b99a + " | 已ROOT";
       }
-    });
-    sleep(hspost_add_time_blank * 1000);
+    } else {
+      {
+        setting.android_ver_color = "#FF5722";
+        setting.android_ver_text = _0x30b99a + " | 未ROOT 安卓7以下需ROOT";
+      }
+    }
   } else {
-    {
-      threads.start(function () {
-        _0x277bcf = "共" + _0x2d510d.length + "个红薯笔记，开始发布第" + (_0x4803c0 + 1) + "个笔记";
-        common.web_log(_0x277bcf, "info");
-        console.log(_0x277bcf);
-        toast(_0x277bcf);
-      });
-    }
+    setting.android_ver_color = "#ff5d85ff";
+    setting.android_ver_text = _0x30b99a + " | 安卓7或7以上免ROOT";
   }
-}
-function get_images(_0x7aea2b, _0x4f53b1) {
-  let _0x399849 = [];
-  _0x399849 = _0x7aea2b.images.slice(0, 18);
-  console.verbose("下载图片：" + _0x399849.length + "张");
-  return _0x399849;
-}
-function select_video_aibum(_0x59adc9) {
-  console.verbose("开始选择视频...");
-  do {
-    {
-      sleep(800);
-      if (className("android.widget.TextView").text("v_" + _0x59adc9.title_md5).exists()) {
-        className("android.widget.TextView").text("v_" + _0x59adc9.title_md5).findOne().parent().click();
-        toastLog("进入相册");
-        sleep(2300);
-        className("android.widget.FrameLayout").id("com.xingin.xhs:id/hzs").findOne().click();
-        sleep(500);
-        desc("下一步").findOne().click();
-        sleep(1000);
-        if (text("下一步").exists()) {
+  ui.run(function () {
+    ui.android_ver.setText(setting.android_ver_text);
+    ui.android_ver.setTextColor(colors.parseColor(setting.android_ver_color));
+  });
+  if (_0x30b99a.split(".")[0] < 7) {
+    if (setting.is_root) {
+      if (auto.service == null) {
+        try {
           {
-            text("下一步").findOne().click();
-            sleep(1000);
-          }
-        }
-        break;
-      }
-    }
-  } while (id("com.xingin.xhs:id/bi5").scrollable().findOne().scrollForward());
-  console.log("准备进入发布页...");
-}
-function select_aibum(_0x54c062) {
-  console.verbose("准备开始选择图片...");
-  do {
-    {
-      sleep(800);
-      if (className("android.widget.TextView").text(_0x54c062.title_md5).exists()) {
-        className("android.widget.TextView").text(_0x54c062.title_md5).findOne().parent().click();
-        toastLog("进入相册");
-        sleep(2300);
-        let _0x2e360d = id("hzs").find();
-        if (className("androidx.recyclerview.widget.RecyclerView").id("fqh").find().length == 3) {
-          {
-            _0x2e360d = _0x2e360d.slice(0, _0x2e360d.length / 2);
-          }
-        }
-        _0x2e360d.reverse();
-        for (let _0x2f2c83 = 0; _0x2f2c83 < _0x2e360d.length; _0x2f2c83++) {
-          sleep(100);
-          _0x2e360d[_0x2f2c83].click();
-          if (_0x2f2c83 == 9) {
-            common.my_swipe(device.width / 2, device.height * 2 / 10, device.width / 2, device.height * 7 / 10, 300);
-            sleep(1000);
-          }
-        }
-        if (hs_yjcp == "开") {
-          text("一键成片").findOne().parent().click();
-          while (!text("使用原片").exists()) {
-            {
-              console.verbose("等待一键成片完成");
-              sleep(2500);
-            }
-          }
-        } else {
-          {
-            desc("下一步").findOne().click();
-            sleep(2000);
-          }
-        }
-        sleep(2000);
-        if (id("e63").exists()) {
-          {
-            id("e63").findOne().click();
-            sleep(2000);
-            console.verbose("点击关闭图片模板按钮");
-          }
-        }
-        text("下一步").findOne().click();
-        sleep(1000);
-        break;
-      }
-    }
-  } while (id("com.xingin.xhs:id/bi5").scrollable().findOne().scrollForward());
-  console.log("准备进入发布页...");
-}
-function hs_yanghao_main(_0x3e26d2) {
-  var _0x23a65d = _0x3e26d2.lllx;
-  var _0x479caf = _0x3e26d2.pdlx;
-  var _0x198d93 = _0x3e26d2.hs_yanghao_scroll_num;
-  var _0x29687b = _0x3e26d2.hs_yanghao_click_percent;
-  var _0x17b9ec = _0x3e26d2.hs_yanghao_like_percent;
-  var _0x5d2062 = _0x3e26d2.hs_yanghao_collect_percent;
-  var _0x45a5c9 = _0x3e26d2.hs_yanghao_comment_percent;
-  var _0x5ac600 = _0x3e26d2.hs_yanghao_comment_content;
-  console.verbose("准备进入红薯养号页面");
-  id("com.xingin.xhs:id/dwx").findOne().click();
-  sleep(3000);
-  console.verbose("浏览类型：" + _0x23a65d);
-  if (_0x23a65d == "关注" && desc("关注").clickable().exists()) {
-    {
-      desc("关注").clickable().findOne().click();
-      sleep(1000);
-    }
-  } else if (_0x23a65d == "发现" && desc("发现").clickable().exists()) {
-    desc("发现").clickable().findOne().click();
-    sleep(3500);
-    console.verbose("频道类型：" + _0x479caf);
-    if (_0x479caf != "推荐") {
-      {
-        id("com.xingin.xhs:id/avu").findOne().click();
-        sleep(1000);
-        if (id("com.xingin.xhs:id/j0d").text(_0x479caf).exists()) {
-          {
-            console.verbose("点击 " + _0x479caf);
-            id("com.xingin.xhs:id/j0d").text(_0x479caf).find().pop().parent().click();
-            sleep(500);
-          }
-        }
-        if (!desc("已选定" + _0x479caf).exists() && id("com.xingin.xhs:id/j0d").text(_0x479caf).exists()) {
-          console.verbose("点击 " + _0x479caf);
-          id("com.xingin.xhs:id/j0d").text(_0x479caf).find().pop().parent().click();
-          sleep(500);
-        }
-      }
-    }
-  } else if (_0x23a65d == "本地") {
-    let _0x13c362 = desc("发现").clickable().findOne();
-    className("androidx.appcompat.app.ActionBar$Tab").indexInParent(_0x13c362.indexInParent() + 1).depth(_0x13c362.depth()).clickable().findOne().click();
-  } else {}
-  sleep(3000);
-  toastLog("开始模拟人工浏览帖子...");
-  for (let _0x14fb97 = 0; _0x14fb97 < _0x198d93; _0x14fb97++) {
-    {
-      if (_0x29687b > random(0, 100)) {
-        {
-          var _0x247671 = common.get_all_text_desc();
-          if (random(0, 1) === 0) {
-            var _0x54e473 = device.width / 10;
-          } else {
-            {
-              var _0x54e473 = device.width / 10 * 6;
-            }
-          }
-          common.my_click(_0x54e473, device.height / 2);
-          sleep(1000);
-          let _0x3a0774 = common.get_all_text_desc();
-          if (_0x247671 == _0x3a0774) {
-            console.verbose("二次点击");
-            common.my_click(_0x54e473, device.height / 2 + 30);
-            sleep(1000);
-          }
-          console.verbose("开始浏览内容...");
-          sleep(random(500, 2500));
-          man_look_post();
-          man_like_post(_0x17b9ec, _0x5d2062, _0x45a5c9, _0x5ac600);
-          while (!id("com.xingin.xhs:id/dwx").exists()) {
-            back();
-            sleep(2000);
-          }
-          toastLog("已返回帖子列表");
-        }
-      }
-      common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 1 / 10, random(500, 1500));
-      sleep(2000);
-      console.verbose("第" + (_0x14fb97 + 1) + "次滑动帖子列表");
-      sleep(random(1500, 3500));
-    }
-  }
-  if (id("com.xingin.xhs:id/dwz").exists()) {
-    id("com.xingin.xhs:id/dwz").findOne().click();
-    sleep(500);
-  }
-  toastLog("红薯养号结束");
-}
-function start_hsflow_search(_0x2f9dda) {
-  var _0x49c2a9 = _0x2f9dda.word;
-  var _0x5f2ae9 = _0x2f9dda.order;
-  var _0x4a2dd5 = _0x2f9dda.num;
-  var _0x1a234d = _0x2f9dda.click_percent;
-  var _0x5dae0b = _0x2f9dda.like_percent;
-  var _0x5e8cc5 = _0x2f9dda.collect_percent;
-  var _0x5cb500 = _0x2f9dda.comment_percent;
-  var _0x5f5bbc = _0x2f9dda.comment_content;
-  console.verbose("准备进入红薯首页搜索关键词");
-  id("com.xingin.xhs:id/dwx").findOne().click();
-  sleep(3000);
-  console.verbose(_0x49c2a9);
-  var _0x1a0c86 = _0x49c2a9.split("#").filter(del_empty);
-  var _0x2a5d8b = Math.floor(Math.random() * _0x1a0c86.length);
-  _0x49c2a9 = _0x1a0c86[_0x2a5d8b];
-  console.verbose("搜索词：" + _0x49c2a9);
-  console.verbose("排序依据：" + _0x5f2ae9);
-  id("com.xingin.xhs:id/hsz").findOne().click();
-  sleep(1000);
-  setText(_0x49c2a9);
-  sleep(1000);
-  text("搜索").findOne().click();
-  sleep(3000);
-  if (_0x5f2ae9 != "综合") {
-    text("筛选").findOne().parent().click();
-    sleep(1000);
-    text(_0x5f2ae9).findOne().click();
-    sleep(2000);
-    back();
-    sleep(1000);
-  }
-  toastLog("开始模拟人工浏览帖子...");
-  for (let _0x58c094 = 0; _0x58c094 < _0x4a2dd5; _0x58c094++) {
-    if (_0x1a234d > random(0, 100)) {
-      var _0x2524a7 = common.get_all_text_desc();
-      if (random(0, 1) === 0) {
-        {
-          var _0x18a70c = device.width / 10;
-        }
-      } else {
-        var _0x18a70c = device.width / 10 * 6;
-      }
-      common.my_click(_0x18a70c, device.height / 2);
-      sleep(2000);
-      let _0x392ee9 = common.get_all_text_desc();
-      if (_0x2524a7 == _0x392ee9) {
-        {
-          console.verbose("二次点击");
-          common.my_click(_0x18a70c, device.height / 2 + 30);
-          sleep(2000);
-        }
-      }
-      if (text("关注").exists() || text("已关注").exists()) {
-        console.verbose("开始浏览内容...");
-        sleep(random(500, 2500));
-        man_look_post();
-        man_like_post(_0x5dae0b, _0x5e8cc5, _0x5cb500, _0x5f5bbc);
-      } else {
-        {
-          console.verbose("返回");
-          back();
-          sleep(1000);
-        }
-      }
-      while (!text("筛选").exists()) {
-        back();
-        sleep(2000);
-      }
-      toastLog("已返回帖子搜索结果列表");
-    }
-    common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 1 / 10, random(500, 1500));
-    sleep(2000);
-    console.verbose("第" + (_0x58c094 + 1) + "次滑动帖子列表");
-    sleep(random(1500, 3500));
-  }
-  back();
-  sleep(1000);
-  back();
-  sleep(1000);
-  if (id("com.xingin.xhs:id/dwz").exists()) {
-    id("com.xingin.xhs:id/dwz").findOne().click();
-    sleep(500);
-  }
-  toastLog("红薯搜索养号结束");
-}
-function post_del(_0x1c0849) {
-  var _0x18b6ba = Number(_0x1c0849.look);
-  var _0x435877 = Number(_0x1c0849.like);
-  var _0x34ddfa = _0x1c0849.word;
-  var _0x9ebc94 = _0x1c0849.time_blank;
-  console.verbose("删除条件为：");
-  if (_0x18b6ba != 0) {
-    {
-      console.verbose("阅读量小于 " + _0x18b6ba);
-    }
-  }
-  if (_0x435877 != 0) {
-    {
-      console.verbose("点赞数小于 " + _0x435877);
-    }
-  }
-  if (_0x34ddfa) {
-    {
-      console.verbose("标题包含关键词 " + _0x34ddfa);
-    }
-  }
-  console.verbose("准备进入红薯'我的'页面");
-  id("com.xingin.xhs:id/dwy").findOne().click();
-  sleep(2000);
-  var _0x3da89d = [];
-  while (true) {
-    {
-      var _0x350f87 = true;
-      let _0x3149b8 = id("com.xingin.xhs:id/av8").descEndsWith("阅读").find();
-      for (let _0x391810 = 0; _0x391810 < _0x3149b8.length; _0x391810++) {
-        let _0x4bc166 = _0x3149b8[_0x391810].desc();
-        var _0x228f41 = _0x4bc166.split(",")[1];
-        var _0x5564de = 0;
-        var _0x12ca93 = 0;
-        var _0x18a66c = _0x4bc166.match(/(\d+)阅读/);
-        var _0x29cb33 = _0x4bc166.match(/(\d+)赞/);
-        if (_0x18a66c) {
-          _0x5564de = Number(_0x18a66c[1]);
-        }
-        if (_0x29cb33) {
-          {
-            _0x12ca93 = Number(_0x29cb33[1]);
-          }
-        }
-        let _0x5a69ef = "标题：" + _0x228f41 + " 阅读：" + _0x5564de + " 点赞：" + _0x12ca93;
-        if (_0x3da89d.indexOf(_0x5a69ef) > -1) {
-          continue;
-        } else {
-          console.verbose(_0x5a69ef);
-          _0x3da89d.push(_0x5a69ef);
-        }
-        let _0x33389a = false;
-        if (_0x5564de < _0x18b6ba) {
-          {
-            toastLog("阅读量" + _0x5564de + "，符合删除条件");
-            _0x33389a = true;
-          }
-        }
-        if (_0x12ca93 < _0x435877) {
-          toastLog("点赞数" + _0x12ca93 + "，符合删除条件");
-          _0x33389a = true;
-        }
-        if (_0x34ddfa) {
-          {
-            _0x34ddfa.split("#").forEach(_0x4ac43f => {
-              if (_0x228f41.indexOf(_0x4ac43f) != -1 && _0x4ac43f) {
-                toastLog("包含关键词'" + _0x4ac43f + "'，符合删除条件");
-                _0x33389a = true;
-              }
+            shell("pm grant " + PackageName.toString() + " android.permission.WRITE_SECURE_SETTINGS", {
+              "root": true
             });
+            let _0x3acf10 = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
+            let _0x10c329 = _0x3acf10 + ":" + PackageName.toString() + "/com.stardust.autojs.core.accessibility.AccessibilityService";
+            Settings.Secure.putString(context.getContentResolver(), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES, _0x10c329);
+            Settings.Secure.putString(context.getContentResolver(), Settings.Secure.ACCESSIBILITY_ENABLED, "1");
+            console.info("root已授权开启无障碍");
+            setTimeout(function () {
+              {
+                ui.run(function () {
+                  ui.autoService.checked = true;
+                });
+                toast("已自动开启无障碍");
+              }
+            }, 1000);
           }
-        }
-        if (_0x33389a) {
-          _0x350f87 = false;
-          _0x3149b8[_0x391810].click();
-          sleep(2000);
-          console.verbose("点击右上角的'更多'按钮");
-          if (id("moreOperateIV").exists()) {
-            {
-              id("moreOperateIV").findOne().click();
-              sleep(1000);
-            }
-          } else if (id("shareButton").exists()) {
-            console.verbose("视频");
-            id("shareButton").findOne().click();
-            sleep(1000);
-          }
-          while (!id("jh7").className("android.widget.TextView").text("删除").exists()) {
-            console.verbose("删除按钮不存在，向后滑动一次");
-            id("com.xingin.xhs:id/giz").findOne().scrollForward();
-            sleep(1000);
-          }
-          id("jh7").className("android.widget.TextView").text("删除").findOne().parent().parent().click();
-          sleep(1000);
-          text("确定").findOne().click();
-          sleep(1000);
-          console.verbose("删除成功");
-        }
-        sleep(_0x9ebc94);
+        } catch (_0x5ac302) {}
       }
-      if (_0x350f87) {
-        var _0x4df88e = common.get_all_text_desc();
-        common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 1 / 10, 500);
-        sleep(2000);
-        var _0x5c13d7 = common.get_all_text_desc();
-        if (_0x5c13d7 == _0x4df88e) {
-          toastLog("已滑动到列表最底部");
-          break;
-        }
+    } else {
+      console.error("您的系统版本为：" + device.release + ",小于7.0,请授予root权限！！！！！");
+      console.error("您的系统版本小于7.0,请授予root权限！！！！！");
+      console.error("无root权限！！！无root权限！！！无root权限！");
+      console.error("请授予root权限,否则系统将无法正确运行");
+      console.error("请授予" + sys_msg.sys_name + "root权限,否则系统将无法正确运行");
+      console.error("请授予" + sys_msg.sys_name + "root权限,否则系统将无法正确运行");
+      console.error("授予root后请重启" + sys_msg.sys_name + "App");
+      console.error("授予root后请重启" + sys_msg.sys_name + "App");
+      console.error("授予root后请重启" + sys_msg.sys_name + "App");
+      console.error("授予root后请重启" + sys_msg.sys_name + "App");
+      for (let _0x21b302 = 0; _0x21b302 < 300; _0x21b302++) {
+        console.error("授予root后请重启" + sys_msg.sys_name + "App");
+        toast("请授予" + sys_msg.sys_name + "root权限");
+        sleep(6000);
       }
     }
+  } else if (device.brand == "Meizu" || device.brand == "meizu") {
+    console.log("提醒：");
+    console.log("部分魅族手机运行不稳定，请自行测试系统稳定性！");
+  } else if (["MI 4C", "Mi-4c"].indexOf(device.model) != -1) {
+    let _0x51edb2 = "因小米4c发布宝贝时会直接跳到拍照界面（闲鱼的bug），所以无法发布宝贝，请更换其他型号的手机或使用老版本的闲鱼（第二版助手适配的闲鱼）";
+    toast(_0x51edb2);
+    console.error("警告：");
+    console.error(_0x51edb2);
+  } else {
+    console.info("本地运行环境正常");
   }
-  if (id("com.xingin.xhs:id/dwz").exists()) {
-    id("com.xingin.xhs:id/dwz").findOne().click();
-    sleep(500);
-  }
-  toastLog("红薯删除笔记结束");
 }
-function man_look_post() {
-  if (descStartsWith("图片,第").exists()) {
-    let _0x403e2c = descStartsWith("图片,第").findOne().desc();
-    var _0x3a838c = 2;
-    var _0x12ded6 = _0x403e2c.match(/共 (\d+)张/);
-    if (_0x12ded6) {
-      _0x3a838c = _0x12ded6[1];
-      console.verbose("共 " + _0x3a838c + " 张照片");
-    }
-    var _0x216cc3 = 1;
-    while (true) {
-      if (_0x216cc3 >= _0x3a838c) {
-        break;
-      }
-      common.my_swipe(device.width * 0.9, device.height * 0.3, device.width * 0.2, device.height * 0.3, random(400, 600));
-      sleep(random(500, 2500));
-      _0x216cc3 += 1;
-      if (random(0, 100) < 12) {
-        {
-          _0x216cc3 -= 1;
-          common.my_swipe(device.width * 0.2, device.height * 0.3, device.width * 0.9, device.height * 0.3, random(400, 600));
-          sleep(random(500, 2500));
-        }
-      }
-    }
-    let _0x2f17c7 = random(3, 8);
-    for (let _0x46083d = 0; _0x46083d < _0x2f17c7; _0x46083d++) {
-      {
-        common.my_swipe(device.width * 0.5, device.height * 0.8, device.width * 0.5, device.height * 0.3, 600);
-        sleep(random(300, 1000));
-        if (text("抢首评").exists()) {
-          break;
-        }
-        if (text("- 到底了 -").exists()) {
-          {
-            break;
-          }
-        }
-        if (random(0, 100) < 20) {
-          {
-            common.my_swipe(device.width * 0.5, device.height * 0.2, device.width * 0.5, device.height * 0.9, 600);
-          }
-        }
-      }
-    }
-    common.my_swipe(device.width * 0.5, device.height * 0.2, device.width * 0.5, device.height * 0.9, 600);
-    common.my_swipe(device.width * 0.5, device.height * 0.2, device.width * 0.5, device.height * 0.9, 600);
-    common.my_swipe(device.width * 0.5, device.height * 0.2, device.width * 0.5, device.height * 0.9, 600);
-  } else if (desc("暂停").exists() || desc("播放").exists()) {
+function check_total_memory() {
+  let _0x11cf8a = device.getTotalMem();
+  let _0x2d8fa2 = (_0x11cf8a / 1000000000).toFixed(2);
+  let _0x4c77a2 = (_0x11cf8a / Math.pow(1024, 3)).toFixed(2);
+  if (_0x2d8fa2 < 4) {
+    console.warn("运行设备建议： 当前设备硬件配置较低，运行闲鱼或助手时可能会出现卡顿。为保障您的顺畅体验，建议使用运行内存（RAM）6GB 及以上的手机。您可以继续使用当前设备，但在高负载场景下可能无法获得最佳的操作流畅度。");
+    console.verbose("厂商口径内存(1000进制): " + _0x2d8fa2 + " GB");
+    console.verbose("系统口径内存(1024进制): " + _0x4c77a2 + " GB");
+  } else {}
+}
+function install(_0x11bbcd) {
+  if (_0x11bbcd == "xy") {
     {
-      console.verbose("视频");
-      let _0x1abc2f = random(5, 70);
-      console.verbose("观看" + _0x1abc2f + "秒");
-      for (let _0x46083d = 0; _0x46083d < _0x1abc2f; _0x46083d++) {
-        {
-          if (random(0, 100) < 3) {
-            let _0x3abc68 = random(800, 5500);
-            toastLog("随机暂停视频" + _0x3abc68 + "毫秒");
-            common.my_click(device.width / 2, device.height / 2);
-            sleep(_0x3abc68);
-            common.my_click(device.width / 2, device.height / 2);
+      let _0x512c6f = common.getVersionName(setting.xy_pname);
+      if (_0x512c6f == "未安装") {
+        console.verbose("您未安装闲鱼");
+      } else {
+        let _0x18a301 = common.get_v_num(_0x512c6f);
+        let _0x4d805c = common.get_v_num(setting.xy_app_version_tjbb);
+        if (_0x18a301 > _0x4d805c) {
+          {
+            app_uninstall(setting.xy_pname);
           }
-          sleep(1000);
         }
       }
+      _0x532a82 = "正在安装闲鱼" + setting.xy_app_version_tjbb;
+      toast(_0x532a82);
+      console.log(_0x532a82);
+      try {
+        common.download_file(setting.xy_app_location_path, setting.xy_app_url_e);
+      } catch (_0xfe5d2a) {
+        {
+          console.verbose("启用备用地址下载闲鱼");
+          common.download_file(setting.xy_app_location_path, setting.xy_app_url_bak_e);
+        }
+      }
+      console.verbose("闲鱼安装包下载结束");
+      app_install(setting.xy_app_location_path, setting.xy_pname);
+      let _0x532a82 = "闲鱼App安装完成，请记得登录闲鱼，并且关闭应用商店的软件自动升级！";
+      console.info(_0x532a82);
+      toast(_0x532a82);
+      console.verbose("请记得关闭应用商店的软件自动升级！");
+      console.verbose("请记得关闭应用商店的软件自动升级！");
+      console.log("您现在已正确安装了闲鱼，如过段时间闲鱼版本自动改变，说明您未关闭应用商店的软件自动升级。请确保您已关闭手机应用商店的软件自动升级，如不确定是否已成功关闭，可截图咨询我们");
+      return true;
     }
-  } else if (desc("人气票").exists()) {
-    console.verbose("进入直播间");
-    sleep(random(2000, 20000));
+  } else if (_0x11bbcd == "zz") {
+    let _0x3b33d1 = common.getVersionName(setting.zz_pname);
+    if (_0x3b33d1 == "未安装") {
+      console.verbose("您未安装转转");
+    } else {
+      let _0x425e13 = common.get_v_num(_0x3b33d1);
+      let _0x394cb9 = common.get_v_num(setting.zz_app_version);
+      if (_0x425e13 > _0x394cb9) {
+        app_uninstall(setting.zz_pname);
+      }
+    }
+    _0x532a82 = "正在安装转转" + setting.zz_app_version;
+    toast(_0x532a82);
+    console.log(_0x532a82);
+    try {
+      {
+        console.verbose("开始下载转转安装包");
+        common.download_file(setting.zz_app_location_path, setting.zz_app_url);
+      }
+    } catch (_0x359daf) {
+      console.verbose("启用备用地址下载转转");
+      common.download_file(setting.zz_app_location_path, setting.zz_app_url_bak);
+    }
+    console.verbose("转转安装包下载结束");
+    app_install(setting.zz_app_location_path, setting.zz_pname);
+    let _0x532a82 = "转转App安装完成，请记得登录转转，并且关闭应用商店的软件自动升级~";
+    console.info(_0x532a82);
+    toast(_0x532a82);
+    return true;
+  } else if (_0x11bbcd == "pdd") {
+    let _0x24957c = common.getVersionName(setting.pdd_pname);
+    if (_0x24957c == "未安装") {
+      console.verbose("您未安装拼多多");
+    } else {
+      let _0x9f6394 = common.get_v_num(_0x24957c);
+      let _0x5c5e9c = common.get_v_num(setting.pdd_app_version);
+      if (_0x9f6394 > _0x5c5e9c) {
+        app_uninstall(setting.pdd_pname);
+      }
+    }
+    _0x532a82 = "正在安装拼多多" + setting.pdd_app_version;
+    toast(_0x532a82);
+    console.log(_0x532a82);
+    try {
+      common.download_file(setting.pdd_app_location_path, setting.pdd_app_url);
+    } catch (_0x2aaa48) {
+      console.verbose("启用备用地址下载拼多多");
+      common.download_file(setting.pdd_app_location_path, setting.pdd_app_url_bak);
+    }
+    app_install(setting.pdd_app_location_path, setting.pdd_pname);
+    let _0x532a82 = "拼多多App安装完成，请记得登录拼多多，并且关闭应用商店的软件自动升级~";
+    console.info(_0x532a82);
+    toast(_0x532a82);
+    return true;
+  } else if (_0x11bbcd == "xhs") {
+    {
+      let _0x607269 = common.getVersionName(setting.hs_pname);
+      if (_0x607269 == "未安装") {
+        console.verbose("您未安装小红书");
+      } else {
+        let _0x167fed = common.get_v_num(_0x607269);
+        let _0x1733a4 = common.get_v_num(setting.hs_app_version);
+        if (_0x167fed > _0x1733a4) {
+          app_uninstall(setting.hs_pname);
+        }
+      }
+      _0x532a82 = "正在安装小红书" + setting.hs_app_version;
+      toast(_0x532a82);
+      console.log(_0x532a82);
+      try {
+        {
+          common.download_file(setting.hs_app_location_path, setting.xhs_app_url);
+        }
+      } catch (_0x15b532) {
+        console.verbose("启用备用地址下载拼多多");
+        common.download_file(setting.hs_app_location_path, setting.xhs_app_url_bak);
+      }
+      app_install(setting.hs_app_location_path, setting.hs_pname);
+      let _0x532a82 = "小红书App安装完成，请记得登录小红书，并且关闭应用商店的软件自动升级~";
+      console.info(_0x532a82);
+      toast(_0x532a82);
+      return true;
+    }
+  } else if (_0x11bbcd == "dy") {
+    {
+      let _0x593455 = common.getVersionName(setting.dy_pname);
+      if (_0x593455 == "未安装") {
+        console.verbose("您未安装抖音");
+      } else {
+        let _0x544317 = common.get_v_num(_0x593455);
+        let _0x50db01 = common.get_v_num(setting.dy_app_version);
+        if (_0x544317 > _0x50db01) {
+          {
+            app_uninstall(setting.dy_pname);
+          }
+        }
+      }
+      _0x532a82 = "正在安装抖音" + setting.dy_app_version;
+      toast(_0x532a82);
+      console.log(_0x532a82);
+      try {
+        common.download_file(setting.dy_app_location_path, setting.dy_app_url);
+      } catch (_0xb4a621) {
+        console.verbose("启用备用地址下载抖音");
+        common.download_file(setting.dy_app_location_path, setting.dy_app_url_bak);
+      }
+      app_install(setting.dy_app_location_path, setting.dy_pname);
+      let _0x532a82 = "抖音App安装完成，请记得登录抖音，并且关闭应用商店的软件自动升级~";
+      console.info(_0x532a82);
+      toast(_0x532a82);
+      return true;
+    }
+  }
+  return false;
+}
+function app_install(_0x2626cf, _0x5c0976) {
+  if (device.release.split(".")[0] < 7) {
+    {
+      shell("chmod -R 777 /data/data/org.autojs.autojspro/", true);
+      shell("chmod -R 777 /data/data/com.ydydyd8818/", true);
+      let _0x5c4c37 = "App安装中，请稍等....";
+      console.log(_0x5c4c37);
+      toast(_0x5c4c37);
+      console.verbose("安装完成后请关闭手机应用商店的软件自动升级！！");
+      shell("pm install -r " + _0x2626cf, true);
+      return true;
+    }
+  } else {
+    app.viewFile(_0x2626cf);
+    switch (device.brand) {
+      case "xiaomi":
+      case "Xiaomi":
+        sleep(2000);
+        text("安装").enabled().waitFor();
+        text("安装").findOne().click();
+        text("完成").waitFor();
+        text("完成").findOne().click();
+        toast("安装成功");
+        break;
+      default:
+        while (common.getVersionName(_0x5c0976) == null) {
+          toast("请手动完成App的安装");
+          sleep(3000);
+        }
+    }
+  }
+  return true;
+}
+function app_uninstall(_0x5820b3) {
+  if (device.release.split(".")[0] < 7) {
+    {
+      console.verbose("静默卸载");
+      shell("pm uninstall " + _0x5820b3, true);
+    }
   } else {
     {
-      sleep(2000);
+      console.verbose("模拟点击卸载");
+      app.uninstall(_0x5820b3);
+      while (common.getVersionName(_0x5820b3) !== "未安装") {
+        {
+          if (_0x5820b3 === setting.xy_pname) {
+            toastLog("请手动完成闲鱼App的卸载，卸载后系统将自动安装指定版本闲鱼...");
+          }
+          if (_0x5820b3 === setting.zz_pname) {
+            toastLog("请手动完成转转App的卸载，卸载后系统将自动安装指定版本转转...");
+          }
+          if (_0x5820b3 === setting.pdd_pname) {
+            {
+              toastLog("请手动完成拼多多App的卸载，卸载后系统将自动安装指定版本拼多多...");
+            }
+          }
+          if (_0x5820b3 === setting.hs_pname) {
+            toastLog("请手动完成小红书App的卸载，卸载后系统将自动安装指定版本小红书...");
+          }
+          sleep(3000);
+        }
+      }
     }
   }
-  sleep(random(500, 2000));
+  sleep(1000);
 }
-function man_like_post(_0x37fae9, _0xffec4f, _0x7e3582, _0x54992f) {
-  if (descStartsWith("图片,第").exists()) {
-    if (_0x37fae9 > random(0, 100) && id("gbx").exists()) {
-      {
-        id("gbx").findOne().click();
-        sleep(1000);
-        toastLog("点赞了帖子");
-        sleep(2000);
-      }
-    }
-    if (_0xffec4f > random(0, 100) && id("ga4").exists()) {
-      {
-        id("ga4").findOne().click();
-        sleep(1000);
-        toastLog("收藏了帖子");
-        sleep(2000);
-      }
-    }
-    if (_0x7e3582 > random(0, 100) && id("ga_").exists()) {
-      id("ga_").findOne().click();
-      sleep(1000);
-      if (id("ga_").exists()) {
-        id("ga_").findOne().click();
-        sleep(1000);
-      }
-      var _0x5b839c = _0x54992f.split("#").filter(del_empty);
-      var _0x1974eb = Math.floor(Math.random() * _0x5b839c.length);
-      console.verbose(_0x5b839c[_0x1974eb]);
-      setText(_0x5b839c[_0x1974eb]);
-      sleep(1000);
-      id("ffm").findOne().click();
-      sleep(1000);
-      toastLog("评论帖子成功");
-      sleep(1000);
-    }
-  } else if (desc("暂停").exists() || desc("播放").exists()) {
-    if (_0x37fae9 > random(0, 100) && id("com.xingin.xhs:id/likeLayout").exists()) {
-      id("com.xingin.xhs:id/likeLayout").className("android.widget.Button").descStartsWith("点赞").findOne().click();
-      sleep(1000);
-      toastLog("点赞了视频");
-      sleep(1000);
-    }
-    if (_0xffec4f > random(0, 100) && id("com.xingin.xhs:id/collectLayout").exists()) {
-      {
-        id("com.xingin.xhs:id/collectLayout").className("android.widget.Button").descStartsWith("收藏").findOne().click();
-        sleep(1000);
-        toastLog("收藏了视频");
-        sleep(1000);
-      }
-    }
-    if (_0x7e3582 > random(0, 100) && id("com.xingin.xhs:id/commentLayout").exists()) {
-      id("com.xingin.xhs:id/commentLayout").className("android.widget.Button").descStartsWith("评论").findOne().click();
-      sleep(1000);
-      id("com.xingin.xhs:id/f73").findOne().click();
-      sleep(1000);
-      var _0x5b839c = _0x54992f.split("#").filter(del_empty);
-      var _0x1974eb = Math.floor(Math.random() * _0x5b839c.length);
-      console.verbose(_0x5b839c[_0x1974eb]);
-      setText(_0x5b839c[_0x1974eb]);
-      sleep(1000);
-      id("ffm").findOne().click();
-      sleep(1000);
-      toastLog("评论视频成功");
-      sleep(1000);
-    }
-  } else if (desc("人气票").exists()) {} else {}
-  sleep(random(500, 5000));
-}
-function del_empty(_0x1441b5) {
-  return _0x1441b5 && _0x1441b5.trim();
-}
-module.exports = hs;
+module.exports = init;

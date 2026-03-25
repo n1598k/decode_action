@@ -1,2643 +1,5039 @@
-//Wed Mar 25 2026 13:28:39 GMT+0000 (Coordinated Universal Time)
+//Wed Mar 25 2026 13:33:44 GMT+0000 (Coordinated Universal Time)
 //Base:<url id="cv1cref6o68qmpt26ol0" type="url" status="parsed" title="GitHub - echo094/decode-js: JS混淆代码的AST分析工具 AST analysis tool for obfuscated JS code" wc="2165">https://github.com/echo094/decode-js</url>
 //Modify:<url id="cv1cref6o68qmpt26olg" type="url" status="parsed" title="GitHub - smallfawn/decode_action: 世界上本来不存在加密，加密的人多了，也便成就了解密" wc="741">https://github.com/smallfawn/decode_action</url>
-var goods_add = {
-  "run": function (_0x407c74) {
-    console.log("开始发布商品");
-    if (_0x407c74) {
-      console.verbose("正在获取发布宝贝列表，请稍等...");
-      let _0x358300 = common.get_task_detail(_0x407c74);
-      var _0x1eafd9 = JSON.parse(_0x358300.data.args);
-      setting.xy_dk = _0x1eafd9.xy_dk;
-      time_blank = parseInt(_0x1eafd9.time_blank);
-      guanlian = _0x1eafd9.guanlian;
-      random_image = _0x1eafd9.random_image;
-      img_tab = _0x1eafd9.img_tab;
-      watermark = _0x1eafd9.watermark;
-      wenan = _0x1eafd9.wenan;
-      random_title = _0x1eafd9.random_title;
-      post_type = _0x1eafd9.post_type;
-      sku_open = _0x1eafd9.sku_open;
-      dbt = _0x1eafd9.dbt;
-      clear_emoji = _0x1eafd9.clear_emoji;
-      auto_fsj = _0x1eafd9.auto_fsj;
-      let _0x41a5e3 = _0x1eafd9.insert_desc;
-      let _0x513449 = _0x1eafd9.insert_desc_content;
-      setting.super_show = _0x1eafd9.super_show;
-      var _0x6e4a12 = common.get_goods(_0x1eafd9.goods, wenan);
-      for (let _0x270131 = 0; _0x270131 < _0x6e4a12.length; _0x270131++) {
-        if (_0x6e4a12[_0x270131].location1 && JSON.parse(_0x6e4a12[_0x270131].location1).length != 0) {
-          _0x6e4a12[_0x270131].location = JSON.parse(_0x6e4a12[_0x270131].location1)[0].name;
-        }
-        if (auto_fsj) {
-          if (auto_fsj.indexOf("%") == -1) {
-            _0x6e4a12[_0x270131].ykj_fsj = _0x6e4a12[_0x270131].ykj_price2 - auto_fsj;
-          } else {
-            _0x6e4a12[_0x270131].ykj_fsj = _0x6e4a12[_0x270131].ykj_price2 - _0x6e4a12[_0x270131].ykj_price2 * auto_fsj.split("%")[0] / 100;
-            _0x6e4a12[_0x270131].ykj_fsj = Math.ceil(_0x6e4a12[_0x270131].ykj_fsj * 100) / 100;
-          }
-          _0x6e4a12[_0x270131].ykj_fsj = _0x6e4a12[_0x270131].ykj_fsj.toFixed(2);
-          if (_0x6e4a12[_0x270131].ykj_fsj <= 0) {
-            {
-              _0x6e4a12[_0x270131].ykj_fsj = _0x6e4a12[_0x270131].ykj_price2 - 0.01;
-              console.warn(_0x6e4a12[_0x270131].title + " 粉丝价不能小于或等于0，已自动设置粉丝价为原价减0.01元");
-            }
-          } else if (_0x6e4a12[_0x270131].ykj_fsj < _0x6e4a12[_0x270131].ykj_price2 * 0.1) {
-            _0x6e4a12[_0x270131].ykj_fsj = _0x6e4a12[_0x270131].ykj_price2 - 0.01;
-            console.warn(_0x6e4a12[_0x270131].title + " 粉丝价最低为原价的10%，已自动设置粉丝价为原价减0.01元");
-          }
-        }
-        if (img_tab == "close") {
-          _0x6e4a12[_0x270131].tab = null;
-        }
-        if (random_title == "open" && _0x6e4a12[_0x270131].t2) {
+var goods_manage_b = {
+  "xy_goods_polish": function (_0x2a64a9) {
+    if (_0x2a64a9) {
+      let _0x20e420 = common.get_task_detail(_0x2a64a9);
+      var _0x8eb24f = JSON.parse(_0x20e420.data.args);
+    } else {
+      var _0x8eb24f = JSON.parse(common.get_xytaskc().xy_goods_polish);
+    }
+    setting.xy_dk = _0x8eb24f.xy_dk;
+    var _0x1e0941 = _0x8eb24f.goods_rub_time_blank;
+    common.xy_home();
+    common.enter_tab("我的");
+    scrollUp();
+    sleep(500);
+    if (!descStartsWith("我发布的").exists()) {
+      scrollDown();
+      sleep(500);
+    }
+    descStartsWith("我发布的").waitFor();
+    sleep(500);
+    if (descStartsWith("今日擦亮").exists()) {
+      {
+        console.verbose("通过点击进入擦亮界面");
+        descStartsWith("今日擦亮").findOne().click();
+        for (let _0x219660 = 0; _0x219660 < 10; _0x219660++) {
           {
-            let _0x472d18 = _0x6e4a12[_0x270131].t2.split("\n");
-            let _0x305aa7 = [];
-            _0x472d18.push(_0x6e4a12[_0x270131].title);
-            for (let _0x270131 = 0; _0x270131 < _0x472d18.length; _0x270131++) {
-              if (_0x472d18[_0x270131]) {
-                {
-                  _0x305aa7.push(_0x472d18[_0x270131]);
-                }
+            sleep(2000);
+            console.verbose("等待擦亮界面加载....");
+            if (desc("一键擦亮").exists()) {
+              break;
+            }
+            if (desc("今日曝光").exists()) {
+              {
+                break;
               }
             }
-            _0x6e4a12[_0x270131].title = _0x305aa7[random(0, _0x305aa7.length - 1)];
-            console.verbose("随机标题：");
-            console.verbose(_0x6e4a12[_0x270131].title);
+            if (desc("已下架").exists()) {
+              break;
+            }
           }
         }
-        if (_0x41a5e3 && _0x513449) {
-          let _0x4af7ca = _0x513449[random(0, _0x513449.length - 1)];
-          _0x6e4a12[_0x270131].content = _0x6e4a12[_0x270131].content + "\n" + _0x4af7ca;
-          console.verbose(_0x6e4a12[_0x270131].content);
+        sleep(1000);
+        if (desc("一键擦亮").exists()) {
+          let _0x378473 = desc("一键擦亮").findOne().bounds();
+          common.my_click(_0x378473.centerX(), _0x378473.top + 50);
+          sleep(3000);
+          console.verbose("已点击一键擦亮1");
+        } else if (descContains("\n一键擦亮\n").exists()) {
+          let _0x419075 = descContains("\n一键擦亮\n").findOne().bounds();
+          common.my_click(_0x419075.centerX(), _0x419075.bottom - 60);
+          sleep(1000);
+          common.my_click(_0x419075.centerX(), _0x419075.bottom - 120);
+          sleep(2000);
+          console.verbose("已点击一键擦亮2");
+        } else {
+          toastLog("今日已擦亮");
         }
       }
-      if (_0x1eafd9.auto_video == "open") {
-        let _0x59dd47 = "智能视频准备中...";
-        console.verbose(_0x59dd47);
-        for (let _0x270131 = 0; _0x270131 < _0x6e4a12.length; _0x270131++) {
-          if (_0x6e4a12[_0x270131].images.length > 1) {
-            {
-              _0x6e4a12[_0x270131].auto_video = true;
-              _0x6e4a12[_0x270131].video_music = _0x1eafd9.video_music;
+    } else if (enter_my_goods_page(false, true)) {
+      console.verbose("进入擦亮界面");
+      goods_polish(_0x1e0941);
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x2a64a9, "擦亮完成");
+  },
+  "restart_xy": function (_0x4411e3) {
+    if (_0x4411e3) {
+      {
+        let _0x255513 = common.get_task_detail(_0x4411e3);
+        var _0xa96b32 = JSON.parse(_0x255513.data.args);
+      }
+    } else {
+      {
+        var _0xa96b32 = JSON.parse(common.get_xytaskc().restart_xy);
+      }
+    }
+    setting.xy_dk = _0xa96b32.xy_dk;
+    common.restart_xy();
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x4411e3, "重启闲鱼完成");
+  },
+  "xy_goods_shelf_up": function (_0x36855c) {
+    if (_0x36855c) {
+      {
+        let _0x253600 = common.get_task_detail(_0x36855c);
+        var _0x5c4b4c = JSON.parse(_0x253600.data.args);
+      }
+    } else {
+      var _0x5c4b4c = JSON.parse(common.get_xytaskc().xy_goods_shelf_up);
+    }
+    time_blank = parseInt(_0x5c4b4c.time_blank);
+    setting.xy_dk = _0x5c4b4c.xy_dk;
+    while (true) {
+      enter_my_goods_page(false);
+      if (goods_shelf_up()) {
+        break;
+      }
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x36855c, "上架完成");
+  },
+  "xy_caogao_shelf_up": function (_0x48e660) {
+    if (_0x48e660) {
+      let _0x556091 = common.get_task_detail(_0x48e660);
+      var _0x314f07 = JSON.parse(_0x556091.data.args);
+    } else {
+      {
+        var _0x314f07 = JSON.parse(common.get_xytaskc().xy_caogao_shelf_up);
+      }
+    }
+    time_blank = parseInt(_0x314f07.time_blank);
+    setting.xy_dk = _0x314f07.xy_dk;
+    enter_my_goods_page(false);
+    textStartsWith("草稿").clickable().findOne().click();
+    sleep(5000);
+    while (textContains("宝贝可以直接发布啦").exists()) {
+      {
+        let _0x55f5f7 = textContains("宝贝可以直接发布啦").findOne();
+        _0x55f5f7.parent().click();
+        sleep(1000);
+        if (desc("草稿查询失败").exists()) {
+          desc("我知道了").findOne().click();
+          sleep(1000);
+          back();
+          sleep(1000);
+          common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 85 / 100, 700);
+          sleep(5000);
+        } else {
+          {
+            common.goods_publish();
+            back();
+            sleep(2000);
+            if (!textStartsWith("草稿").exists()) {
+              back();
+              sleep(2000);
             }
-          } else {
-            _0x6e4a12[_0x270131].auto_video = false;
+            common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 85 / 100, 700);
+            sleep(5000);
+            console.verbose("睡眠" + time_blank + "秒");
+            sleep(time_blank * 1000);
           }
         }
+      }
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x48e660, "草稿上架完成");
+  },
+  "xy_goods_shelf_down": function (_0x245034) {
+    if (_0x245034) {
+      let _0x2280de = common.get_task_detail(_0x245034);
+      var _0x1da527 = JSON.parse(_0x2280de.data.args);
+    } else {
+      var _0x1da527 = JSON.parse(common.get_xytaskc().xy_goods_shelf_down);
+    }
+    time_blank = parseInt(_0x1da527.time_blank);
+    setting.xy_dk = _0x1da527.xy_dk;
+    show = parseInt(_0x1da527.show);
+    look = parseInt(_0x1da527.look);
+    want = parseInt(_0x1da527.want);
+    word = _0x1da527.word;
+    if (enter_my_goods_page(false)) {
+      goods_list_bottom(_0x1da527);
+      down_goods(time_blank, show, look, want, word);
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x245034, "下架完成");
+  },
+  "down_bz": function (_0x3f3771) {
+    if (enter_my_goods_page(false)) {
+      goods_list_bottom({
+        "obj_num": false
+      });
+      time_blank = "3";
+      setting.xy_dk = "关";
+      show = "0";
+      word = "";
+      record = true;
+      if (_0x3f3771 == "A") {
+        look = setting.configure.ll_del_edit_lll;
+        want = setting.configure.ll_del_edit_lyl;
       } else {
-        for (let _0x31fdd8 = 0; _0x31fdd8 < _0x6e4a12.length; _0x31fdd8++) {
-          {
-            _0x6e4a12[_0x31fdd8].auto_video = false;
-          }
+        look = get_low_want_good();
+        want = "";
+      }
+      down_goods(time_blank, show, look, want, word, record);
+    }
+    common.back_xy_home();
+  },
+  "xy_del_down_goods": function (_0x20dcbf) {
+    if (_0x20dcbf) {
+      let _0x4ec69c = common.get_task_detail(_0x20dcbf);
+      var _0x42d7f5 = JSON.parse(_0x4ec69c.data.args);
+    } else {
+      var _0x42d7f5 = JSON.parse(common.get_xytaskc().xy_del_down_goods);
+    }
+    time_blank = parseInt(_0x42d7f5.time_blank);
+    setting.xy_dk = _0x42d7f5.xy_dk;
+    while (true) {
+      enter_my_goods_page(false);
+      if (desc("下架宝贝").exists()) {
+        desc("下架宝贝").clickable().findOne().click();
+        sleep(500);
+      } else if (text("下架宝贝").exists()) {
+        {
+          text("下架宝贝").clickable().findOne().click();
+          sleep(500);
+        }
+      } else if (text("已下架").exists()) {
+        {
+          text("已下架").clickable().findOne().click();
+          sleep(500);
         }
       }
-      let _0x29f413 = _0x1eafd9.location_arr;
-      let _0x466bf7 = _0x1eafd9.location_arr_type;
-      if (_0x466bf7 == "device") {
-        console.log("设备地址模式");
-        let _0x1f5c19 = http.post(setting.api_domain + "get_one_device", {
-          "android_id": device.getAndroidId()
+      sleep(2000);
+      if (text("你没有下架的宝贝哦").exists()) {
+        toastLog("你没有下架的宝贝哦");
+        break;
+      }
+      text("下架原因").waitFor();
+      sleep(500);
+      toastLog("开始删除下架宝贝，请耐心等待删除完毕...");
+      while (text("下架原因").exists()) {
+        {
+          let _0xb4d42f = text("下架原因").findOne();
+          _0xb4d42f.parent().parent().find(text("更多"))[0].click();
+          sleep(1000);
+          text("删除").indexInParent(0).findOne().click();
+          sleep(1000);
+          text("确定").findOne().click();
+          sleep(1300);
+          sleep(time_blank * 1000);
+          console.verbose("下架宝贝删除成功");
+        }
+      }
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x20dcbf, "删除下架宝贝完成");
+  },
+  "xy_init": function (_0x4f0b2b) {
+    if (_0x4f0b2b) {
+      let _0x2e5a12 = common.get_task_detail(_0x4f0b2b);
+      var _0x22605e = JSON.parse(_0x2e5a12.data.args);
+    } else {
+      var _0x22605e = JSON.parse(common.get_xytaskc().xy_init);
+    }
+    setting.xy_dk = _0x22605e.xy_dk;
+    toastLog("开始获取闲鱼账号信息...");
+    if (!enter_my_goods_page(true, true)) {
+      {
+        console.log("因无宝贝，宝贝数、曝光量等等数据未同步...");
+      }
+    }
+    let _0x467c19 = common.get_hym();
+    if (_0x467c19[0]) {
+      setting.xy_name = _0x467c19[0];
+    } else if (_0x22605e.xy_name) {
+      setting.xy_name = _0x22605e.xy_name;
+      console.verbose("用户自己输入了用户名：" + setting.xy_name);
+    } else {
+      {
+        console.error("该设备获取闲鱼会员名异常，可在总控端点击'闲鱼任务->绑定闲鱼' 阅读页面底部文字说明后手动填写本设备的闲鱼会员名");
+        console.warn("本任务已卡住，请重启助手后再创建其他任务");
+        sleep(3600000);
+      }
+    }
+    console.verbose("开始同步圈子");
+    var _0x59008a = [];
+    try {
+      {
+        app.startActivity({
+          "extras": {
+            "url": "https://h5.m.goofish.com/wow/moyu/moyu-project/idle-community/pages/home?spm=a2170.7905589.0.0&isOldFriendly=false&_from__=main"
+          },
+          "packageName": "com.taobao.idlefish",
+          "className": "com.taobao.idlefish.webview.WebHybridActivity"
         });
-        let _0x358300 = _0x1f5c19.body.json();
-        if (_0x358300.code == 0) {
+        common.start_click_xy_double();
+        console.verbose("等待'加入的圈子'出现");
+        for (let _0x5920f4 = 0; _0x5920f4 < 8; _0x5920f4++) {
           {
-            let _0x108f95 = JSON.parse(_0x358300.data.area_pool);
-            if (_0x108f95) {
-              let _0x29f413 = [];
-              for (let _0x31fdd8 = 0; _0x31fdd8 < _0x108f95.length; _0x31fdd8++) {
-                _0x29f413.push(_0x108f95[_0x31fdd8].name);
+            sleep(1000);
+            if (text("加入的圈子").exists()) {
+              {
+                break;
               }
-              console.log("设备地址池：" + _0x29f413);
-              for (let _0x31fdd8 = 0; _0x31fdd8 < _0x6e4a12.length; _0x31fdd8++) {
+            }
+          }
+        }
+        text("加入的圈子").findOne().click();
+        sleep(500);
+        for (let _0x5af0c6 = 0; _0x5af0c6 < 8; _0x5af0c6++) {
+          sleep(1000);
+          if (textStartsWith("我加入的·").exists()) {
+            break;
+          }
+          if (text("你还没有加入圈子哦").exists()) {
+            console.verbose("你还没有加入圈子哦");
+            break;
+          }
+        }
+        if (textStartsWith("我加入的·").exists()) {
+          var _0x2b0e13 = 0;
+          for (let _0x142773 = 0; _0x142773 < 10; _0x142773++) {
+            let _0x39df38 = textMatches(/去签到|进圈子/).find();
+            if (_0x39df38[0].parent().childCount() == 1) {
+              _0x39df38.forEach(_0x10296d => {
                 {
-                  let _0x392559 = _0x29f413[Math.floor(Math.random() * _0x29f413.length)];
-                  _0x6e4a12[_0x31fdd8].location = _0x392559;
+                  let _0x297dd7 = _0x10296d.parent().parent().child(1).text();
+                  if (_0x59008a.indexOf(_0x297dd7) === -1) {
+                    _0x59008a.push(_0x297dd7);
+                  }
                 }
+              });
+            } else {
+              _0x39df38.forEach(_0x1ebded => {
+                {
+                  let _0x5d9338 = _0x1ebded.parent().child(1).text();
+                  if (_0x59008a.indexOf(_0x5d9338) === -1) {
+                    {
+                      _0x59008a.push(_0x5d9338);
+                    }
+                  }
+                }
+              });
+            }
+            toastLog("圈子数：" + _0x59008a.length);
+            if (text("哎呀，玩到底啦～").exists()) {
+              console.verbose("哎呀，玩到底啦～");
+              break;
+            }
+            if (text("你可能感兴趣的圈子").exists()) {
+              {
+                console.verbose("你可能感兴趣的圈子");
+                break;
+              }
+            }
+            if (text("你还没有加入圈子哦").exists()) {
+              console.verbose("你还没有加入圈子哦");
+              break;
+            }
+            common.my_swipe(device.width / 2, device.height * 6 / 10, device.width / 2, device.height * 5 / 10, 250);
+            sleep(500);
+            if (scrollDown()) {
+              {
+                _0x2b0e13 = 0;
               }
             } else {
-              console.verbose("设备地址池为空，已切换为默认地点模式");
+              _0x2b0e13 += 1;
+              sleep(2500);
             }
-          }
-        }
-      } else if (_0x466bf7 == "random") {
-        {
-          if (_0x29f413) {
-            console.log("随机地址模式");
-            for (let _0x2ebba2 = 0; _0x2ebba2 < _0x6e4a12.length; _0x2ebba2++) {
-              let _0x392559 = _0x29f413[Math.floor(Math.random() * _0x29f413.length)];
-              _0x6e4a12[_0x2ebba2].location = _0x392559;
+            if (_0x2b0e13 >= 3) {
+              break;
             }
-          } else {
-            console.error("随机地址模式，但地址池为空，已切换为默认地点模式");
+            sleep(600);
           }
-        }
-      } else if (_0x466bf7 == "all") {
-        if (_0x29f413) {
-          console.log("多地铺货模式：");
-          console.log("您选择了多地铺货模式，该模式会把宝贝在您选择的地址中都发一遍！举例：现有A宝贝，发布地址中有A地址、B地址，A宝贝发布时会使用A地址和B地址各发布一次，共发布两个宝贝。");
-          let _0x19155a = [];
-          for (let _0x2ebba2 = 0; _0x2ebba2 < _0x6e4a12.length; _0x2ebba2++) {
-            {
-              let _0x47590d = _0x6e4a12[_0x2ebba2];
-              for (let _0x3aebf5 = 0; _0x3aebf5 < _0x29f413.length; _0x3aebf5++) {
-                _0x47590d.location = _0x29f413[_0x3aebf5];
-                _0x19155a.push(JSON.parse(JSON.stringify(_0x47590d)));
-              }
-            }
-          }
-          _0x6e4a12 = _0x19155a;
         } else {
-          console.error("多地铺货模式，但地址池为空，已切换为默认地点模式");
-        }
-      } else {
-        {
-          console.log("默认地点模式");
-        }
-      }
-      let _0x1b369c = [];
-      for (let _0x1389e3 = 0; _0x1389e3 < _0x6e4a12.length; _0x1389e3++) {
-        {
-          _0x1b369c.push(_0x6e4a12[_0x1389e3].id);
-        }
-      }
-      if (!setting.gadd_msg.contains("local_already_add_goods")) {
-        setting.gadd_msg.put("local_already_add_goods", []);
-      }
-      if (JSON.stringify(_0x1b369c) === JSON.stringify(setting.gadd_msg.get("local_all_goods"))) {
-        let _0x528d09 = setting.gadd_msg.get("local_already_add_goods");
-        if (Array.isArray(_0x528d09) && _0x528d09.length === 0) {} else {
           {
-            console.info("继续上次进度发布宝贝");
-            common.web_log("继续上次进度发布宝贝", "success");
-            for (let _0x1389e3 = 0; _0x1389e3 < _0x6e4a12.length; _0x1389e3++) {
-              {
-                if (_0x528d09.indexOf(_0x6e4a12[_0x1389e3].id) > -1) {
-                  delete _0x6e4a12[_0x1389e3];
-                }
-              }
-            }
+            console.verbose("未加入圈子");
           }
         }
-      } else {
-        setting.gadd_msg.put("local_all_goods", _0x1b369c);
       }
-      if (_0x1eafd9.xy_yt) {
-        for (let _0x4110ab = 0; _0x4110ab < _0x6e4a12.length; _0x4110ab++) {
-          if (_0x6e4a12[_0x4110ab] !== undefined) {
+    } catch (_0xa498e3) {
+      console.error(_0xa498e3);
+      console.error("极少数安卓版本为13、14的oppo、vivo、小米手机无法通过Activity打开闲鱼的页面，同步圈子失败");
+    }
+    if (setting.xy_dk == "开" || setting.xy_dk == "先主后副" && setting.xzhf == "f") {
+      var _0x46c7ed = {
+        "android_id": device.getAndroidId(),
+        "access_token": setting.s.get("access_token"),
+        "xy_yt_sub": JSON.stringify(_0x59008a),
+        "xy_name_sub": setting.xy_name
+      };
+      if (_0x467c19[1]) {
+        {
+          setting.xy_name2_sub = _0x467c19[1];
+          _0x46c7ed.xy_name2_sub = setting.xy_name2_sub;
+        }
+      }
+    } else if (setting.xy_dk == "关" || setting.xy_dk == "先主后副" && setting.xzhf == "z") {
+      var _0x46c7ed = {
+        "android_id": device.getAndroidId(),
+        "access_token": setting.s.get("access_token"),
+        "xy_yt": JSON.stringify(_0x59008a),
+        "xy_name": setting.xy_name
+      };
+      if (_0x467c19[1]) {
+        setting.xy_name2 = _0x467c19[1];
+        _0x46c7ed.xy_name2 = setting.xy_name2;
+      }
+    }
+    var _0x3fdd33 = http.post(setting.api_domain + "edit_device", _0x46c7ed);
+    console.verbose(_0x3fdd33.body.string());
+    if (setting.xy_dk == "先主后副" && setting.xzhf == "f") {
+      {
+        common.back_xy_home();
+      }
+    } else {
+      {
+        common.back_xy_home();
+        setting.device_cilck = false;
+        toastLog("开始测试设备屏幕能否正常点击...");
+        if (id("post_container").exists()) {
+          let _0x1c1d8b = id("post_container").findOne().bounds();
+          common.my_click(device.width / 2, _0x1c1d8b.centerY());
+          sleep(2000);
+          if (desc("关闭").exists()) {
+            setting.device_cilck = true;
+            toast("点击正常");
+            console.info("点击正常");
+            back();
+          } else {
+            console.error("检测到设备屏幕无法正常点击，请尝试重启手机，或恢复手机出厂设置、更换手机");
+          }
+        } else {
+          console.verbose("跳过设备屏幕能否点击检测e" + hw_arr.length);
+        }
+        console.warn("在7.14.50及以上版本的闲鱼中，使用多规格、图片文字标签、留言私信等功能需要搜狗或讯飞或来喜输入法，即将开始输入法校对。");
+        toastLog("开始输入法校对");
+        if (common.getIME() == "youhu.laixijs/.KeyboardServices.AdbIME") {
+          var _0x3fdd33 = http.post(setting.api_domain + "edit_device", {
+            "android_id": device.getAndroidId(),
+            "access_token": setting.s.get("access_token"),
+            "lx": 1
+          });
+          toast("当前为来喜输入法，无需校对");
+          console.info("当前为来喜输入法，无需校对");
+        } else {
+          {
+            var _0x3fdd33 = http.post(setting.api_domain + "edit_device", {
+              "android_id": device.getAndroidId(),
+              "access_token": setting.s.get("access_token"),
+              "lx": 0
+            });
+            common.back_xy_home();
+            common.enter_fbxz();
+            common.fbxz_input_title_check();
+            common.back_xy_home();
+          }
+        }
+      }
+    }
+    common.web_log_and_reload_task(_0x4f0b2b, "绑定闲鱼成功");
+  },
+  "register": function (_0x2b0362) {
+    toastLog("开始签到");
+    if (_0x2b0362) {
+      {
+        let _0x177b14 = common.get_task_detail(_0x2b0362);
+        var _0x2ad205 = JSON.parse(_0x177b14.data.args);
+      }
+    } else {
+      {
+        var _0x2ad205 = JSON.parse(common.get_xytaskc().register);
+      }
+    }
+    setting.xy_dk = _0x2ad205.xy_dk;
+    register_jump = "开";
+    if (_0x2ad205.jump) {
+      {
+        register_jump = _0x2ad205.jump;
+      }
+    }
+    common.xy_home();
+    common.enter_tab("闲鱼");
+    sleep(1000);
+    common.enter_tab("闲鱼");
+    sleep(1500);
+    console.verbose("当前第1次循环，共3次循环");
+    if (setting.xf) {
+      {
+        xyb_register_f(1);
+      }
+    } else {
+      {
+        xyb_register_d(1);
+      }
+    }
+    common.xy_home();
+    common.enter_tab("闲鱼");
+    sleep(1000);
+    common.enter_tab("闲鱼");
+    sleep(1500);
+    console.verbose("当前第2次循环，共3次循环");
+    if (setting.xf) {
+      {
+        xyb_register_f(2);
+      }
+    } else {
+      xyb_register_d(2);
+    }
+    common.xy_home();
+    common.enter_tab("闲鱼");
+    sleep(1000);
+    common.enter_tab("闲鱼");
+    sleep(1500);
+    console.verbose("当前第3次循环，共3次循环");
+    if (setting.xf) {
+      xyb_register_f(3);
+    } else {
+      {
+        xyb_register_d(3);
+      }
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x2b0362, "一键签到、领闲鱼币结束");
+  },
+  "xy_goods_price_cut": function (_0x2cc31e) {
+    if (_0x2cc31e) {
+      let _0x2fc18e = common.get_task_detail(_0x2cc31e);
+      var _0x474c69 = JSON.parse(_0x2fc18e.data.args);
+    } else {
+      var _0x474c69 = JSON.parse(common.get_xytaskc().xy_goods_price_cut);
+    }
+    setting.xy_dk = _0x474c69.xy_dk;
+    var _0x5a6ff5 = parseInt(_0x474c69.time_blank);
+    var _0x36657c = _0x474c69.price_cut_proportion;
+    var _0x313de1 = _0x474c69.price_cut_number;
+    if (enter_my_goods_page(false)) {
+      goods_list_bottom(_0x474c69);
+      goods_price_cut(_0x5a6ff5, _0x36657c, _0x313de1);
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x2cc31e, "一键降价完成");
+  },
+  "remove_dongtai": function (_0x33908b) {
+    if (_0x33908b) {
+      let _0x57346f = common.get_task_detail(_0x33908b);
+      var _0xefcaa5 = JSON.parse(_0x57346f.data.args);
+    } else {
+      {
+        var _0xefcaa5 = JSON.parse(common.get_xytaskc().remove_dongtai);
+      }
+    }
+    setting.xy_dk = _0xefcaa5.xy_dk;
+    time_blank = parseInt(_0xefcaa5.time_blank);
+    toastLog("开始删除动态");
+    common.xy_home();
+    shanchu_dongtai();
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x33908b, "删除动态结束");
+  },
+  "del_message": function (_0x2d016f) {
+    if (_0x2d016f) {
+      {
+        let _0x135f90 = common.get_task_detail(_0x2d016f);
+        var _0x4b94e9 = JSON.parse(_0x135f90.data.args);
+      }
+    } else {
+      {
+        var _0x4b94e9 = JSON.parse(common.get_xytaskc().del_message);
+      }
+    }
+    time_blank = parseInt(_0x4b94e9.time_blank);
+    setting.xy_dk = _0x4b94e9.xy_dk;
+    del_message_type = _0x4b94e9.del_message_type;
+    toastLog("开始删除闲鱼消息");
+    common.xy_home();
+    common.enter_tab("消息");
+    sleep(1000);
+    if (del_message_type == "点开小红点") {
+      for (let _0x581233 = 0; _0x581233 < 20; _0x581233++) {
+        {
+          scrollUp();
+          sleep(150);
+        }
+      }
+      while (id("tv_msg_unread").exists()) {
+        {
+          common.enter_tab("消息");
+          common.enter_tab("消息");
+          sleep(1200);
+          if (desc("清除未读").exists()) {
             {
-              _0x6e4a12[_0x4110ab].xy_yt = _0x1eafd9.xy_yt;
+              desc("清除未读").findOne().click();
+              sleep(1000);
+              text("确定").findOne().click();
+              sleep(1000);
+            }
+          } else if (descStartsWith("未读数").exists()) {
+            {
+              let _0x2fdb4c = descStartsWith("未读数").findOne();
+              toastLog("发现新客户消息，准备点击...");
+              new_message_card = _0x2fdb4c.parent();
+              new_message_card.click();
+              sleep(2000);
+              back();
+              sleep(2000);
             }
           }
         }
       }
     } else {
-      setting.xy_dk = "关";
-      time_blank = setting.configure.ll_del_edit_interval;
-      guanlian = "open";
-      random_image = "close";
-      img_tab = "open";
-      watermark = "open";
-      wenan = "open";
-      random_title = "open";
-      post_type = "";
-      sku_open = "open";
-      dbt = "close";
-      clear_emoji = "open";
-      insert_desc = "";
-      super_show = "close";
-      auto_video = "close";
-      var _0x489fe8 = [];
-      var _0x55096f = setting.deleted_goods;
-      Object.keys(_0x55096f).forEach(function (_0x21026c) {
-        console.log(_0x21026c, _0x55096f[_0x21026c]);
-        if (!_0x55096f[_0x21026c].been_added) {
-          _0x489fe8.push(_0x21026c);
-          _0x55096f[_0x21026c].been_added = true;
-        }
-      });
-      var _0x6e4a12 = common.titles_get_goods(_0x489fe8);
-      random_image = false;
-    }
-    setting.album_index = 0;
-    setting.add_goods_index = 0;
-    threads.start(function () {
       {
-        console.verbose("开始后台下载图片视频..");
-        let _0x3c6fff = [];
-        _0x6e4a12.forEach(function (_0x44cb72, _0x48d543) {
-          setting.album_index = _0x48d543;
-          while (_0x48d543 - setting.add_goods_index > 1) {
-            sleep(5000);
+        let _0x3d187f = desc("通知消息").findOne().depth() - 1;
+        while (depth(_0x3d187f).longClickable().clickable().find().length > 3) {
+          {
+            depth(_0x3d187f).longClickable().clickable().find()[3].longClick();
+            sleep(500);
+            if (desc("删除").exists()) {
+              {
+                desc("删除").click();
+                sleep(600);
+                console.verbose("消息删除成功...");
+              }
+            }
+            if (desc("确定").exists()) {
+              desc("确定").click();
+              sleep(500);
+            }
+            if (desc("删除").exists()) {
+              {
+                desc("删除").click();
+                sleep(500);
+              }
+            }
           }
-          console.verbose("开始预下载第" + (_0x48d543 + 1) + "套图片");
-          if (_0x3c6fff.indexOf(_0x44cb72.title_md5) == -1) {
+        }
+      }
+    }
+    common.web_log_and_reload_task(_0x2d016f, "删除闲鱼消息结束");
+  },
+  "xiaodao": function (_0x414da1) {
+    if (_0x414da1) {
+      let _0x1be4c4 = common.get_task_detail(_0x414da1);
+      var _0x56d29c = JSON.parse(_0x1be4c4.data.args);
+    } else {
+      var _0x56d29c = JSON.parse(common.get_xytaskc().xiaodao);
+    }
+    time_blank = parseInt(_0x56d29c.time_blank);
+    setting.xy_dk = _0x56d29c.xy_dk;
+    xiaodao_type = _0x56d29c.xiaodao_type2;
+    toastLog("开始设置小刀");
+    common.xy_home();
+    try {
+      {
+        app.startActivity({
+          "extras": {
+            "url": "https://h5.m.goofish.com/wow/moyu/moyu-project/fish-pro-workbench/pages/team-work?spm=a2170.28358589.0.0&isOldFriendly=false&_from__=webhybrid"
+          },
+          "packageName": "com.taobao.idlefish",
+          "className": "com.taobao.idlefish.webview.WebHybridActivity"
+        });
+        common.start_click_xy_double();
+      }
+    } catch (_0x3a8151) {
+      console.error(_0x3a8151);
+      console.error("极少数安卓版本为13、14的oppo、vivo、小米手机无法通过Activity打开闲鱼的页面，打开小刀页面失败");
+      sleep(100000);
+      return false;
+    }
+    console.verbose("等待闲鱼小刀页面加载完毕...");
+    for (let _0x5d271d = 0; _0x5d271d <= 11; _0x5d271d++) {
+      sleep(2000);
+      if (text("已开启宝贝").exists()) {
+        break;
+      }
+      if (text("8折开启").exists()) {
+        {
+          break;
+        }
+      }
+      if (_0x5d271d == 10) {
+        let _0x19f8e6 = "小刀页面加载超过20秒，可能是闲鱼出现bug或手机网络异常";
+        console.error(_0x19f8e6);
+        toast(_0x19f8e6);
+        break;
+      }
+    }
+    if (!xiaodao_type) {
+      {
+        console.warn("未设置小刀操作方式");
+      }
+    } else if (xiaodao_type == "close") {
+      {
+        console.warn("关闭全部小刀");
+        if (text("已开启宝贝").exists()) {
+          text("已开启宝贝").findOne().click();
+          sleep(2000);
+          if (text("去开启").exists()) {
             {
-              if (_0x44cb72.images.length != 0) {
+              console.info("关闭全部小刀成功");
+            }
+          } else if (text("关闭小刀").exists()) {
+            while (text("关闭小刀").exists()) {
+              text("关闭小刀").findOne().click();
+              sleep(1000);
+              text("确认").findOne().click();
+              sleep(1000);
+              console.verbose("关闭小刀成功");
+              sleep(time_blank * 1000);
+            }
+            back();
+            sleep(1000);
+            console.log("再次检测确保全部小刀宝贝关闭成功...");
+            return goods_manage_b.xiaodao(_0x414da1);
+          }
+        }
+      }
+    } else {
+      console.verbose("小刀幅度：" + xiaodao_type);
+      if (text("什么样的宝贝不支持开启").exists()) {
+        {
+          let _0x3e8395 = text("什么样的宝贝不支持开启").findOne();
+          let _0x45f9b8 = _0x3e8395.depth();
+          let _0x52f786 = _0x3e8395.indexInParent();
+          depth(_0x45f9b8).indexInParent(_0x52f786 + 1).findOne().click();
+          sleep(2000);
+          console.verbose("点击只展示可开启宝贝");
+        }
+      }
+      for (let _0x17838f = 0; _0x17838f < 10; _0x17838f++) {
+        scrollDown(0);
+        scrollDown();
+        sleep(500);
+        scrollDown(0);
+        scrollDown();
+        sleep(500);
+        scrollDown(0);
+        scrollDown();
+        sleep(500);
+        scrollDown(0);
+        scrollDown();
+        sleep(500);
+        scrollDown(0);
+        scrollDown();
+        sleep(500);
+        scrollDown(0);
+        scrollDown();
+        sleep(500);
+        scrollDown(0);
+        scrollDown();
+        sleep(500);
+        console.verbose("下滑加载更多宝贝...");
+        if (text("没有更多宝贝了~").exists()) {
+          {
+            console.verbose("没有更多宝贝了~");
+            break;
+          }
+        }
+      }
+      console.verbose("全部宝贝加载成功");
+      input_ele_array = className("android.widget.EditText").find();
+      for (let _0x48611f = 0; _0x48611f < input_ele_array.length; _0x48611f++) {
+        {
+          let _0x551239 = input_ele_array[_0x48611f].parent();
+          let _0x3e4e8c = depth(_0x551239.depth()).indexInParent(_0x551239.indexInParent() - 1).findOne();
+          let _0x7f6f04 = _0x3e4e8c.children();
+          for (let _0x919e68 = 0; _0x919e68 < _0x7f6f04.length; _0x919e68++) {
+            if (_0x7f6f04[_0x919e68].text() == "¥") {
+              let _0x3727dd = _0x3e4e8c.children()[_0x919e68 - 1].text();
+              let _0x3cc596 = _0x3e4e8c.children()[_0x919e68 + 1].text();
+              if (xiaodao_type.indexOf("%") == -1) {
+                xd_price = _0x3cc596 - xiaodao_type;
+              } else {
+                xd_price = _0x3cc596 - _0x3cc596 * xiaodao_type.split("%")[0] / 100;
+              }
+              xd_price = xd_price.toFixed(2);
+              if (xd_price <= 0) {
+                xd_price = 0.01;
+                console.warn(_0x3727dd + " 小刀价不能小于或等于0，已自动设置小刀价为0.01元");
+              }
+              toastLog(_0x3727dd + " 原价：" + _0x3cc596 + " 小刀价：" + xd_price);
+              input_ele_array[_0x48611f].setText(xd_price);
+              sleep(500);
+              text("开启").findOne().click();
+              sleep(500);
+              if (text("确认").exists()) {
+                text("确认").findOne().click();
+                sleep(500);
+              }
+              console.verbose("设置小刀价成功");
+              sleep(time_blank * 1000);
+              break;
+            }
+          }
+        }
+      }
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x414da1, "闲鱼一键小刀结束");
+  },
+  "dikou": function (_0xf6ae19) {
+    if (_0xf6ae19) {
+      {
+        let _0x24d568 = common.get_task_detail(_0xf6ae19);
+        var _0x566ab6 = JSON.parse(_0x24d568.data.args);
+      }
+    } else {
+      var _0x566ab6 = JSON.parse(common.get_xytaskc().dikou);
+    }
+    time_blank = parseInt(_0x566ab6.time_blank);
+    setting.xy_dk = _0x566ab6.xy_dk;
+    dikou_type = _0x566ab6.dikou_type2;
+    dikou_obj = _0x566ab6.dikou_obj;
+    toastLog("开始闲鱼币抵扣");
+    common.xy_home();
+    try {
+      {
+        app.startActivity({
+          "extras": {
+            "url": "https://h5.m.goofish.com/wow/moyu/moyu-project/coin-new-deduction/pages/home?useCusFont=true&channel=coinHome&spm=a2170.13730683.0.0&isOldFriendly=false&_from__=webhybrid"
+          },
+          "packageName": "com.taobao.idlefish",
+          "className": "com.taobao.idlefish.webview.WebHybridActivity"
+        });
+        common.start_click_xy_double();
+      }
+    } catch (_0x1efd87) {
+      console.error(_0x1efd87);
+      console.error("极少数安卓版本为13、14的oppo、vivo、小米手机无法通过Activity打开闲鱼的页面，打开鱼币抵扣页面失败");
+      sleep(100000);
+      return false;
+    }
+    if (dikou_type == "不抵扣" || dikou_type == "20%" || dikou_type == "30%") {
+      {
+        console.verbose("等待闲鱼币抵扣页面加载完毕");
+        for (let _0x38d2a4 = 0; _0x38d2a4 <= 11; _0x38d2a4++) {
+          if (text("抵20%").exists()) {
+            break;
+          }
+          if (text("闲鱼币优推抵扣").exists()) {
+            {
+              break;
+            }
+          }
+          if (_0x38d2a4 == 10) {
+            {
+              let _0x5a5639 = "鱼币抵扣页面加载超过20秒，可能是闲鱼出现bug或手机网络异常";
+              console.error(_0x5a5639);
+              toast(_0x5a5639);
+              break;
+            }
+          }
+          sleep(2000);
+        }
+        sleep(2000);
+        if ((dikou_obj == 0 || dikou_obj == 1) && dikou_type != "不抵扣") {
+          console.verbose("开始操作未开启抵扣宝贝");
+          text("开启抵扣").findOne().click();
+          sleep(3500);
+          while (scrollDown(0)) {
+            {
+              console.verbose("已加载宝贝数：" + text("抵20%").find().length);
+              if (textStartsWith("哎呀，到底啦~").exists()) {
                 {
-                  _0x3c6fff.push(_0x44cb72.title_md5);
-                  if (random_image == "open") {
-                    console.warn("随机主图已开启，开始随机主图");
-                    _0x44cb72.images = _0x44cb72.images.slice(0, 9);
-                    let _0x12f2df = _0x44cb72.images.splice(random(0, _0x44cb72.images.length - 1), 1);
-                    _0x44cb72.images.splice(0, 0, _0x12f2df[0]);
-                    console.warn("随机主图完成，开始下载图片...");
-                  }
-                  let _0x2d6f21 = get_images(_0x44cb72, _0x1eafd9);
-                  if (watermark == "open") {
-                    if (setting.xy_dk == "开") {
-                      {
-                        _0x2d6f21 = common.watermark(_0x2d6f21, setting.xy_name_sub, setting.xy_name2_sub);
-                      }
-                    } else {
-                      {
-                        _0x2d6f21 = common.watermark(_0x2d6f21, setting.xy_name, setting.xy_name2);
-                      }
-                    }
-                  }
-                  common.download_img(_0x44cb72.title_md5, _0x2d6f21, false);
+                  console.verbose("哎呀，到底啦~");
+                  break;
                 }
               }
-              common.download_video(_0x44cb72);
+              sleep(500);
+            }
+          }
+          if (text("抵20%").find().length > 0) {
+            {
+              console.verbose("开始设置 " + dikou_type);
+              console.verbose("共" + text("抵20%").find().length + "个待设置宝贝");
+              dikou_text = dikou_type;
+              if (dikou_text == "30%") {
+                {
+                  let _0xc23535 = text("抵30%").find();
+                  for (let _0x38d2a4 = 0; _0x38d2a4 < _0xc23535.length; _0x38d2a4++) {
+                    {
+                      _0xc23535[_0x38d2a4].click();
+                      sleep(500);
+                      toastLog("第" + (_0x38d2a4 + 1) + "个宝贝 " + dikou_type + " 已设置");
+                    }
+                  }
+                }
+              }
+              while (text("交易后得").exists()) {
+                {
+                  let _0x51ff1c = text("交易后得").findOne().depth();
+                  toastLog("结果提交中，剩余未提交宝贝：" + (text("交易后得").find().length - 1));
+                  text("交易后得").findOne().parent().find(className("android.widget.Image").depth(_0x51ff1c).clickable(true))[0].click();
+                  sleep(1000);
+                  sleep(time_blank * 1000);
+                }
+              }
             }
           } else {
-            console.verbose("第" + (_0x48d543 + 1) + "套宝贝素材已下载..");
-          }
-          console.verbose("第" + (_0x48d543 + 1) + "套图片下载完成");
-          if (_0x6e4a12.length == 1) {
-            {
-              setting.album_index = 1;
-            }
-          }
-        });
-        console.info("所有宝贝图片视频下载完成");
-      }
-    });
-    common.xy_home();
-    _0x6e4a12.forEach(function (_0x2b3bca, _0x3c2c7b) {
-      {
-        setting.add_goods_index = _0x3c2c7b;
-        add_wait(_0x3c2c7b, _0x6e4a12);
-        while (true) {
-          {
-            if (_0x6e4a12.length == 1) {
-              {
-                if (setting.album_index == 1) {
-                  break;
-                }
-              }
-            } else {
-              {
-                if (_0x6e4a12.length == setting.album_index + 1) {
-                  break;
-                }
-                if (setting.album_index > _0x3c2c7b) {
-                  {
-                    break;
-                  }
-                }
-              }
-            }
-            var _0xd758c4 = "正在下载第" + (_0x3c2c7b + 1) + "个宝贝的图片和视频，请稍等...";
-            console.log(_0xd758c4);
-            toast(_0xd758c4);
-            sleep(5000);
+            console.warn("无待开启抵扣的宝贝");
           }
         }
-        threads.start(function () {
+        if (dikou_obj == 0 || dikou_obj == 2 || dikou_type == "不抵扣") {
           {
-            toastLog("宝贝标题：" + _0x2b3bca.title);
-            common.web_log("开始发布：" + _0x2b3bca.title, "success");
-          }
-        });
-        if (_0x2b3bca.goods_class == "mfs") {
-          {
-            console.error("闲鱼已取消免费送发布功能");
-            while (true) {
-              toastLog("闲鱼已取消免费送发布功能");
-              sleep(3000);
-            }
-          }
-        } else if (_0x2b3bca.goods_class == "zf") {
-          {
-            let _0xd758c4 = "新版本租房宝贝已停止适配，请将租房宝当成普通宝贝发布";
-            toast(_0xd758c4);
-            console.error(_0xd758c4);
-            return true;
-          }
-        } else {
-          {
-            fbxz_title_content(_0x2b3bca);
-            if (_0x2b3bca.images.length != 0) {
-              select_aibum(_0x2b3bca);
-            }
-            fbxz_select_video(_0x2b3bca);
-            if (setting.xf && _0x2b3bca.location) {
-              let _0x704cde = descStartsWith("发布").findOne().depth();
-              if (!desc("AI帮你写, AI帮你润色").className("android.widget.ImageView").depth(_0x704cde + 4).clickable(true).exists()) {
-                common.select_location_fbxz(_0x2b3bca.location);
-                setting.xf_bottom_location = false;
-              } else {
+            console.warn("开始操作已开启抵扣宝贝");
+            text("修改抵扣").findOne().click();
+            sleep(3500);
+            while (scrollDown(0)) {
+              console.verbose("已加载宝贝数：" + text("修改").find().length);
+              if (textStartsWith("哎呀，到底啦~").exists()) {
                 {
-                  console.verbose("顶部无地址选择按钮，稍后将在页面底部选择地址");
-                  setting.xf_bottom_location = true;
+                  console.verbose("哎呀，到底啦~");
+                  break;
                 }
               }
+              sleep(500);
+            }
+            console.verbose("开始设置 " + dikou_type);
+            if (dikou_type == "20%") {
+              dikou_text = "抵20%";
+            } else if (dikou_type == "30%") {
+              dikou_text = "抵30%";
             } else {
-              common.select_location_fbxz(_0x2b3bca.location);
-            }
-            if (_0x2b3bca.tab_fl != "[]" && _0x2b3bca.tab_fl != null) {
               {
-                let _0x255fa0 = JSON.parse(_0x2b3bca.tab_fl);
-                if (_0x255fa0.indexOf("分类#住房出租") != -1) {
-                  {
-                    toastLog("住房出租宝贝，自动即将选择为其他闲置发布");
-                    for (let _0x5e1873 = 0; _0x5e1873 < 10; _0x5e1873++) {
-                      descStartsWith("分类\n").findOne().find(scrollable())[0].scrollForward();
-                      sleep(300);
-                      if (descStartsWith("其他闲置").exists()) {
-                        descStartsWith("其他闲置").findOne().click();
-                        sleep(500);
-                        sleep(2000);
-                        _0x2b3bca.tab_fl = "[]";
-                        break;
-                      }
-                    }
-                  }
-                }
+                dikou_text = "不抵扣";
               }
             }
-            if (_0x2b3bca.goods_class == "pm") {
-              console.verbose("拍卖宝贝设置起拍价、保证金...");
-              click_price_ele_e();
-              let _0x1ba1ed = desc("价格设置").findOne().bounds();
-              common.my_click(_0x1ba1ed.right - 50, _0x1ba1ed.centerY());
-              sleep(1000);
-              goods_pm_price(_0x2b3bca);
-            } else if (_0x2b3bca.goods_class == "ykj") {
-              let _0x119d85 = sku_open;
-              if (_0x119d85 == "open") {
-                if (_0x2b3bca.sku_name && _0x2b3bca.skus && _0x2b3bca.sku_name != "[]") {
-                  _0x119d85 = "close";
-                  if (_0x2b3bca.sku_check_res == "规格正确") {
-                    if (descStartsWith("商品规格").exists()) {
-                      _0x119d85 = "open";
-                    } else {
-                      common.push_goods_page_down();
-                      sleep(2000);
-                      if (descStartsWith("商品规格").exists()) {
-                        {
-                          _0x119d85 = "open";
-                        }
-                      } else {
-                        common.push_goods_page_down();
-                        sleep(2000);
-                        if (descStartsWith("商品规格").exists()) {
-                          _0x119d85 = "open";
-                        } else {
-                          {
-                            console.verbose("非鱼小铺账号和租赁宝贝不支持多规格发布");
-                          }
-                        }
-                      }
-                    }
-                  } else {
-                    console.log(_0x2b3bca.sku_check_res);
-                    console.log("宝贝标题：" + _0x2b3bca.title);
-                    console.log("规格错误，已自动为您忽略规格，如需发布多规格请前往总控修正规格");
+            var _0x587548 = text("修改").find();
+            console.verbose("共" + _0x587548.length + "个待修改宝贝");
+            for (let _0x4d874b = _0x587548.length - 1; _0x4d874b >= 0; _0x4d874b--) {
+              _0x587548[_0x4d874b].click();
+              sleep(500);
+              if (text("确定修改").exists()) {
+                if (text(dikou_text).exists()) {
+                  {
+                    text(dikou_text).findOne().parent().click();
+                    sleep(500);
                   }
                 } else {
-                  _0x119d85 = "close";
-                  console.verbose("该宝贝无规格");
+                  console.verbose(dikou_text + "不存在");
                 }
-              } else {
-                console.log("您未开启多规格发布");
-              }
-              if (_0x119d85 == "open") {
-                {
-                  console.verbose("发布多规格宝贝");
-                  if (setting.xf) {
-                    goods_ykj_add_skuf(_0x2b3bca);
-                  } else {
+                text("确定修改").clickable().findOne().click();
+                sleep(1000);
+                if (text("确定关闭").exists()) {
+                  if (text("下次不再提醒").exists()) {
                     {
-                      goods_ykj_add_skue(_0x2b3bca);
-                    }
-                  }
-                  goods_ykj_fhfs(_0x2b3bca);
-                }
-              } else {
-                goods_ykj_price(_0x2b3bca);
-              }
-            }
-            if (setting.xf) {
-              guanlian_shuxing_f(_0x2b3bca);
-            } else {
-              {
-                guanlian_shuxing_e(_0x2b3bca);
-              }
-            }
-            common.clear_dbt(dbt);
-            if (setting.xf && setting.xf_bottom_location && _0x2b3bca.location) {
-              if (click_select_location_ele_f()) {
-                {
-                  common.select_location(_0x2b3bca.location);
-                }
-              }
-            }
-            if (_0x2b3bca.xy_yt) {
-              {
-                console.verbose("准备选择圈子:" + _0x2b3bca.xy_yt);
-                common.push_goods_page_down();
-                sleep(2000);
-                if (descStartsWith("同步宝贝到圈子").exists()) {
-                  let _0x443d06 = desc("同步宝贝到圈子").clickable(false).findOne().bounds();
-                  sleep(500);
-                  let _0x32ce75 = _0x443d06.top + (_0x443d06.bottom - _0x443d06.top) * 3 / 4;
-                  common.my_click(_0x443d06.centerX(), _0x32ce75);
-                  toastLog("等待圈子加载完毕...");
-                  for (let _0x5e1873 = 0; _0x5e1873 < 12; _0x5e1873++) {
-                    {
+                      text("下次不再提醒").findOne().click();
                       sleep(1000);
-                      console.verbose("等待圈子加载");
-                      if (descStartsWith("宝贝与圈子不符会减少").exists()) {
-                        {
-                          break;
-                        }
-                      }
                     }
                   }
-                  if (!descStartsWith("宝贝与圈子不符会减少").exists()) {
-                    {
-                      console.verbose("圈子未加载");
-                      let _0x33fb25 = desc("同步宝贝到我的圈子").findOne().depth();
-                      let _0x51bbde = desc("同步宝贝到我的圈子").findOne().indexInParent();
-                      className("android.widget.ImageView").clickable(true).depth(_0x33fb25).indexInParent(_0x51bbde + 1).findOne().click();
-                    }
-                  } else {
-                    console.verbose("开始选择圈子");
-                    console.verbose("如果账号圈子有更新，需重新运行绑定闲鱼任务同步圈子");
-                    let _0x5a0f27 = 0;
-                    while (true) {
-                      if (descContains(_0x2b3bca.xy_yt).exists()) {
-                        {
-                          break;
-                        }
-                      }
-                      if (desc("哎呀，到底了").exists()) {
-                        {
-                          console.verbose("哎呀，到底了");
-                          break;
-                        }
-                      }
-                      if (scrollDown(0)) {
-                        _0x5a0f27 = 0;
-                      } else {
-                        _0x5a0f27 += 1;
-                        sleep(2500);
-                      }
-                      if (_0x5a0f27 >= 3) {
-                        break;
-                      }
-                      sleep(600);
-                    }
-                    if (descContains(_0x2b3bca.xy_yt).exists()) {
-                      descContains(_0x2b3bca.xy_yt).findOne().click();
-                      console.verbose("成功选择圈子:" + _0x2b3bca.xy_yt);
-                    } else {
-                      {
-                        let _0x33fb25 = desc("同步宝贝到我的圈子").findOne().depth();
-                        className("android.widget.ImageView").clickable(true).depth(_0x33fb25).indexInParent(1).findOne().click();
-                        console.verbose("未找到圈子，请先绑定闲鱼同步圈子");
-                      }
-                    }
-                  }
-                  sleep(1000);
-                } else {
+                  text("确定关闭").clickable().findOne().click();
+                  sleep(500);
+                }
+                if (text("确定修改").exists()) {
                   {
-                    console.error("您未加入圈子或当前宝贝分类与圈子不符");
+                    common.my_click(device.width / 2, device.height * 1 / 10);
+                    sleep(500);
                   }
                 }
               }
+              sleep(time_blank * 1000);
+              console.verbose("第" + (_0x4d874b + 1) + "个宝贝 " + dikou_type + " 设置成功");
             }
-            if (_0x2b3bca.ykj_yanji) {
-              console.verbose("准备点击验货宝...");
-              common.push_goods_page_down();
-              sleep(1500);
-              if (descStartsWith("宝贝优先推荐").exists()) {
-                if (descStartsWith("宝贝优先推荐").findOne().find(clickable()).length != 0) {
-                  {
-                    descStartsWith("宝贝优先推荐").findOne().find(clickable())[0].click();
-                  }
-                }
-              } else if (descStartsWith("开启后，买家可选购验货服务").exists()) {
-                if (descStartsWith("开启后，买家可选购验货服务").findOne().find(className("android.widget.Switch")).length != 0) {
-                  {
-                    descStartsWith("开启后，买家可选购验货服务").findOne().find(className("android.widget.Switch"))[0].click();
-                  }
-                }
-              }
-              sleep(3000);
-              while (desc("确定开启验货宝").clickable(false).exists()) {
-                {
-                  sleep(2500);
-                  let _0xd758c4 = "请手动选择验货宝属性";
-                  console.verbose(_0xd758c4);
-                  toast(_0xd758c4);
-                }
-              }
-              sleep(1000);
-              if (desc("确定开启验货宝").clickable().exists()) {
-                desc("确定开启验货宝").clickable().findOne().click();
-                sleep(2000);
-              }
-              toastLog("等待验货宝选择结果");
-              sleep(3800);
-              toastLog("等待验货宝选择结果");
-              sleep(3800);
-              toastLog("等待验货宝选择结果");
-              sleep(3800);
-            }
-            scrollUp();
-            sleep(500);
-            if (descEndsWith("点击重试").exists()) {
-              {
-                descEndsWith("点击重试").click();
-                sleep(2000);
-                toastLog("检查的上传失败图片，正在重新上传");
-              }
-            }
-            if (post_type == "存草稿") {
-              console.verbose("存草稿");
-              for (let _0x4d8811 = 0; _0x4d8811 < 30; _0x4d8811++) {
-                {
-                  if (desc("存草稿").exists()) {
-                    {
-                      desc("存草稿").findOne().click();
-                      sleep(3000);
-                      console.verbose("等待存草稿完成");
-                    }
-                  } else {
-                    {
-                      if (descEndsWith("我知道了").exists()) {
-                        descEndsWith("我知道了").findOne().click();
-                        sleep(500);
-                        break;
-                      }
-                    }
-                  }
-                  sleep(1000);
-                }
-              }
-            } else {
-              {
-                common.goods_publish(false, _0x2b3bca);
-              }
-            }
-          }
-        }
-        let _0x47119b = Math.ceil((_0x3c2c7b + 1) / _0x6e4a12.length * 100);
-        console.verbose("宝贝发布进度：" + _0x47119b + "%");
-        if (_0x47119b != 100) {
-          common.reload_task_table(_0x407c74, "run", "", _0x47119b);
-        }
-        common.web_log("\"" + _0x2b3bca.title + "\"发布完成", "success");
-        toastLog("\"" + _0x2b3bca.title + "\"发布完成");
-        if (_0x407c74) {
-          {
-            let _0x4313d0 = setting.gadd_msg.get("local_already_add_goods");
-            _0x4313d0.push(_0x2b3bca.id);
-            setting.gadd_msg.put("local_already_add_goods", _0x4313d0);
           }
         }
         common.back_xy_home();
       }
-    });
-    toastLog("全部商品发布成功");
-    common.clear_img();
-    if (_0x407c74) {
+    }
+    common.web_log_and_reload_task(_0xf6ae19, "闲鱼币抵扣结束");
+  },
+  "remove_liuyan": function (_0x56c516) {
+    if (_0x56c516) {
+      let _0x4df94e = common.get_task_detail(_0x56c516);
+      var _0x1bcf71 = JSON.parse(_0x4df94e.data.args);
+    } else {
       {
-        threads.start(function () {
-          {
-            common.web_log("发布闲鱼商品任务执行成功", "success");
-            common.reload_task_table(_0x407c74, "end");
-            setting.gadd_msg.put("local_already_add_goods", []);
-          }
-        });
+        var _0x1bcf71 = JSON.parse(common.get_xytaskc().remove_liuyan);
       }
+    }
+    time_blank = parseInt(_0x1bcf71.time_blank);
+    setting.xy_dk = _0x1bcf71.xy_dk;
+    toastLog("开始删除留言");
+    if (enter_my_goods_page(false)) {
+      {
+        goods_list_bottom(_0x1bcf71);
+        shanchu_liuyan(time_blank);
+      }
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x56c516, "删除留言结束");
+  },
+  "first_show": function (_0x33f1d3) {
+    if (_0x33f1d3) {
+      {
+        let _0x256abe = common.get_task_detail(_0x33f1d3);
+        var _0x42edda = JSON.parse(_0x256abe.data.args);
+      }
+    } else {
+      {
+        var _0x42edda = JSON.parse(common.get_xytaskc().first_show);
+      }
+    }
+    setting.xy_dk = _0x42edda.xy_dk;
+    var _0x1d6c59 = parseInt(_0x42edda.time_blank);
+    var _0x2473b6 = _0x42edda.quality;
+    common.xy_home();
+    common.enter_tab("我的");
+    while (true) {
+      let _0xfd82c3 = false;
+      if (descEndsWith("去领取").exists()) {
+        _0xfd82c3 = true;
+        toastLog("领取专属曝光");
+        descEndsWith("去领取").findOne().click();
+        for (let _0x3d2fea = 0; _0x3d2fea < 5; _0x3d2fea++) {
+          {
+            sleep(2000);
+            if (text("立即领取曝光").exists()) {
+              {
+                break;
+              }
+            }
+          }
+        }
+        text("立即领取曝光").findOne().click();
+        sleep(2000);
+        back();
+        sleep(2000);
+      }
+      if (descEndsWith("免费领卡").exists()) {
+        _0xfd82c3 = true;
+        toastLog("领取曝光卡");
+        descEndsWith("免费领卡").findOne().click();
+        sleep(3000);
+        common.get_baogaung2();
+        back();
+        sleep(2000);
+      }
+      sleep(2500);
+      if (!_0xfd82c3) {
+        break;
+      }
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x33f1d3, "闲鱼优先曝光任务完成");
+  },
+  "fast_goods_del": function (_0x357bb1) {
+    if (_0x357bb1) {
+      let _0x2dc5c3 = common.get_task_detail(_0x357bb1);
+      var _0x258a46 = JSON.parse(_0x2dc5c3.data.args);
+    } else {
+      {
+        var _0x258a46 = JSON.parse(common.get_xytaskc().fast_goods_del);
+      }
+    }
+    time_blank = parseInt(_0x258a46.time_blank);
+    setting.xy_dk = _0x258a46.xy_dk;
+    while (true) {
+      if (enter_my_goods_page(false)) {
+        while (true) {
+          {
+            let _0x5c76af = text("更多").clickable().find();
+            if (_0x5c76af.length) {
+              {
+                _0x5c76af[0].click();
+                sleep(1000);
+                for (let _0x10d590 = 0; _0x10d590 < 8; _0x10d590++) {
+                  if (text("下架").exists()) {
+                    break;
+                  }
+                  sleep(500);
+                }
+                if (text("下架").exists()) {
+                  console.verbose("点击'下架'");
+                  text("下架").findOne().click();
+                  sleep(500);
+                } else if (text("删除").exists()) {
+                  {
+                    console.verbose("点击'删除'");
+                    text("删除").findOne().click();
+                    sleep(500);
+                  }
+                } else {
+                  console.verbose("下架和删除按钮都不存在");
+                }
+                text("确定").findOne().click();
+                sleep(500);
+                console.verbose("成功点击'确定'");
+                sleep(1000);
+              }
+            } else {
+              break;
+            }
+          }
+        }
+      } else {
+        {
+          break;
+        }
+      }
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x357bb1, "快速下架宝贝完成");
+  },
+  "xy_goods_get": function (_0x338b9e) {
+    if (_0x338b9e) {
+      let _0x2e5707 = common.get_task_detail(_0x338b9e);
+      var _0x514685 = JSON.parse(_0x2e5707.data.args);
+    } else {
+      var _0x514685 = JSON.parse(common.get_xytaskc().xy_goods_get);
+    }
+    setting.xy_dk = _0x514685.xy_dk;
+    toastLog("开始获取闲鱼宝贝信息...");
+    if (enter_my_goods_page(false)) {
+      xy_goods_get_son();
+    }
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x338b9e, "闲鱼宝贝信息获取成功");
+  },
+  "flow_search": function (_0x36fcc8) {
+    toastLog("搜索互动开始运行...");
+    let _0x10ba2 = common.get_task_detail(_0x36fcc8);
+    let _0x55cb8d = JSON.parse(_0x10ba2.data.args);
+    setting.xy_dk = _0x55cb8d.xy_dk;
+    if (_0x55cb8d.word) {
+      console.verbose(_0x55cb8d.word);
+      let _0x1f8e19 = _0x55cb8d.word.split("#").filter(del_empty);
+      var _0x383b2a = Math.floor(Math.random() * _0x1f8e19.length);
+      _0x55cb8d.word = _0x1f8e19[_0x383b2a];
+      console.verbose("搜索词：" + _0x55cb8d.word);
+      common.xy_home();
+      common.enter_tab("闲鱼");
+      common.enter_tab("闲鱼");
+      sleep(1500);
+      id("search_bar_layout").waitFor();
+      sleep(100);
+      console.verbose("首页宝贝搜索框出现");
+      id("search_bar_layout").findOne().click();
+      sleep(2000);
+      console.verbose("搜索按钮出现");
+      if (className("android.widget.EditText").exists()) {
+        {
+          setText(_0x55cb8d.word);
+          sleep(1000);
+          desc("搜索").findOne().click();
+          sleep(2000);
+        }
+      } else {
+        {
+          common.my_input(_0x55cb8d.word);
+          sleep(1000);
+          if (className("android.view.View").desc("返回, 返回按钮").exists()) {
+            console.verbose("准备点击搜索按钮");
+            let _0x374300 = className("android.view.View").desc("返回, 返回按钮").findOne();
+            let _0x2dc1ea = _0x374300.parent();
+            let _0x535931 = _0x374300.depth();
+            let _0x5ea43c = _0x2dc1ea.find(className("android.widget.ImageView").depth(_0x535931).clickable(true)).pop();
+            _0x5ea43c.click();
+          } else {
+            console.error("未出现搜索按钮");
+            sleep(100000);
+          }
+        }
+      }
+    } else {
+      console.verbose("无搜索词");
+      while (!textContains("筛选").exists() || !textContains("人想要").exists()) {
+        {
+          sleep(6000);
+          toastLog("请手动搜索");
+        }
+      }
+    }
+    for (let _0x3985dd = 0; _0x3985dd < 10; _0x3985dd++) {
+      {
+        sleep(1000);
+        if (descContains("人想要").exists() || textContains("人想要").exists()) {
+          break;
+        } else if (descContains("人买过").exists() || textContains("人买过").exists()) {
+          break;
+        }
+      }
+    }
+    if (text("筛选").exists()) {
+      let _0x524323 = text("筛选").findOne();
+      if (_0x524323.parent().parent().find(className("android.widget.LinearLayout")).length == 8) {
+        console.verbose("切换到瀑布流模式");
+        className("android.widget.LinearLayout").depth(_0x524323.depth() - 1).indexInParent("5").findOne().click();
+        sleep(2000);
+      }
+    }
+    console.log("进入宝贝列表页");
+    start_flow_search(_0x55cb8d);
+    common.back_xy_home();
+    common.web_log_and_reload_task(_0x36fcc8, "搜索互动结束");
+  },
+  "yanghao": function (_0x1ab666) {
+    if (_0x1ab666) {
+      let _0x13bece = common.get_task_detail(_0x1ab666);
+      let _0x9587a4 = JSON.parse(_0x13bece.data.args);
+      setting.xy_dk = _0x9587a4.xy_dk;
+    }
+    common.check_configure();
+    toastLog("自动养号开始...");
+    look_goods();
+    common.enter_tab("消息");
+    sleep(1000);
+    common.web_log_and_reload_task(_0x1ab666, "养号结束");
+  },
+  "yanghao_unity": function (_0x3950ed) {
+    if (_0x3950ed) {
+      let _0x185754 = common.get_task_detail(_0x3950ed);
+      let _0x21d616 = JSON.parse(_0x185754.data.args);
+      setting.xy_dk = _0x21d616.xy_dk;
+    }
+    common.check_configure();
+    toastLog("互助养号开始...");
+    look_goods_unity();
+    common.enter_tab("消息");
+    sleep(1000);
+    common.web_log_and_reload_task(_0x3950ed, "互助养号结束");
+  },
+  "yanghao_tz": function (_0x42330e) {
+    if (_0x42330e) {
+      {
+        let _0x357eba = common.get_task_detail(_0x42330e);
+        let _0x5168d6 = JSON.parse(_0x357eba.data.args);
+        setting.xy_dk = _0x5168d6.xy_dk;
+      }
+    }
+    {
+      let _0x2842ca = "由于7.18.92版闲鱼取消了会玩帖子的首页展示，因此自7.18.92版以后系统将不再更新会玩帖子相关功能";
+      toast(_0x2842ca);
+      console.error(_0x2842ca);
+    }
+    common.web_log_and_reload_task(_0x42330e, "闲鱼会玩养号完成");
+  },
+  "xy_re_edit": function (_0x419eae) {
+    if (_0x419eae) {
+      {
+        let _0x2eabf5 = common.get_task_detail(_0x419eae);
+        let _0x17e67d = JSON.parse(_0x2eabf5.data.args);
+        setting.xy_dk = _0x17e67d.xy_dk;
+      }
+    }
+    common.check_configure();
+    xy_re_edit_son();
+    common.web_log_and_reload_task(_0x419eae, "编辑重发任务完成");
+  },
+  "xy_fast_re_edit": function (_0x72ef83) {
+    common.check_configure();
+    if (_0x72ef83) {
+      let _0x288610 = common.get_task_detail(_0x72ef83);
+      var _0x54d267 = JSON.parse(_0x288610.data.args);
+      setting.xy_dk = _0x54d267.xy_dk;
+    } else {
+      var _0x54d267 = {
+        "obj_num": false
+      };
+    }
+    if (enter_my_goods_page(false)) {
+      goods_list_bottom(_0x54d267);
+      xy_fast_re_edit_son();
+    }
+    common.web_log_and_reload_task(_0x72ef83, "快速编辑重发任务完成");
+  },
+  "algorithm1": function () {
+    toastLog("流量算法接入中...");
+    sleep(3000);
+    common.set_configure();
+    toastLog("流量算法接入中...");
+    sleep(3000);
+    toastLog("排名模式开启");
+    sleep(3000);
+    common.check_configure();
+    while (true) {
+      sleep("2000");
+      toastLog("即将开启排名模式...");
+      sleep(3000);
+      let _0x34c9a1 = setting.configure.re_edit_interval;
+      let _0x183b20 = setting.configure.re_edit_num;
+      toastLog("排名操作间隔：" + _0x34c9a1 + "秒");
+      for (let _0x2d4d4b = 0; _0x2d4d4b < _0x183b20; _0x2d4d4b++) {
+        console.log("第" + (_0x2d4d4b + 1) + "次编辑重发");
+        re_edit(_0x34c9a1);
+      }
+      sleep("2000");
+      toastLog("即将开始删除低流量宝贝...");
+      sleep(2000);
+      goods_manage_b.down_bz("A");
+      sleep("2000");
+      toastLog("即将开始重新发布...");
+      sleep(2000);
+      goods_add.run(false);
+      sleep("2000");
+      toastLog("即将开始自动养号...");
+      sleep(3000);
+      toastLog("自动养号开始");
+      look_goods();
+      toast("养号结束");
+      console.info("养号结束");
+      toastLog("20分钟后进入下一次循环..");
+      sleep(1200000);
+    }
+  },
+  "algorithm2": function () {
+    toastLog("流量算法接入中...");
+    sleep(3000);
+    common.set_configure();
+    toastLog("流量算法接入中...");
+    sleep(3000);
+    toastLog("排名模式开启");
+    sleep(3000);
+    common.check_configure();
+    while (true) {
+      sleep("2000");
+      toastLog("即将开启排名模式...");
+      sleep(3000);
+      let _0x41a1fe = setting.configure.re_edit_interval;
+      let _0x2abb72 = setting.configure.re_edit_num;
+      toastLog("排名操作间隔：" + _0x41a1fe + "秒");
+      for (let _0x198e1b = 0; _0x198e1b < _0x2abb72; _0x198e1b++) {
+        console.log("第" + (_0x198e1b + 1) + "次编辑重发");
+        re_edit(_0x41a1fe);
+      }
+      sleep("2000");
+      toastLog("即将开始删除低流量宝贝...");
+      sleep(2000);
+      goods_manage_b.down_bz("B");
+      sleep("2000");
+      toastLog("即将开始重新发布...");
+      sleep(2000);
+      goods_add.run(false);
+      sleep("2000");
+      toastLog("即将开始自动养号...");
+      sleep(3000);
+      toastLog("自动养号开始");
+      look_goods();
+      toast("养号结束");
+      console.info("养号结束");
+      toastLog("20分钟后进入下一次循环..");
+      sleep(1200000);
+    }
+  },
+  "algorithm3": function () {
+    toastLog("流量算法接入中...");
+    sleep(3000);
+    common.set_configure();
+    toastLog("流量算法接入中...");
+    sleep(3000);
+    toastLog("排名模式开启");
+    sleep(3000);
+    common.check_configure();
+    while (true) {
+      sleep("2000");
+      toastLog("即将开始删除低流量宝贝...");
+      sleep(2000);
+      goods_manage_b.down_bz("A");
+      sleep("2000");
+      toastLog("即将开始重新发布...");
+      sleep(2000);
+      goods_add.run(false);
+      toastLog("20分钟后进入下一次循环..");
+      sleep(1200000);
     }
   }
 };
-function guanlian_shuxing_f(_0x6f906e) {
-  console.verbose("开始关联宝贝属性...");
-  common.swipe_fl_ele_xf();
-  if (descContains("ISBN码").exists() && desc("请​扫​描​图​书​I​S​B​N​码​").exists()) {
-    toastLog("无法扫描图书ISBN码，自动选择其他闲置");
-    for (let _0x7be28d = 0; _0x7be28d < 10; _0x7be28d++) {
-      try {
-        desc("分类, 分类").findOne().parent().child(2).child(0).scrollForward();
-        sleep(300);
-      } catch (_0x36c896) {
-        desc("分类, 分类").findOne().parent().child(1).child(0).scrollForward();
-        sleep(300);
+function xy_re_edit_son() {
+  if (setting.configure.re_edit_interval) {
+    var _0x26e4ab = parseInt(setting.configure.re_edit_interval);
+    var _0x43bbd3 = parseInt(setting.configure.re_edit_num);
+  } else {
+    var _0x26e4ab = 120;
+    var _0x43bbd3 = 20;
+  }
+  for (let _0x447d4a = 0; _0x447d4a < _0x43bbd3; _0x447d4a++) {
+    {
+      console.log("第" + (_0x447d4a + 1) + "次编辑重发");
+      if (common.is_runtime()) {
+        re_edit(_0x26e4ab);
+      } else {
+        toastLog("当前为休眠时间段..");
+        sleep(600000);
       }
-      if (descStartsWith("可选其他闲置").exists()) {
-        descStartsWith("可选其他闲置").findOne().click();
-        sleep(500);
+    }
+  }
+  common.back_xy_home();
+  toastLog("编辑重发完成");
+}
+function xy_fast_re_edit_son() {
+  if (setting.configure.re_edit_interval) {
+    {
+      var _0x356cd1 = parseInt(setting.configure.fast_re_edit_interval);
+      var _0x386f9c = parseInt(setting.configure.fast_re_edit_num);
+      var _0x3d1b1a = setting.configure.fast_re_edit_path;
+    }
+  } else {
+    var _0x356cd1 = 2;
+    var _0x386f9c = 1;
+    var _0x3d1b1a = "从上往下";
+  }
+  console.verbose("编辑方向：" + _0x3d1b1a);
+  console.log("快速编辑重发间隔：" + _0x356cd1 + "秒");
+  for (let _0x5e3ecc = 0; _0x5e3ecc < _0x386f9c; _0x5e3ecc++) {
+    {
+      toastLog("第" + (_0x5e3ecc + 1) + "轮快速编辑重发...");
+      let _0x2d1e79 = text("编辑").find().length;
+      for (let _0x3c9273 = 0; _0x3c9273 < _0x2d1e79; _0x3c9273++) {
+        {
+          var _0x189b0f = text("编辑").find();
+          let _0x2171d7 = "编辑宝贝列表第" + (_0x3c9273 + 1) + "个宝贝";
+          console.verbose(_0x2171d7);
+          toast(_0x2171d7);
+          console.verbose("点击结果：" + _0x189b0f[_0x2d1e79 - 1 - _0x3c9273].click());
+          console.verbose("成功点击'编辑'按钮");
+          sleep(2000);
+          common.clear_dbt(setting.configure.re_edit_dbt);
+          common.goods_publish(true);
+          sleep(_0x356cd1 * 1000);
+          while (!desc("编辑").exists() && !text("编辑").exists()) {
+            if (currentPackage() == "com.taobao.idlefish") {
+              {
+                back();
+                sleep(2000);
+              }
+            } else {
+              {
+                console.error("闲鱼App异常，系统即将重新运行...");
+                return false;
+              }
+            }
+            if (text("不保存").exists()) {
+              text("不保存").findOne().click();
+              sleep(200);
+            }
+          }
+        }
+      }
+    }
+  }
+  common.back_xy_home();
+  toastLog("快速编辑重发完成");
+}
+function enter_my_goods_page(_0x29a004, _0x58855a) {
+  common.xy_home();
+  console.verbose("已到达闲鱼首屏");
+  if (setting.restart_xy_num == 3) {
+    {
+      console.error("已重启3次，宝贝列表按钮仍无法点击，请手动尝试点击 我的->我发布的->编辑，如按钮无法点击，请手动重启闲鱼或重启手机再试、或稍后再试，此为闲鱼的bug");
+      setting.restart_xy_num = 0;
+      return false;
+    }
+  }
+  common.enter_tab("我的");
+  if (text("我的空间").exists()) {
+    {
+      console.verbose("我的空间 按钮存在");
+    }
+  } else {
+    scrollUp();
+    sleep(500);
+    if (!descStartsWith("我发布的").exists()) {
+      scrollDown();
+      sleep(500);
+    }
+    descStartsWith("我发布的").waitFor();
+    sleep(500);
+  }
+  let _0x19a944 = 0;
+  let _0x539223 = 0;
+  let _0x2b51b4 = "0";
+  let _0x34a5e5 = 0;
+  let _0x277769 = 0;
+  let _0x37d703 = 0;
+  try {
+    {}
+    if (descStartsWith("我发布的").exists()) {
+      _0x19a944 = descStartsWith("我发布的").findOne().desc().split(" ")[1];
+      if (!_0x19a944) {
+        _0x19a944 = 0;
+      }
+    }
+    if (descStartsWith("我卖出的").exists()) {
+      _0x539223 = descStartsWith("我卖出的").findOne().desc().split(" ")[1];
+      if (!_0x539223) {
+        {
+          _0x539223 = 0;
+        }
+      }
+    }
+    if (descContains("在闲鱼赚了").exists()) {
+      _0x2b51b4 = descContains("在闲鱼赚了").findOne().desc().split("在闲鱼赚了")[1];
+      if (!_0x2b51b4) {
+        {
+          _0x2b51b4 = 0;
+        }
+      }
+    }
+    if (desc("曝光推广").exists() || desc("营销工具").exists()) {
+      _0x37d703 = 1;
+      console.verbose("鱼小铺已开启");
+    }
+    if (descEndsWith("粉丝").exists()) {
+      _0x34a5e5 = descEndsWith("粉丝").findOne().desc().split("\n")[0];
+      if (!_0x34a5e5) {
+        _0x34a5e5 = 0;
+      }
+    }
+  } catch (_0x4474fe) {
+    {
+      console.error(_0x4474fe);
+    }
+  }
+  if (_0x58855a) {} else {
+    {
+      if (descStartsWith("我发布的").exists()) {
+        descStartsWith("我发布的").findOne().click();
         sleep(2000);
+      } else if (text("我发布的").exists()) {
+        {
+          text("我发布的").findOne().click();
+          sleep(2000);
+        }
+      }
+    }
+  }
+  console.verbose("打开宝贝列表页面");
+  try {
+    app.startActivity({
+      "extras": {
+        "url": "https://h5.m.goofish.com/cea/idleFish-F2e/dlefish-my-publish-mix/pages/mainnew?kun=true&loadingVisible=false&titleVisible=false&isOldFriendly=false&_from__=main"
+      },
+      "packageName": "com.taobao.idlefish",
+      "className": "com.taobao.idlefish.webview.WebHybridActivity"
+    });
+    common.start_click_xy_double();
+  } catch (_0x36eff2) {
+    console.error(_0x36eff2);
+    console.error("极少数安卓版本为13、14的oppo、vivo、小米手机无法通过Activity打开闲鱼的页面，您看到该提示时意味着本手机所有需要打开宝贝列表的功能都无法使用");
+    return false;
+  }
+  for (let _0x159c06 = 0; _0x159c06 < 10; _0x159c06++) {
+    sleep(2000);
+    if (text("编辑").exists()) {
+      {
+        if (_0x58855a) {} else {
+          {
+            setting.glist_dep = text("编辑").findOne().depth();
+            setting.glist_scroll_dep = 10;
+            if (depth(10).scrollable().exists()) {
+              {
+                setting.glist_scroll_dep = 10;
+              }
+            } else if (depth(11).scrollable().exists()) {
+              setting.glist_scroll_dep = 11;
+            } else if (depth(9).scrollable().exists()) {
+              setting.glist_scroll_dep = 9;
+            } else if (depth(8).scrollable().exists()) {
+              setting.glist_scroll_dep = 8;
+            } else if (depth(12).scrollable().exists()) {
+              setting.glist_scroll_dep = 12;
+            } else {
+              console.error("setting.glist_scroll_dep 未赋值");
+              console.verbose(scrollable().exists());
+              console.verbose(depth(6).scrollable().exists());
+              console.verbose(depth(7).scrollable().exists());
+              console.verbose(depth(13).scrollable().exists());
+              console.verbose(depth(14).scrollable().exists());
+            }
+          }
+        }
+        break;
+      }
+    } else if (text("重新加载").exists()) {
+      {
+        text("重新加载").findOne().click();
+        console.verbose("点击重新加载按钮");
+      }
+    } else if (text("刷新").exists()) {
+      {
+        text("刷新").findOne().click();
+        console.verbose("点击刷新按钮");
+      }
+    } else if (desc("你还没有发布宝贝哦").exists() || text("你还没有发布宝贝哦").exists()) {
+      console.verbose("发现‘你还没有发布宝贝哦’");
+      sleep(500);
+      console.verbose("进入我的宝贝列表，无宝贝");
+      sleep(500);
+      return false;
+    } else if (desc("发布宝贝").exists() || text("发布宝贝").exists()) {
+      {
+        console.verbose("发现‘发布宝贝’");
+        sleep(500);
+        console.verbose("进入我的宝贝列表，无宝贝");
+        sleep(500);
+        return false;
+      }
+    } else if (desc("什么值得卖").exists() || text("什么值得卖").exists()) {
+      {
+        console.verbose("发现‘什么值得卖’");
+        sleep(500);
+        console.verbose("进入我的宝贝列表，无宝贝");
+        sleep(500);
+        return false;
+      }
+    } else {
+      console.verbose("等待宝贝列表加载完毕...");
+      sleep(2300);
+      if (_0x159c06 == 9) {
+        console.error("有极少数手机会一直卡在'等待宝贝列表加载完毕...'，请重启手机再试或改日再试，如果一直不行请尝试恢复手机出厂设置或更换手机");
+        console.error("有极少数手机会一直卡在'等待宝贝列表加载完毕...'，请重启手机再试或改日再试，如果一直不行请尝试恢复手机出厂设置或更换手机");
+        console.error("有极少数手机会一直卡在'等待宝贝列表加载完毕...'，请重启手机再试或改日再试，如果一直不行请尝试恢复手机出厂设置或更换手机");
+        return false;
         break;
       }
     }
-    common.swipe_fl_ele_xf();
   }
-  if (_0x6f906e.tab_fl != "[]" && _0x6f906e.tab_fl != null) {
+  try {
     {
-      toastLog("分类/品牌：" + _0x6f906e.tab_fl);
-      let _0x1e79b7 = JSON.parse(_0x6f906e.tab_fl);
-      console.verbose("开始添加自定义分类/品牌");
-      for (let _0x7be28d = 0; _0x7be28d < _0x1e79b7.length; _0x7be28d++) {
+      if (text("今日曝光").exists()) {
         {
-          let _0x42acaf = _0x1e79b7[_0x7be28d].split("#")[1];
-          if (_0x1e79b7[_0x7be28d].indexOf("分类#") != -1) {
-            console.verbose("选择分类");
-            for (let _0x388ca1 = 0; _0x388ca1 < 10; _0x388ca1++) {
-              {
-                try {
-                  {
-                    if (descStartsWith("可选" + _0x42acaf + ",").exists()) {
-                      {
-                        descStartsWith("可选" + _0x42acaf + ",").findOne().click();
-                        sleep(500);
-                        sleep(2000);
-                        console.verbose("已选中分类：" + _0x42acaf);
-                        break;
-                      }
-                    }
-                    if (descStartsWith("已选中" + _0x42acaf + ",").exists()) {
-                      {
-                        console.verbose("已选中分类：" + _0x42acaf);
-                        break;
-                      }
-                    }
-                    console.verbose("滑动分类控件");
-                    if (desc("分类, 分类").exists()) {
-                      desc("分类, 分类").findOne().parent().child(1).child(0).scrollForward();
-                      sleep(300);
-                    } else if (desc("分类, 更多信息\n分类").exists()) {
-                      desc("分类, 更多信息\n分类").findOne().find(scrollable())[0].scrollForward();
-                      sleep(300);
-                    } else {
-                      console.error("滑动控件不存在");
-                    }
-                  }
-                } catch (_0x31c500) {
-                  {
-                    console.verbose("选择\"分类\"时滑动失败");
-                  }
-                }
-              }
-            }
-          } else if (_0x1e79b7[_0x7be28d].indexOf("品牌#") != -1 && desc("品牌, 品牌").exists()) {
+          sleep(1000);
+          try {
             {
-              console.verbose("选择品牌");
-              for (let _0x210b89 = 0; _0x210b89 < 5; _0x210b89++) {
-                if (desc("更多品牌").exists()) {
-                  sleep(1000);
-                  if (desc("更多品牌").exists()) {
-                    {
-                      desc("更多品牌").findOne().click();
-                      sleep(500);
-                      common.my_input(_0x42acaf);
-                      console.verbose("注意：如文字输入失败，请授予闲鱼和系统剪切板读写权限");
-                      console.verbose("准备点击'添加'按钮");
-                      if (desc("添加").exists()) {
-                        desc("添加").click();
-                        sleep(3500);
-                      } else {
-                        {
-                          for (let _0x210b89 = 0; _0x210b89 < 10; _0x210b89++) {
-                            sleep(1000);
-                            if (className("android.view.View").clickable().find().length >= 2) {
-                              {
-                                className("android.view.View").clickable().find()[1].click();
-                                sleep(2000);
-                                break;
-                              }
-                            }
-                          }
-                        }
-                      }
-                      toastLog(_0x1e79b7[_0x7be28d] + " 选择成功");
-                    }
-                  }
-                  break;
-                }
-                try {
-                  {
-                    desc("分类, 分类").findOne().parent().child(3).child(0).scrollForward();
-                    sleep(300);
-                  }
-                } catch (_0x11ae7e) {
-                  {
-                    console.verbose("选择\"品牌\"时滑动失败");
-                  }
-                }
-              }
+              _0x277769 = text("今日曝光").findOne().parent().find(className("TextView").depth(13))[0].text();
             }
-          } else if (_0x1e79b7[_0x7be28d].indexOf("品种#") != -1 && (desc("狗狗品种, 狗狗品种").exists() || desc("猫咪品种, 猫咪品种").exists() || desc("兔兔品种, 兔兔品种").exists())) {
-            console.verbose("选择品种");
-            for (let _0x451d4c = 0; _0x451d4c < 5; _0x451d4c++) {
-              if (desc("更多狗狗品种").exists() || desc("更多猫咪品种").exists() || desc("更多兔兔品种").exists()) {
-                {
-                  sleep(800);
-                  if (desc("更多狗狗品种").exists()) {
-                    desc("更多狗狗品种").findOne().click();
-                    sleep(500);
-                  } else if (desc("更多猫咪品种").exists()) {
-                    {
-                      desc("更多猫咪品种").findOne().click();
-                      sleep(500);
-                    }
-                  } else if (desc("更多兔兔品种").exists()) {
-                    desc("更多兔兔品种").findOne().click();
-                    sleep(500);
-                  }
-                  common.my_input(_0x42acaf);
-                  console.verbose("注意：如文字输入失败，请授予闲鱼和系统剪切板读写权限");
-                  console.verbose("准备点击'添加'按钮");
-                  if (desc("添加").exists()) {
-                    desc("添加").click();
-                    sleep(3500);
-                  } else {
-                    {
-                      for (let _0x451d4c = 0; _0x451d4c < 10; _0x451d4c++) {
-                        {
-                          sleep(1000);
-                          if (className("android.view.View").clickable().find().length >= 2) {
-                            className("android.view.View").clickable().find()[1].click();
-                            sleep(2000);
-                            break;
-                          }
-                        }
-                      }
-                    }
-                  }
-                  toastLog(_0x1e79b7[_0x7be28d] + " 选择成功");
-                  selected_tabs.push(_0x1e79b7[_0x7be28d]);
-                  break;
-                }
-              }
-              try {
-                {
-                  desc("分类, 分类").findOne().parent().child(3).child(0).scrollForward();
-                  sleep(300);
-                }
-              } catch (_0x4d621a) {
-                {
-                  console.verbose("选择\"品种\"时滑动失败");
-                }
-              }
-            }
-          } else if (false && _0x1e79b7[_0x7be28d].indexOf("型号#") != -1 && desc("型号, 型号").exists()) {
-            {
-              console.verbose("选择型号");
-              for (let _0x1ba90d = 0; _0x1ba90d < 5; _0x1ba90d++) {
-                if (desc("更多型号").exists()) {
-                  sleep(800);
-                  desc("更多型号").findOne().click();
-                  sleep(500);
-                  common.my_input(_0x42acaf);
-                  console.verbose("准备点击'添加'按钮");
-                  if (desc("添加").exists()) {
-                    desc("添加").click();
-                    sleep(3500);
-                  } else {
-                    {
-                      for (let _0x1ba90d = 0; _0x1ba90d < 10; _0x1ba90d++) {
-                        sleep(1000);
-                        if (className("android.view.View").clickable().find().length >= 2) {
-                          className("android.view.View").clickable().find()[1].click();
-                          sleep(2000);
-                          break;
-                        }
-                      }
-                    }
-                  }
-                  toastLog(_0x1e79b7[_0x7be28d] + " 选择成功");
-                  break;
-                }
-                try {
-                  {
-                    desc("分类, 分类").findOne().parent().child(5).child(0).scrollForward();
-                    sleep(300);
-                  }
-                } catch (_0x28fa2c) {
-                  {
-                    console.verbose("选择\"型号\"时滑动失败");
-                  }
-                }
-              }
-            }
+          } catch (_0x3e50c8) {
+            _0x277769 = text("今日曝光").findOne().parent().find(className("android.view.View").depth(13))[0].text();
           }
         }
+      } else if (descStartsWith("今日曝光：").exists()) {
+        sleep(1000);
+        _0x277769 = descStartsWith("今日曝光：").findOne().desc().split("：")[1];
+      } else if (textStartsWith("今日曝光：").exists()) {
+        sleep(1000);
+        _0x277769 = textStartsWith("今日曝光：").findOne().text().split("：")[1];
       }
-      for (let _0x1adca = 0; _0x1adca < 8; _0x1adca++) {
+    }
+  } catch (_0x58671f) {
+    {
+      console.error(_0x58671f);
+    }
+  }
+  threads.start(function () {
+    {
+      if (setting.xy_dk == "开" || setting.xy_dk == "先主后副" && setting.xzhf == "f") {
+        var _0x5ce78b = {
+          "android_id": device.getAndroidId(),
+          "xy_gnum_sub": _0x19a944,
+          "xy_gsell_sub": _0x539223,
+          "xy_gmoney_sub": _0x2b51b4,
+          "xy_fans_sub": _0x34a5e5,
+          "xy_gshow_sub": _0x277769,
+          "yxp_sub": _0x37d703,
+          "access_token": setting.s.get("access_token")
+        };
+      } else if (setting.xy_dk == "关" || setting.xy_dk == "先主后副" && setting.xzhf == "z") {
+        var _0x5ce78b = {
+          "android_id": device.getAndroidId(),
+          "xy_gnum": _0x19a944,
+          "xy_gsell": _0x539223,
+          "xy_gmoney": _0x2b51b4,
+          "xy_fans": _0x34a5e5,
+          "xy_gshow": _0x277769,
+          "yxp": _0x37d703,
+          "access_token": setting.s.get("access_token")
+        };
+      }
+      http.post(setting.api_domain + "edit_device", _0x5ce78b);
+    }
+  });
+  return true;
+}
+function goods_list_bottom(_0x4bf523) {
+  toastLog("准备下拉加载全部宝贝");
+  common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 5 / 10, 500);
+  sleep(1000);
+  if (device.release.split(".")[0] == 13) {
+    console.verbose("安卓13可能会出现只加载部分宝贝的情况，此为闲鱼在安卓13系统的bug");
+  }
+  while (true) {
+    var _0x276cdd = text("更多").find().length;
+    console.verbose("已加载宝贝数：" + _0x276cdd);
+    if (_0x4bf523.obj_num) {
+      if (_0x276cdd >= _0x4bf523.obj_num) {
         {
-          for (let _0x7be28d = 0; _0x7be28d < _0x1e79b7.length; _0x7be28d++) {
-            {
-              if (descStartsWith("可选" + _0x1e79b7[_0x7be28d] + ",").exists()) {
-                {
-                  descStartsWith("可选" + _0x1e79b7[_0x7be28d] + ",").findOne().click();
-                  sleep(500);
-                  console.verbose("选中自定义属性：" + _0x1e79b7[_0x7be28d]);
-                }
-              }
-              if (descStartsWith("已选中" + _0x1e79b7[_0x7be28d] + ",").exists()) {}
-            }
-          }
-          if (desc("分类, 分类").exists()) {
-            desc("分类, 分类").findOne().parent().find(scrollable()).scrollForward();
-            sleep(500);
-          }
+          console.verbose("加载宝贝数量已达到设定宝贝数" + _0x4bf523.obj_num);
+          break;
         }
       }
     }
-  } else if (guanlian == "open") {}
-  console.verbose("分类/品牌/属性 选择结束");
+    if (desc("哎呀，到底啦～").exists() || text("哎呀，到底啦～").exists()) {
+      {
+        console.verbose("出现 哎呀，到底啦~");
+        break;
+      }
+    }
+    if (desc("什么值得卖").exists() || text("什么值得卖").exists()) {
+      console.verbose("出现什么值得卖，到达底部...");
+      break;
+    }
+    if (desc("这些值得卖").exists() || text("这些值得卖").exists()) {
+      {
+        console.verbose("出现这些值得卖，到达底部...");
+        break;
+      }
+    }
+    if (desc("一键转卖").exists() || text("一键转卖").exists()) {
+      {
+        console.verbose("出现一键转卖，到达底部...");
+        break;
+      }
+    }
+    var _0x35772e = common.get_all_text_desc();
+    depth(setting.glist_scroll_dep).scrollable().findOne().scrollForward();
+    sleep(300);
+    depth(setting.glist_scroll_dep).scrollable().findOne().scrollForward();
+    sleep(300);
+    depth(setting.glist_scroll_dep).scrollable().findOne().scrollForward();
+    sleep(300);
+    common.my_swipe(device.width / 2, device.height * 8 / 10, device.width / 2, device.height * 3 / 10, 500);
+    sleep(3000);
+    depth(setting.glist_scroll_dep).scrollable().findOne().scrollForward();
+    sleep(1000);
+    var _0x2e8c45 = common.get_all_text_desc();
+    if (_0x35772e == _0x2e8c45) {
+      console.verbose("翻动页面后页面内容无变化，跳出翻页");
+      break;
+    }
+    if (_0x4bf523.obj_num) {
+      {
+        if (_0x276cdd >= _0x4bf523.obj_num) {
+          console.verbose("加载宝贝数量已达到设定宝贝数" + _0x4bf523.obj_num);
+          break;
+        }
+      }
+    }
+    if (_0x276cdd == 1000) {
+      break;
+    }
+    sleep(150);
+  }
+  console.verbose("已加载全部宝贝");
+  if (device.release.split(".")[0] == 13 && _0x276cdd > 19) {
+    console.verbose("安卓13可能会出现只加载部分宝贝的情况，此为闲鱼在安卓13系统的bug");
+  }
 }
-function guanlian_shuxing_e(_0x2c8393) {
-  console.verbose("开始关联宝贝属性...");
-  common.swipe_fl_ele();
-  if (descContains("ISBN码").exists() && desc("请​扫​描​图​书​I​S​B​N​码​").exists()) {
+function goods_list_top() {
+  for (let _0x2de438 = 0; _0x2de438 < 30; _0x2de438++) {
     {
-      toastLog("无法扫描图书ISBN码，自动选择其他闲置");
-      var _0x30ca10 = desc("请​扫​描​图​书​I​S​B​N​码​").findOne().indexInParent();
-      var _0x1ed2b1 = desc("请​扫​描​图​书​I​S​B​N​码​").findOne().depth();
-      for (let _0x736614 = 0; _0x736614 < 10; _0x736614++) {
-        depth(_0x1ed2b1).indexInParent(_0x30ca10 - 1).findOne().find(scrollable())[0].scrollForward();
-        sleep(300);
-        if (descStartsWith("其他闲置").exists()) {
+      scrollUp() || scrollUp(0);
+      sleep(100);
+    }
+  }
+}
+function goods_polish(_0x4a052e) {
+  if (text("已完成全部优化，明天再来看看~").exists()) {
+    {
+      text("已完成全部优化，明天再来看看~").findOne().click();
+      sleep(3000);
+    }
+  } else if (textStartsWith("今日已擦亮").exists()) {
+    {
+      textStartsWith("今日已擦亮").findOne().click();
+      sleep(3000);
+    }
+  } else if (desc("一键擦亮宝贝").exists()) {
+    desc("一键擦亮宝贝").findOne().parent().click();
+    sleep(3000);
+  } else if (text("一键擦亮宝贝").exists()) {
+    {
+      click("一键擦亮宝贝");
+      sleep(3000);
+    }
+  } else if (desc("今日已擦亮").exists() || text("今日已擦亮").exists()) {
+    console.verbose("今日已擦亮");
+  } else {
+    toastLog("开始滑动加载宝贝，请稍等");
+    console.verbose("玩家号、商家号、直播号最多可擦亮500个宝贝");
+    goods_list_bottom({
+      "obj_num": false
+    });
+    toastLog("宝贝加载完毕，开始擦亮");
+    let _0x3e2dbc = text("擦亮").find();
+    console.verbose("待擦亮宝贝个数：" + _0x3e2dbc.length);
+    for (let _0x461b34 = 0; _0x461b34 < _0x3e2dbc.length; _0x461b34++) {
+      toastLog("第" + (_0x461b34 + 1) + "个");
+      _0x3e2dbc[_0x461b34].click();
+      sleep(700);
+    }
+  }
+}
+function goods_price_cut(_0x2f6157, _0x1f327e, _0x291590) {
+  let _0xaae052 = [];
+  if (desc("降价").exists()) {
+    {
+      var _0x5009a1 = desc("降价").find();
+    }
+  } else {
+    var _0x5009a1 = text("降价").find();
+  }
+  for (let _0x1dc77c = 0; _0x1dc77c < _0x5009a1.length; _0x1dc77c++) {
+    var _0x39cac9 = _0x5009a1[_0x1dc77c].parent().parent().find(indexInParent(0).depth(setting.glist_dep - 1))[0].find(indexInParent(1).depth(setting.glist_dep))[0];
+    title = _0x39cac9.text() || _0x39cac9.find(indexInParent(0))[0].text();
+    if (title.indexOf(".png_110x10000.jpg_") != -1) {
+      {
+        _0x39cac9 = _0x5009a1[_0x1dc77c].parent().parent().find(indexInParent(0).depth(setting.glist_dep - 1))[0].find(indexInParent(2).depth(setting.glist_dep))[0];
+        title = _0x39cac9.text() || _0x39cac9.find(indexInParent(0))[0].text();
+      }
+    }
+    if (_0xaae052.indexOf(title) == -1) {
+      let _0x1dc0bd = "操作第" + (_0xaae052.length + 1) + "个宝贝：" + title;
+      console.verbose(_0x1dc0bd);
+      toast(_0x1dc0bd);
+      _0xaae052.push(title);
+      _0x5009a1[_0x1dc77c].parent().click();
+      sleep(2000);
+      for (let _0x1dc77c = 0; _0x1dc77c < 5; _0x1dc77c++) {
+        if (descStartsWith("现价").exists() || textStartsWith("现价").exists()) {
           {
-            descStartsWith("其他闲置").findOne().click();
-            sleep(500);
-            sleep(2000);
-            _0x2c8393.tab_fl = "[]";
             break;
           }
         }
+        sleep(1000);
       }
-      common.swipe_fl_ele();
-    }
-  }
-  var _0x57a8bb = descStartsWith("分类/").exists() ? "分类/" : "更多信息";
-  if (descStartsWith(_0x57a8bb).findOne().parent().desc()) {
-    {
-      var _0x18e434 = descStartsWith(_0x57a8bb).findOne().parent().desc().split("\n");
-    }
-  } else if (descStartsWith(_0x57a8bb).findOne().parent().parent().desc()) {
-    var _0x18e434 = descStartsWith(_0x57a8bb).findOne().parent().parent().desc().split("\n");
-  } else {
-    {
-      console.log("fenlei_arr 数组获取失败，用空数组代替");
-      var _0x18e434 = [];
-      _0x2c8393.tab_fl = "[]";
-    }
-  }
-  if (_0x18e434[0] == "添加宝贝信息") {
-    _0x18e434.shift();
-  }
-  if (_0x18e434[0] !== "分类") {
-    {
-      console.verbose(_0x18e434);
-    }
-  }
-  if (_0x2c8393.tab_fl != "[]" && _0x2c8393.tab_fl != null) {
-    {
-      toastLog("分类/品牌：" + _0x2c8393.tab_fl);
-      let _0x3d519f = JSON.parse(_0x2c8393.tab_fl);
-      console.verbose("开始添加自定义分类/品牌");
-      var _0x13d1fc = [];
-      for (let _0x736614 = 0; _0x736614 < _0x3d519f.length; _0x736614++) {
-        var _0x57a8bb = descStartsWith("分类/").exists() ? "分类/" : "更多信息";
-        if (descStartsWith(_0x57a8bb).findOne().parent().desc()) {
-          var _0x18e434 = descStartsWith(_0x57a8bb).findOne().parent().desc().split("\n");
-        } else {
-          {
-            var _0x18e434 = descStartsWith(_0x57a8bb).findOne().parent().parent().desc().split("\n");
-          }
-        }
-        if (_0x18e434[0] == "添加宝贝信息") {
-          {
-            _0x18e434.shift();
-          }
-        }
-        if (_0x18e434[0] !== "分类") {
-          {
-            console.verbose(_0x18e434);
-          }
-        }
-        if (_0x13d1fc.indexOf(_0x3d519f[_0x736614]) != -1) {
-          {
-            continue;
-          }
-        }
-        if (_0x3d519f[_0x736614].indexOf("#") == -1) {
-          {
-            continue;
-          }
-        }
-        sleep(500);
-        let _0x2d7222 = _0x3d519f[_0x736614].split("#")[1];
-        if (_0x3d519f[_0x736614].indexOf("分类#") != -1) {
-          console.verbose("选择分类");
-          for (let _0x2039ad = 0; _0x2039ad < 5; _0x2039ad++) {
-            {
-              if (desc(_0x2d7222).exists()) {
-                {
-                  desc(_0x2d7222).findOne().click();
-                  sleep(3000);
-                  toastLog(_0x3d519f[_0x736614] + " 选择成功");
-                  sleep(3000);
-                  _0x13d1fc.push(_0x3d519f[_0x736614]);
-                  common.swipe_fl_ele();
-                  break;
-                }
-              }
-              try {
-                let _0x30ca10 = descStartsWith(_0x57a8bb).findOne().indexInParent();
-                let _0x1ed2b1 = descStartsWith(_0x57a8bb).findOne().depth();
-                depth(_0x1ed2b1).indexInParent(_0x30ca10 + 1).findOne().find(scrollable())[0].scrollForward();
-                sleep(300);
-              } catch (_0x439e58) {
-                console.verbose("选择\"分类\"时滑动失败");
-              }
-            }
-          }
-        } else if (_0x3d519f[_0x736614].indexOf("品牌#") != -1 && ["品牌"].indexOf(_0x18e434[1]) != -1) {
-          {
-            console.verbose("选择品牌");
-            setClip(_0x2d7222);
-            for (let _0x486323 = 0; _0x486323 < 5; _0x486323++) {
-              if (desc("更多品牌").exists()) {
-                {
-                  sleep(1000);
-                  if (desc("更多品牌").exists()) {
-                    desc("更多品牌").findOne().click();
-                    sleep(500);
-                    textStartsWith("请输入").findOne().paste();
-                    sleep(500);
-                    console.verbose("注意：如文字输入失败，请授予闲鱼和系统剪切板读写权限");
-                    console.verbose("准备点击'添加'按钮");
-                    if (desc("添加").exists()) {
-                      {
-                        desc("添加").click();
-                        sleep(3500);
-                      }
-                    } else {
-                      for (let _0x486323 = 0; _0x486323 < 10; _0x486323++) {
-                        sleep(1000);
-                        if (className("android.view.View").clickable().find().length >= 2) {
-                          className("android.view.View").clickable().find()[1].click();
-                          sleep(2000);
-                          break;
-                        }
-                      }
-                    }
-                    toastLog(_0x3d519f[_0x736614] + " 选择成功");
-                    _0x13d1fc.push(_0x3d519f[_0x736614]);
-                  }
-                  break;
-                }
-              }
-              try {
-                let _0x30ca10 = descStartsWith(_0x57a8bb).findOne().indexInParent();
-                let _0x1ed2b1 = descStartsWith(_0x57a8bb).findOne().depth();
-                depth(_0x1ed2b1).indexInParent(_0x30ca10 + 2).findOne().find(scrollable())[0].scrollForward();
-                sleep(300);
-              } catch (_0x3fca80) {
-                console.verbose("选择\"品牌\"时滑动失败");
-              }
-            }
-          }
-        } else if (_0x3d519f[_0x736614].indexOf("品种#") != -1 && ["狗狗品种", "猫咪品种", "兔兔品种"].indexOf(_0x18e434[1]) != -1) {
-          console.verbose("选择品种");
-          setClip(_0x2d7222);
-          for (let _0x4e9712 = 0; _0x4e9712 < 5; _0x4e9712++) {
-            if (desc("更多狗狗品种").exists() || desc("更多猫咪品种").exists() || desc("更多兔兔品种").exists()) {
-              sleep(800);
-              if (desc("更多狗狗品种").exists()) {
-                desc("更多狗狗品种").findOne().click();
-                sleep(500);
-              } else if (desc("更多猫咪品种").exists()) {
-                desc("更多猫咪品种").findOne().click();
-                sleep(500);
-              } else if (desc("更多兔兔品种").exists()) {
-                desc("更多兔兔品种").findOne().click();
-                sleep(500);
-              }
-              textStartsWith("请输入").findOne().paste();
-              sleep(500);
-              console.verbose("注意：如文字输入失败，请授予闲鱼和系统剪切板读写权限");
-              console.verbose("准备点击'添加'按钮");
-              if (desc("添加").exists()) {
-                desc("添加").click();
-                sleep(3500);
-              } else {
-                {
-                  for (let _0x4e9712 = 0; _0x4e9712 < 10; _0x4e9712++) {
-                    sleep(1000);
-                    if (className("android.view.View").clickable().find().length >= 2) {
-                      className("android.view.View").clickable().find()[1].click();
-                      sleep(2000);
-                      break;
-                    }
-                  }
-                }
-              }
-              toastLog(_0x3d519f[_0x736614] + " 选择成功");
-              _0x13d1fc.push(_0x3d519f[_0x736614]);
-              break;
-            }
-            try {
-              {
-                let _0x30ca10 = descStartsWith(_0x57a8bb).findOne().indexInParent();
-                let _0x1ed2b1 = descStartsWith(_0x57a8bb).findOne().depth();
-                depth(_0x1ed2b1).indexInParent(_0x30ca10 + 2).findOne().find(scrollable())[0].scrollForward();
-                sleep(300);
-              }
-            } catch (_0x22848c) {
-              {
-                console.verbose("选择\"品种\"时滑动失败");
-              }
-            }
-          }
-        } else if (_0x3d519f[_0x736614].indexOf("型号#") != -1 && _0x18e434[2] == "型号") {
-          console.verbose("选择型号");
-          setClip(_0x2d7222);
-          for (let _0x57b7dd = 0; _0x57b7dd < 5; _0x57b7dd++) {
-            if (desc("更多型号").exists()) {
-              sleep(800);
-              desc("更多型号").findOne().click();
-              sleep(500);
-              textStartsWith("请输入").findOne().paste();
-              sleep(500);
-              console.verbose("准备点击'添加'按钮");
-              if (desc("添加").exists()) {
-                {
-                  desc("添加").click();
-                  sleep(3500);
-                }
-              } else {
-                {
-                  for (let _0x57b7dd = 0; _0x57b7dd < 10; _0x57b7dd++) {
-                    sleep(1000);
-                    if (className("android.view.View").clickable().find().length >= 2) {
-                      {
-                        className("android.view.View").clickable().find()[1].click();
-                        sleep(2000);
-                        break;
-                      }
-                    }
-                  }
-                }
-              }
-              toastLog(_0x3d519f[_0x736614] + " 选择成功");
-              _0x13d1fc.push(_0x3d519f[_0x736614]);
-              break;
-            }
-            try {
-              let _0x30ca10 = descStartsWith(_0x57a8bb).findOne().indexInParent();
-              let _0x1ed2b1 = descStartsWith(_0x57a8bb).findOne().depth();
-              depth(_0x1ed2b1).indexInParent(_0x30ca10 + 2).findOne().find(scrollable())[0].scrollForward();
-              sleep(300);
-            } catch (_0x4bc8d7) {
-              console.verbose("选择\"品种\"时滑动失败");
-            }
-          }
-        }
+      console.verbose("成功点击'降价'按钮");
+      sleep(1000);
+      let _0x1382b8 = textStartsWith("现价￥").findOne().text();
+      _0x1382b8 = _0x1382b8.split("现价￥")[1];
+      if (_0x1382b8.indexOf("万") !== -1) {
+        _0x1382b8 = _0x1382b8.replace("万", "");
+        _0x1382b8 = parseInt(_0x1382b8 * 10000);
       }
-      console.verbose("开始选择其他属性.....");
-      var _0x57a8bb = descStartsWith("分类/").exists() ? "分类/" : "更多信息";
-      _0x3d519f.shift();
-      if (["品牌"].indexOf(_0x18e434[1]) != -1) {
+      console.verbose(_0x1382b8);
+      if (_0x1f327e && _0x1f327e != "0") {
+        console.verbose("比例降价");
+        p2 = _0x1382b8 - _0x1382b8 * _0x1f327e / 100;
+      } else if (_0x291590 && _0x291590 != "0") {
+        console.verbose("数值降价");
+        p2 = _0x1382b8 - _0x291590;
+      } else {
+        p2 = _0x1382b8;
+      }
+      if (_0x1382b8 <= 1) {
         {
-          _0x3d519f.shift();
+          p2 = 0.1;
         }
       }
-      if (["狗狗品种", "猫咪品种", "兔兔品种"].indexOf(_0x18e434[1]) != -1) {
-        _0x3d519f.shift();
+      p2 = parseFloat(p2).toFixed(2);
+      toastLog("原价：" + _0x1382b8 + " 降价后：" + p2);
+      setText(p2);
+      sleep(1000);
+      if (text("确定降价").exists()) {
+        {
+          text("确定降价").findOne().click();
+        }
+      } else if (text("确认降价").exists()) {
+        {
+          text("确认降价").findOne().click();
+        }
       }
-      if (["型号"].indexOf(_0x18e434[2]) != -1) {
-        _0x3d519f.shift();
+      sleep(1500);
+      sleep(_0x2f6157 * 1000);
+    } else {}
+  }
+  console.verbose("系统根据宝贝标题判断宝贝的唯一性，请勿有标题相同的宝贝");
+  console.log("如果成功降价宝贝数小于宝贝总数，可能是因为：1.宝贝列表存在标题相同的宝贝2.部分价格过低宝贝或多规格宝贝（无降价按钮）3.特殊宝贝（公益宝贝、免费送等等）无法降价");
+  let _0x5e01f0 = "一键降价完成";
+  toast(_0x5e01f0);
+  console.info(_0x5e01f0);
+}
+function xy_goods_get_son() {
+  goods_list_bottom({
+    "obj_num": false
+  });
+  toastLog("所有宝贝加载完成");
+  sleep(2000);
+  toastLog("准备采集宝贝..");
+  let _0x4b48ea = {};
+  var _0x527bfc = text("编辑").find();
+  for (let _0x1f7d54 = 0; _0x1f7d54 < _0x527bfc.length; _0x1f7d54++) {
+    {
+      message_arr = [];
+      var _0x40b051 = _0x527bfc[_0x1f7d54].parent().parent().find(textStartsWith("曝光"));
+      var _0x44c407 = _0x527bfc[_0x1f7d54].parent().parent().find(textStartsWith("浏览"));
+      var _0x52df79 = _0x527bfc[_0x1f7d54].parent().parent().find(textStartsWith("想要"));
+      _0x40b051 = _0x40b051.length == 1 ? _0x40b051[0].text() : "曝光0";
+      _0x44c407 = _0x44c407.length == 1 ? _0x44c407[0].text() : "浏览0";
+      _0x52df79 = _0x52df79.length == 1 ? _0x52df79[0].text() : "想要0";
+      message_arr.push(_0x40b051);
+      message_arr.push(_0x44c407);
+      message_arr.push(_0x52df79);
+      var _0x28418c = _0x527bfc[_0x1f7d54].parent().parent().find(indexInParent(0).depth(setting.glist_dep - 1))[0].find(indexInParent(1).depth(setting.glist_dep))[0];
+      title = _0x28418c.text() || _0x28418c.find(indexInParent(0))[0].text();
+      if (title.indexOf(".png_110x10000.jpg_") != -1) {
+        {
+          _0x28418c = _0x527bfc[_0x1f7d54].parent().parent().find(indexInParent(0).depth(setting.glist_dep - 1))[0].find(indexInParent(2).depth(setting.glist_dep))[0];
+          title = _0x28418c.text() || _0x28418c.find(indexInParent(0))[0].text();
+        }
       }
-      console.verbose(_0x3d519f);
-      for (let _0x4a2362 = 0; _0x4a2362 < 5; _0x4a2362++) {
-        for (let _0x736614 = 0; _0x736614 < _0x3d519f.length; _0x736614++) {
-          {
-            if (_0x13d1fc.indexOf(_0x3d519f[_0x736614]) != -1) {
+      if (!_0x4b48ea.hasOwnProperty(title)) {
+        {
+          for (let _0x1f7d54 = 0; _0x1f7d54 < message_arr.length; _0x1f7d54++) {
+            message_arr[_0x1f7d54] = message_arr[_0x1f7d54].slice(2);
+            if (message_arr[_0x1f7d54].indexOf("万") !== -1) {
+              {
+                message_arr[_0x1f7d54] = message_arr[_0x1f7d54].replace("万", "");
+                message_arr[_0x1f7d54] = message_arr[_0x1f7d54] * 10000;
+              }
+            }
+          }
+          _0x4b48ea[title] = message_arr;
+        }
+      }
+    }
+  }
+  let _0x37feab = device.getAndroidId();
+  gl = [];
+  for (var _0x26f48e in _0x4b48ea) {
+    gl.push({
+      "a_id": _0x37feab,
+      "x_id": setting.xy_name,
+      "x2_id": setting.xy_name2,
+      "title": _0x26f48e,
+      "show": _0x4b48ea[_0x26f48e][0],
+      "look": _0x4b48ea[_0x26f48e][1],
+      "want": _0x4b48ea[_0x26f48e][2]
+    });
+  }
+  console.log("宝贝个数：" + gl.length);
+  console.verbose("如果获取宝贝数低于您实际宝贝数，请检查是否有重复标题的宝贝");
+  threads.start(function () {
+    var _0x5c22cf = http.post(setting.api_domain + "edit_count", {
+      "goods_list": JSON.stringify(gl),
+      "access_token": setting.s.get("access_token")
+    });
+    var _0x2ca2c8 = _0x5c22cf.body.string();
+    console.verbose(_0x2ca2c8);
+  });
+}
+function re_edit(_0x511a41) {
+  enter_my_goods_page(false);
+  goods_list_bottom({
+    "obj_num": false
+  });
+  if (desc("编辑").exists()) {
+    var _0x340a6a = desc("编辑").find();
+  } else {
+    var _0x340a6a = text("编辑").find();
+  }
+  var _0x282f6e = _0x340a6a[parseInt(_0x340a6a.length) - 1].parent();
+  if (_0x282f6e) {
+    {
+      _0x282f6e.click();
+      console.verbose("成功点击'编辑'按钮");
+      sleep(2000);
+      common.clear_dbt(setting.configure.re_edit_dbt);
+      common.goods_publish(true);
+    }
+  }
+  toastLog("睡眠：" + common.s_get_time(_0x511a41));
+  sleep(_0x511a41 * 1000);
+}
+function down_goods(_0x5a7a41, _0x53279b, _0x140433, _0xb6b351, _0x27b376, _0xb4a7e3) {
+  toastLog("开始下架");
+  console.log("系统根据宝贝标题判断宝贝的唯一性，请勿有标题相同的宝贝，否则会下架异常");
+  let _0x58fe46 = textStartsWith("想要").depth(setting.glist_dep).find();
+  let _0x49ecdd = [];
+  for (let _0x116b8c = 0; _0x116b8c < _0x58fe46.length; _0x116b8c++) {
+    var _0x224b12 = _0x58fe46[_0x116b8c].parent().parent().find(indexInParent(0).depth(setting.glist_dep - 1))[0].find(indexInParent(1).depth(setting.glist_dep))[0];
+    title = _0x224b12.text() || _0x224b12.find(indexInParent(0))[0].text();
+    if (title.indexOf(".png_110x10000.jpg_") != -1) {
+      {
+        _0x224b12 = _0x58fe46[_0x116b8c].parent().parent().find(indexInParent(0).depth(setting.glist_dep - 1))[0].find(indexInParent(2).depth(setting.glist_dep))[0];
+        title = _0x224b12.text() || _0x224b12.find(indexInParent(0))[0].text();
+      }
+    }
+    _0x49ecdd.push(title);
+  }
+  console.warn("下架条件：曝光量" + _0x53279b + "，浏览量" + _0x140433 + "，想要数" + _0xb6b351 + "，关键词 " + _0x27b376);
+  console.verbose("曝光量、浏览量、想要数、关键词只要满足其中一个条件便执行下架");
+  for (let _0x5c9b1f = 0; _0x5c9b1f < _0x49ecdd.length; _0x5c9b1f++) {
+    let _0x5356a1 = text(_0x49ecdd[_0x5c9b1f]).findOne().parent().parent().find(textStartsWith("曝光"));
+    let _0xc3e31e = text(_0x49ecdd[_0x5c9b1f]).findOne().parent().parent().find(textStartsWith("浏览"));
+    let _0x53ef5a = text(_0x49ecdd[_0x5c9b1f]).findOne().parent().parent().find(textStartsWith("想要"));
+    _0x5356a1 = _0x5356a1.length == 1 ? _0x5356a1[0].text() : "曝光0";
+    _0xc3e31e = _0xc3e31e.length == 1 ? _0xc3e31e[0].text() : "浏览0";
+    _0x53ef5a = _0x53ef5a.length == 1 ? _0x53ef5a[0].text() : "想要0";
+    toastLog("开始检测：" + _0x49ecdd[_0x5c9b1f] + " " + _0x5356a1 + " " + _0xc3e31e + " " + _0x53ef5a);
+    _0x5356a1 = _0x5356a1.replace("曝光", "");
+    _0xc3e31e = _0xc3e31e.replace("浏览", "");
+    _0x53ef5a = _0x53ef5a.replace("想要", "");
+    if (_0x5356a1.substr(_0x5356a1.length - 1, 1) == "万") {
+      _0x5356a1 = _0x5356a1.substr(0, _0x5356a1.length - 1);
+      _0x5356a1 = Number(_0x5356a1) * 10000;
+    } else {
+      _0x5356a1 = Number(_0x5356a1);
+    }
+    if (_0xc3e31e.substr(_0xc3e31e.length - 1, 1) == "万") {
+      _0xc3e31e = _0xc3e31e.substr(0, _0xc3e31e.length - 1);
+      _0xc3e31e = Number(_0xc3e31e) * 10000;
+    } else {
+      {
+        _0xc3e31e = Number(_0xc3e31e);
+      }
+    }
+    if (_0x53ef5a.substr(_0x53ef5a.length - 1, 1) == "万") {
+      _0x53ef5a = _0x53ef5a.substr(0, _0x53ef5a.length - 1);
+      _0x53ef5a = Number(_0x53ef5a) * 10000;
+    } else {
+      {
+        _0x53ef5a = Number(_0x53ef5a);
+      }
+    }
+    let _0x108480 = false;
+    if (_0x5356a1 < _0x53279b) {
+      console.verbose("曝光量" + _0x5356a1 + "，符合下架条件");
+      _0x108480 = true;
+    } else if (_0xc3e31e < _0x140433) {
+      console.verbose("浏览量" + _0xc3e31e + "，符合下架条件");
+      _0x108480 = true;
+    } else if (_0x53ef5a < _0xb6b351) {
+      console.verbose("想要数" + _0x53ef5a + "，符合下架条件");
+      _0x108480 = true;
+    } else if (_0x27b376) {
+      {
+        _0x27b376.split("#").forEach(_0x37681f => {
+          if (_0x49ecdd[_0x5c9b1f].indexOf(_0x37681f) != -1 && _0x37681f) {
+            console.verbose("包含关键词'" + _0x37681f + "'，符合下架条件");
+            _0x108480 = true;
+          }
+        });
+      }
+    } else {
+      {
+        console.verbose("不符合下架条件");
+        _0x108480 = false;
+      }
+    }
+    if (_0x108480) {
+      if (_0xb4a7e3) {
+        {
+          if (setting.deleted_goods && setting.deleted_goods[title]) {
+            {
+              console.log(setting.deleted_goods);
+              var _0x21bb72 = Date.parse(new Date());
+              var _0x3f1279 = setting.deleted_goods[title].time;
+              console.log(_0x21bb72);
+              console.log(_0x3f1279);
+              console.log(_0x21bb72 - _0x3f1279);
+              console.log("保护时间：" + setting.configure.ll_del_edit_baohu + "小时");
+              let _0x280d10 = setting.configure.ll_del_edit_baohu * 60 * 60;
+              if ((_0x21bb72 - _0x3f1279) / 1000 < _0x280d10) {
+                {
+                  toastLog("'" + title + "'在保护时间内，无法删除");
+                  sleep(2000);
+                  continue;
+                }
+              } else {
+                delete setting.deleted_goods.title;
+              }
+            }
+          } else {
+            {
+              console.verbose("下架宝贝：" + title);
+              setting.deleted_goods[title] = {
+                "time": Date.parse(new Date()),
+                "been_added": false
+              };
+            }
+          }
+        }
+      }
+      toastLog("准备点击下架按钮");
+      sleep(_0x5a7a41 * 1000);
+      text(_0x49ecdd[_0x5c9b1f]).findOne().parent().parent().parent().find(text("更多"))[0].click();
+      sleep(500);
+      for (let _0x5c9b1f = 0; _0x5c9b1f < 8; _0x5c9b1f++) {
+        {
+          if (text("下架").exists()) {
+            break;
+          }
+          sleep(500);
+        }
+      }
+      if (text("下架").exists()) {
+        console.verbose("点击'下架'");
+        text("下架").findOne().click();
+        sleep(500);
+      } else if (text("删除").exists()) {
+        {
+          console.verbose("点击'删除'");
+          text("删除").findOne().click();
+          sleep(500);
+        }
+      } else {
+        console.verbose("下架和删除按钮都不存在");
+      }
+      console.verbose("等待确定下架按钮");
+      text("确定").findOne().click();
+      sleep(500);
+    }
+    sleep(1000);
+  }
+  toastLog("下架完成");
+}
+function get_low_want_good() {
+  var _0xd61659 = 10000;
+  var _0xa33b3d = "";
+  let _0x4c979a = textStartsWith("浏览").depth(17).find();
+  for (let _0x180da9 = 0; _0x180da9 < _0x4c979a.length; _0x180da9++) {
+    let _0x1da0e9 = _0x4c979a[_0x180da9].text();
+    let _0x243a02 = _0x1da0e9.replace("浏览", "");
+    if (_0x243a02.substr(_0x243a02.length - 1, 1) == "万") {
+      _0x243a02 = _0x243a02.substr(0, _0x243a02.length - 1);
+      _0x243a02 = Number(_0x243a02) * 10000;
+    } else {
+      _0x243a02 = Number(_0x243a02);
+    }
+    try {
+      var _0x3be235 = _0x4c979a[_0x180da9].parent().parent().find(indexInParent(0).depth(setting.glist_dep - 1))[0].find(indexInParent(1).depth(setting.glist_dep))[0];
+      title = _0x3be235.text() || _0x3be235.find(indexInParent(0))[0].text();
+      if (title.indexOf(".png_110x10000.jpg_") != -1) {
+        _0x3be235 = _0x4c979a[_0x180da9].parent().parent().find(indexInParent(0).depth(setting.glist_dep - 1))[0].find(indexInParent(2).depth(setting.glist_dep))[0];
+        title = _0x3be235.text() || _0x3be235.find(indexInParent(0))[0].text();
+      }
+    } catch (_0x95f382) {
+      {
+        console.verbose("获取标题出现异常");
+      }
+    }
+    if (_0x243a02 < _0xd61659) {
+      if (setting.deleted_goods && !setting.deleted_goods[title]) {
+        _0xd61659 = _0x243a02;
+        _0xa33b3d = title;
+      }
+    }
+  }
+  console.verbose("最低浏览量：" + _0xd61659);
+  console.verbose("标题为：" + _0xa33b3d);
+  return _0xd61659 + 1;
+}
+function look_goods() {
+  var _0xedf8a8 = setting.configure.yanghao_scroll_num;
+  var _0x43f0bf = setting.configure.yanghao_click_percent;
+  var _0x1f7fd8 = setting.configure.yanghao_like_percent;
+  var _0x5f5c14 = setting.configure.yanghao_want_percent;
+  var _0x47b7b4 = setting.configure.yanghao_collect_percent;
+  var _0xaa0626 = setting.configure.yanghao_comment_percent;
+  var _0x378ef7 = setting.configure.yanghao_comment_content;
+  var _0x374034 = setting.configure.yanghao_want_content;
+  enter_yanghao();
+  common.my_swipe(device.width / 2, device.height * 8 / 10, device.width / 2, device.height * 2 / 10, random(700, 1400));
+  sleep(2000);
+  common.my_swipe(device.width / 2, device.height * 8 / 10, device.width / 2, device.height * 2 / 10, random(700, 1400));
+  sleep(2000);
+  for (let _0x30ce3b = 0; _0x30ce3b < _0xedf8a8; _0x30ce3b++) {
+    if (common.is_runtime()) {
+      if (!desc("闲鱼签到").exists() && !id("search_bar_layout").exists()) {
+        console.verbose("准备返回养号宝贝列表...");
+        enter_yanghao();
+        sleep(6000);
+      }
+      if (className("android.widget.Image").exists()) {
+        console.verbose("已关闭临时活动悬浮窗...");
+        if (className("android.widget.Image").text("O1CN01YdifXD26KXu4LfOxK_!!6000000007643-2-tps-57-57.png_").exists()) {
+          className("android.widget.Image").text("O1CN01YdifXD26KXu4LfOxK_!!6000000007643-2-tps-57-57.png_").findOne().parent().click();
+        } else if (className("android.widget.Image").indexInParent(1).exists()) {
+          className("android.widget.Image").indexInParent(1).findOne().click();
+          sleep(1000);
+        }
+      }
+      common.my_swipe(device.width / 2, device.height * 8 / 10, device.width / 2, device.height * 2 / 10, random(700, 1400));
+      sleep(2000);
+      toastLog("第" + (_0x30ce3b + 1) + "次翻动宝贝列表..");
+      sleep(random(1500, 3500));
+      let _0x2481cd = id("cardview_61801").find();
+      for (let _0x30ce3b = 0; _0x30ce3b < _0x2481cd.length; _0x30ce3b++) {
+        {
+          let _0x4744c4 = _0x2481cd[_0x30ce3b].find(id("hot_point"));
+          if (_0x4744c4.length != 1) {
+            continue;
+          }
+          let _0x2d887e = _0x4744c4[0].text();
+          if (_0x2d887e.indexOf("想要") == -1) {
+            {
               continue;
             }
-            if (descStartsWith(_0x57a8bb).findOne().parent().find(desc(_0x3d519f[_0x736614]).clickable()).length != 0) {
+          } else {
+            _0x2d887e = _0x2d887e.replace("人想要", "");
+          }
+          let _0x39fdc3 = _0x2481cd[_0x30ce3b].find(id("price"))[0].text();
+          _0x39fdc3 = _0x39fdc3.replace("¥", "");
+          if (_0x39fdc3.indexOf("万") !== -1) {
+            _0x39fdc3 = _0x39fdc3.replace("万", "");
+            _0x39fdc3 = _0x39fdc3 * 10000;
+          }
+          let _0x2c31a7 = _0x2481cd[_0x30ce3b].find(id("user_nick"))[0].text();
+          let _0x265549 = _0x2481cd[_0x30ce3b].find(id("content_title"))[0].text();
+          if (setting.all_top_goods_title.indexOf(_0x265549) == -1) {
+            setting.all_top_goods.push({
+              "want": _0x2d887e,
+              "price": _0x39fdc3,
+              "user_nick": _0x2c31a7,
+              "title": _0x265549
+            });
+            setting.all_top_goods_title.push(_0x265549);
+          }
+        }
+      }
+      if (textStartsWith("淘宝热卖").exists()) {
+        {
+          scrollDown(0);
+          sleep(random(2000, 3000));
+          scrollDown(0);
+          sleep(random(2000, 3000));
+          continue;
+        }
+      }
+      if (_0x43f0bf > random(0, 100)) {
+        console.verbose("某鱼养号准备进入宝贝详情页...");
+        try {
+          textEndsWith("人想要").find()[0].parent().find(className("android.widget.LinearLayout").clickable())[0].click();
+          sleep(2000);
+        } catch (_0x40ff3c) {
+          {
+            console.verbose("无法点击进入宝贝详情，跳过宝贝");
+            continue;
+          }
+        }
+        if (!desc("更多").exists() && descContains("\n详情").exists()) {
+          descContains("\n详情").findOne().click();
+          sleep(1000);
+        }
+        for (let _0x30ce3b = 0; _0x30ce3b < 12; _0x30ce3b++) {
+          sleep(1000);
+          if (desc("聊一聊按钮")) {
+            break;
+          } else if (desc("我想要").exists()) {
+            {
+              if (desc("我想要").findOne().depth() == 10) {
+                {
+                  setting.dep = 0;
+                }
+              } else {
+                setting.dep = 1;
+              }
+              break;
+            }
+          } else if (desc("我想要, 我想要").exists()) {
+            {
+              break;
+            }
+          }
+        }
+        toastLog("进入详情页...");
+        sleep(5000);
+        if (text("去会玩").exists() || text("我要兑换").exists() || text("出个价").exists() || text("加入购物车").exists()) {
+          console.verbose("去会玩 我要兑换 出个价 加入购物车");
+          back();
+          sleep(3000);
+          continue;
+        }
+        if (desc("立即租, 立即租").exists()) {
+          console.verbose("立即租");
+          back();
+          sleep(3000);
+          continue;
+        }
+        if (text("天猫新品预约").exists()) {
+          console.verbose("天猫新品预约");
+          back();
+          sleep(3000);
+        }
+        if (!desc("我想要").exists() && !desc("聊一聊, 聊一聊").exists() && !desc("我想要, 我想要").exists() && !desc("聊一聊按钮").exists()) {
+          {
+            console.verbose("我想要或聊一聊不存在");
+            back();
+            sleep(3000);
+            if (desc("我想要").exists() || desc("聊一聊按钮").exists()) {
+              back();
+              sleep(3000);
+            } else if (desc("聊一聊, 聊一聊").exists()) {
+              back();
+              sleep(3000);
+            } else if (desc("我想要, 我想要").exists()) {
               {
-                let _0x140549 = "选自定义属性：" + _0x3d519f[_0x736614];
-                _0x13d1fc.push(_0x3d519f[_0x736614]);
-                toast(_0x140549);
-                console.verbose(_0x140549);
-                descStartsWith(_0x57a8bb).findOne().parent().find(desc(_0x3d519f[_0x736614]).clickable()).click();
+                back();
                 sleep(3000);
               }
             }
+            continue;
           }
         }
-        var _0x57a8bb = descStartsWith("分类/").exists() ? "分类/" : "更多信息";
-        if (_0x4a2362 == 0) {
-          {
-            toastLog("开始滑动选择更多属性");
-          }
+        var _0x2c3917 = "";
+        if (id("user_info_nick").exists()) {
+          _0x2c3917 = id("user_info_nick").findOne().text();
+          sleep(500);
+          console.verbose("用户名：" + _0x2c3917);
+        } else if (descContains("前来过").exists()) {
+          _0x2c3917 = descContains("前来过").findOne().desc();
+          sleep(500);
+          _0x2c3917 = _0x2c3917.split("\n")[0];
+          console.verbose("用户名：" + _0x2c3917);
         }
-        if (_0x4a2362 != 4) {
-          descStartsWith(_0x57a8bb).findOne().parent().find(scrollable()).scrollForward();
-          sleep(1000);
-          console.verbose("第" + (_0x4a2362 + 1) + "次滑动");
-        }
-      }
-    }
-  } else if (guanlian == "open") {
-    console.log("无自定义的分类/品牌且开启了自动关联，开始自动点击分类/品牌的第一项");
-    for (let _0x336634 = 0; _0x336634 < 8; _0x336634++) {
-      {
-        sleep(2300);
-        if (descStartsWith("分类/").exists() || descStartsWith("更多信息").exists()) {
-          var _0x57a8bb = descStartsWith("分类/").exists() ? "分类/" : "更多信息";
-          if (descStartsWith("分类/ISBN码").exists()) {} else {
-            descStartsWith(_0x57a8bb).findOne().parent().find(indexInParent(0).depth(setting.goods_dep + 6).clickable()).click();
-            sleep(2000);
-            if (_0x2c8393.new != 1) {
-              if (desc("几乎全新").exists()) {
-                console.verbose("非全新宝贝...");
-                desc("几乎全新").click();
-                sleep(1000);
+        if (setting.xf) {
+          if (className("android.widget.TextView").textEndsWith("人浏览").exists() && className("android.widget.TextView").textEndsWith("人想要").exists()) {
+            var _0x46c836 = className("android.widget.TextView").textEndsWith("人想要").findOne().text().split("人想要")[0];
+            if (_0x46c836 > 1000 && device.release.split(".")[0] < 10 && _0x2c3917) {
+              console.verbose("想要数：" + _0x46c836);
+              if (desc("分享按钮").exists()) {
+                {
+                  desc("分享按钮").findOne().click();
+                  sleep(2000);
+                  let _0x4779a0 = desc("复制链接").findOne().bounds();
+                  common.my_click(_0x4779a0.centerX(), _0x4779a0.centerY());
+                  sleep(1000);
+                  back();
+                  sleep(500);
+                  threads.start(function () {
+                    let _0x4f7e17 = http.postJson(setting.api_domain + "add_fiery2", {
+                      "url": getClip(),
+                      "user_nick": _0x2c3917,
+                      "access_token": setting.s.get("access_token")
+                    });
+                  });
+                }
               }
+            }
+          }
+        } else {
+          if (descContains("人想要").exists()) {
+            {
+              var _0x46c836 = descContains("人想要").findOne().desc();
+              _0x46c836 = _0x46c836.split("\n");
+              for (let _0x30ce3b = 0; _0x30ce3b < _0x46c836.length; _0x30ce3b++) {
+                if (_0x46c836[_0x30ce3b].indexOf("人想要") != -1) {
+                  _0x46c836 = _0x46c836[_0x30ce3b].split("人想要")[0];
+                  break;
+                }
+              }
+              if (_0x46c836 > 1000 && device.release.split(".")[0] < 10 && _0x2c3917) {
+                {
+                  console.verbose("想要数：" + _0x46c836);
+                  if (desc("分享").exists()) {
+                    {
+                      desc("分享").findOne().click();
+                      sleep(2000);
+                      let _0x22979d = desc("复制链接").findOne().bounds();
+                      common.my_click(_0x22979d.centerX(), _0x22979d.centerY());
+                      sleep(1000);
+                      back();
+                      sleep(500);
+                      threads.start(function () {
+                        let _0x50c370 = http.postJson(setting.api_domain + "add_fiery2", {
+                          "url": getClip(),
+                          "user_nick": _0x2c3917,
+                          "access_token": setting.s.get("access_token")
+                        });
+                      });
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        toastLog("开始模拟人工浏览宝贝...");
+        for (let _0x30ce3b = 0; _0x30ce3b < 20; _0x30ce3b++) {
+          let _0x2d8d28 = random(1000, 1500);
+          if (random(0, 15) < 2) {
+            common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 7 / 10, _0x2d8d28);
+          } else {
+            common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, _0x2d8d28);
+          }
+          sleep(random(500, 1500));
+          if (descStartsWith("担保交易").exists() || id("user_content").exists()) {
+            common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, _0x2d8d28);
+            sleep(random(800, 1500));
+            if (random(0, 1)) {
+              common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 7 / 10, _0x2d8d28);
+              sleep(random(800, 1500));
             }
             break;
           }
-        } else {
+        }
+        if (_0x1f7fd8 > random(0, 100)) {
+          if (desc("超赞").exists()) {
+            {
+              desc("超赞").click();
+              toastLog("超赞了宝贝");
+              sleep(5000);
+            }
+          }
+        }
+        if (_0x47b7b4 > random(0, 100)) {
           {
-            toastLog("等待'分类/品牌'加载完毕");
+            console.verbose("准备收藏宝贝...");
+            if (desc("收藏按钮").exists()) {
+              desc("收藏按钮").findOne().click();
+              sleep(1000);
+            } else if (desc("收藏").exists()) {
+              {
+                desc("收藏").findOne().click();
+                sleep(1000);
+              }
+            }
+            toastLog("收藏了宝贝");
+            sleep(2000);
+          }
+        }
+        if (_0x5f5c14 > random(0, 100)) {
+          {
+            console.verbose("准备 想要/聊一聊 宝贝...");
+            if (desc("我想要, 我想要").exists()) {
+              desc("我想要, 我想要").click();
+              sleep(2000);
+              if (_0x374034) {
+                console.verbose("准备发送私信...");
+                common.send(_0x374034);
+              }
+            } else if (desc("聊一聊按钮").exists()) {
+              {
+                desc("聊一聊按钮").findOne().click();
+                sleep(2000);
+                if (_0x374034) {
+                  {
+                    console.verbose("准备发送私信...");
+                    common.send(_0x374034);
+                  }
+                }
+              }
+            }
+            sleep(3500);
+            while (!desc("我想要, 我想要").exists() && !desc("聊一聊按钮").exists()) {
+              back();
+              sleep(2000);
+            }
+            toastLog("想要了宝贝");
+            sleep(3500);
+          }
+        }
+        if (_0xaa0626 > random(0, 100)) {
+          console.verbose("准备留言...");
+          sleep(2000);
+          let _0xb16d0c = _0x378ef7.split("#").filter(function (_0x4f2db5) {
+            {
+              return _0x4f2db5 && _0x4f2db5.trim();
+            }
+          });
+          let _0xdba385 = Math.floor(Math.random() * _0xb16d0c.length);
+          var _0x21f2da = _0xb16d0c[_0xdba385];
+          if (desc("评论按钮").exists()) {
+            {
+              desc("评论按钮").findOne().click();
+              sleep(1000);
+            }
+          } else if (desc("留言按钮").exists()) {
+            {
+              desc("留言按钮").findOne().click();
+              sleep(1000);
+            }
+          } else if (desc("留言").exists()) {
+            {
+              desc("留言").findOne().click();
+              sleep(1000);
+            }
+          }
+          console.verbose("留言内容：" + _0x21f2da);
+          if (descStartsWith("看对眼就留言").exists()) {
+            descStartsWith("看对眼就留言").click();
+            sleep(1000);
+          } else {
+            textStartsWith("看对眼就留言").click();
+            sleep(1000);
+          }
+          common.my_input(_0x21f2da);
+          if (desc("发送").exists()) {
+            desc("发送").findOne().click();
+            sleep(3000);
+          } else if (text("发送").exists()) {
+            {
+              text("发送").findOne().click();
+              sleep(3000);
+            }
+          }
+          if (descStartsWith("看对眼就留言").exists() || textStartsWith("看对眼就留言").exists()) {
+            back();
+            sleep(1000);
+          }
+        }
+        while (desc("我想要, 我想要").exists() || desc("聊一聊按钮").exists()) {
+          back();
+          sleep(6000);
+        }
+      }
+    } else {
+      {
+        toastLog("当前为休眠时间段..");
+        sleep(600000);
+      }
+    }
+    if (setting.all_top_goods_title.length >= 50) {
+      {
+        setting.all_top_goods_title = [];
+        setting.all_top_goods = [];
+      }
+    }
+  }
+  var _0x29e772 = http.postJson(setting.api_domain + "add_fiery", {
+    "all_top_goods": setting.all_top_goods,
+    "access_token": setting.s.get("access_token")
+  });
+  setting.all_top_goods_title = [];
+  setting.all_top_goods = [];
+  common.back_xy_home();
+}
+function look_goods_unity() {
+  var _0x24c14c = setting.configure.unity;
+  toastLog("开始互助养号");
+  common.xy_home();
+  sleep(1000);
+  var _0x35213c = http.post(setting.api_domain + "yanghao_get_other_uname", {
+    "access_token": setting.s.get("access_token")
+  });
+  var _0x2e4009 = _0x35213c.body.json();
+  if (_0x2e4009.code == 1) {
+    {
+      let _0x2edac0 = _0x2e4009.msg;
+      toast(_0x2edac0);
+      console.error(_0x2edac0);
+      return false;
+    }
+  }
+  var _0x589f2e = _0x2e4009.data;
+  for (let _0x5b64a4 = 0; _0x5b64a4 < _0x589f2e.length; _0x5b64a4++) {
+    {
+      let _0x17f54b = _0x589f2e[_0x5b64a4].u_id;
+      let _0xf0889c = _0x589f2e[_0x5b64a4].u_name;
+      let _0x2102d9 = 0;
+      let _0x1e9b53 = 0;
+      let _0x44fa7e = 0;
+      let _0x4cf92e = 0;
+      let _0x4e91a5 = 0;
+      common.xy_home();
+      common.enter_tab("闲鱼");
+      common.enter_tab("闲鱼");
+      sleep(1500);
+      id("search_bar_layout").waitFor();
+      sleep(100);
+      console.verbose("首页宝贝搜索框出现");
+      id("search_bar_layout").findOne().click();
+      sleep(2000);
+      console.verbose("搜索按钮出现");
+      setText(_0xf0889c);
+      sleep(1000);
+      desc("搜索").findOne().click();
+      sleep(2000);
+      var _0x2ab280 = false;
+      for (let _0x5b64a4 = 0; _0x5b64a4 < 20; _0x5b64a4++) {
+        sleep(1000);
+        if (text("用户").exists()) {
+          break;
+        }
+      }
+      if (text("用户").exists()) {
+        {
+          text("用户").findOne().parent().click();
+          sleep(2000);
+          for (let _0x33297a = 0; _0x33297a < 10; _0x33297a++) {
+            sleep(1000);
+            if (descContains("会员名：").exists()) {
+              {
+                break;
+              }
+            }
+          }
+          if (descContains("会员名：").exists()) {
+            descContains("会员名：").findOne().click();
+            sleep(2000);
+            if (descEndsWith("重新加载").exists()) {
+              {
+                console.verbose("存在'重新加载'，准备返回闲鱼首页");
+                common.xy_home();
+              }
+            } else {
+              _0x2ab280 = true;
+            }
+          } else {
+            console.verbose("'会员名：'不存在，准备返回闲鱼首页");
+            common.xy_home();
+          }
+        }
+      } else {
+        common.xy_home();
+      }
+      if (_0x2ab280) {
+        {
+          {
+            {
+              console.verbose("开始关注...");
+              for (let _0x5b64a4 = 0; _0x5b64a4 < 3; _0x5b64a4++) {
+                sleep(3000);
+                if (desc("关注").exists()) {
+                  {
+                    console.verbose("卖家详情页加载完毕");
+                    break;
+                  }
+                }
+              }
+              if (desc("关注").exists()) {
+                if (descContains("相互关注").exists() || descContains("已关注").exists()) {
+                  toastLog("已关注");
+                } else if (desc("关注").exists()) {
+                  {
+                    let _0x8502b3 = desc("关注").find();
+                    if (_0x8502b3.length == 2) {
+                      let _0x191e21 = _0x8502b3[1].bounds();
+                      common.my_click(_0x191e21.centerX(), _0x191e21.centerY());
+                      sleep(500);
+                      _0x4cf92e = _0x4cf92e + 1;
+                    } else {
+                      console.verbose(_0x8502b3.length);
+                    }
+                  }
+                } else {
+                  console.verbose("关注按钮不存在");
+                }
+                sleep(3000);
+                if (descStartsWith("关注成功！请设置通知接收范围").exists()) {
+                  back();
+                  sleep(1000);
+                }
+              }
+            }
+          }
+          sleep(1000);
+          console.verbose("获取宝贝数量");
+          while (!descEndsWith("\n宝贝").exists() && !desc("这里空空如也～").exists()) {
+            {
+              console.verbose("下滑");
+              common.my_swipe(device.width / 2, device.height * 9 / 10, device.width / 2, device.height * 4 / 10, random(1000, 2000));
+              sleep(1000);
+            }
+          }
+          if (desc("这里空空如也～").exists()) {
+            _0x4e91a5 = "0";
+          } else if (descEndsWith("\n宝贝").exists()) {
+            _0x4e91a5 = descEndsWith("\n宝贝").findOne().desc().split("\n")[0];
+          } else {
+            _0x4e91a5 = desc("宝贝").findOne().parent().find(indexInParent(1))[0].desc();
+          }
+          _0x4e91a5 = _0x4e91a5.replace(/[^0-9]/gi, "");
+          console.verbose("宝贝总数：" + _0x4e91a5);
+          let _0x5b5aaa = parseInt(_0x4e91a5 / 3);
+          if (_0x5b5aaa > 20) {
+            _0x5b5aaa = 20;
+          }
+          common.my_swipe(device.width / 2, device.height * 9 / 10, device.width / 2, device.height * 4 / 10, random(1000, 1300));
+          sleep(2000);
+          for (let _0x5b64a4 = 0; _0x5b64a4 < _0x5b5aaa; _0x5b64a4++) {
+            console.verbose("第" + (_0x5b64a4 + 1) + "次下滑");
+            common.my_swipe(device.width / 2, device.height * 9 / 10, device.width / 2, device.height * 4 / 10, random(1000, 1300));
+            sleep(2000);
+            if (1 < random(0, 100)) {
+              console.verbose("互助养号准备进入宝贝详情页...");
+              if (descContains("商品价格").exists()) {
+                {
+                  console.verbose("点击1");
+                  let _0x2cbf5b = descContains("商品价格").find();
+                  if (_0x2cbf5b.length >= 3) {
+                    let _0x191e21 = _0x2cbf5b[2].bounds();
+                    common.my_click(_0x191e21.centerX(), _0x191e21.centerY());
+                    sleep(500);
+                  }
+                }
+              } else if (desc("¥").exists()) {
+                {
+                  console.verbose("点击2");
+                  let _0x50ac52 = desc("¥").find();
+                  if (_0x50ac52.length >= 2) {
+                    _0x50ac52[1].parent().parent().parent().click();
+                  }
+                }
+              } else if (descStartsWith("¥").exists()) {
+                console.verbose("点击3");
+                let _0xd6079c = descStartsWith("¥").find();
+                if (_0xd6079c.length >= 3) {
+                  let _0x191e21 = _0xd6079c[2].bounds();
+                  common.my_click(_0x191e21.centerX(), _0x191e21.centerY());
+                  sleep(500);
+                }
+              } else {
+                {
+                  console.verbose("未找到宝贝控件，后续详情页可能会失败");
+                  continue;
+                }
+              }
+              toastLog("等待详情页加载完毕..");
+              for (let _0x5b64a4 = 0; _0x5b64a4 < 12; _0x5b64a4++) {
+                sleep(1000);
+                if (desc("我想要").exists()) {
+                  if (desc("我想要").findOne().depth() == 10) {
+                    setting.dep = 0;
+                  } else {
+                    setting.dep = 1;
+                  }
+                  break;
+                } else if (desc("我想要, 我想要").exists()) {
+                  break;
+                } else if (desc("聊一聊, 聊一聊").exists()) {
+                  break;
+                }
+              }
+              if (text("我要兑换").exists() || text("出个价").exists() || text("加入购物车").exists()) {
+                console.verbose("我要兑换 出个价 加入购物车");
+                back();
+                sleep(3000);
+                continue;
+              }
+              if (desc("立即租, 立即租").exists()) {
+                {
+                  console.verbose("立即租");
+                  back();
+                  sleep(3000);
+                  continue;
+                }
+              }
+              if (textEndsWith("重新加载").exists() || text("卖掉了").exists()) {
+                console.verbose("重新加载 卖掉了");
+                back();
+                sleep(3000);
+                break;
+              }
+              if (!desc("我想要").exists() && !desc("聊一聊, 聊一聊").exists() && !desc("我想要, 我想要").exists()) {
+                console.verbose("'我想要'不存在");
+                back();
+                sleep(3000);
+                if (desc("我想要").exists()) {
+                  back();
+                  sleep(3000);
+                } else if (desc("聊一聊, 聊一聊").exists()) {
+                  back();
+                  sleep(3000);
+                } else if (desc("我想要, 我想要").exists()) {
+                  {
+                    back();
+                    sleep(3000);
+                  }
+                }
+                continue;
+              }
+              toastLog("开始模拟人工浏览宝贝...");
+              for (let _0x5b64a4 = 0; _0x5b64a4 < 5; _0x5b64a4++) {
+                {
+                  let _0x4bcdee = random(900, 1500);
+                  if (random(0, 8) < 2) {
+                    {
+                      common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 7 / 10, _0x4bcdee);
+                    }
+                  } else {
+                    common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, _0x4bcdee);
+                  }
+                  sleep(random(500, 1200));
+                  if (descStartsWith("担保交易").exists()) {
+                    common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, _0x4bcdee);
+                    sleep(random(800, 1200));
+                    if (random(0, 1)) {
+                      common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 7 / 10, _0x4bcdee);
+                      sleep(random(800, 1200));
+                    }
+                    break;
+                  }
+                }
+              }
+              if (15 < random(0, 100)) {
+                {
+                  if (desc("超赞").exists()) {
+                    {
+                      desc("超赞").click();
+                      toastLog("超赞了宝贝");
+                      sleep(2000);
+                      _0x2102d9 = _0x2102d9 + 1;
+                    }
+                  } else {
+                    console.verbose("超赞不存在");
+                  }
+                }
+              }
+              if (15 < random(0, 100)) {
+                console.verbose("准备收藏");
+                if (desc("收藏").exists()) {
+                  {
+                    console.verbose("准备收藏宝贝...");
+                    desc("收藏").findOne().click();
+                    sleep(1000);
+                    _0x44fa7e = _0x44fa7e + 1;
+                    toastLog("收藏了宝贝");
+                    sleep(2000);
+                  }
+                }
+              }
+              if (15 < random(0, 100)) {
+                {
+                  console.verbose("准备想要");
+                  if (desc("聊一聊, 聊一聊").exists()) {
+                    console.verbose("点击聊一聊");
+                    desc("聊一聊, 聊一聊").click();
+                    sleep(5000);
+                    _0x1e9b53 = _0x1e9b53 + 1;
+                    back();
+                    sleep(2000);
+                  } else if (desc("我想要, 我想要").exists()) {
+                    console.verbose("点击我想要");
+                    desc("我想要, 我想要").click();
+                    sleep(5000);
+                    _0x1e9b53 = _0x1e9b53 + 1;
+                    back();
+                    sleep(2000);
+                  }
+                  toastLog("想要了宝贝");
+                  sleep(2000);
+                }
+              }
+              while (desc("聊一聊, 聊一聊").exists() || desc("我想要, 我想要").exists()) {
+                console.verbose("返回宝贝列表页面...");
+                back();
+                sleep(2000);
+              }
+            }
+            if (desc("没有更多了～").exists()) {
+              {
+                console.verbose("没有更多宝贝了～");
+                break;
+              }
+            }
+          }
+          console.verbose(setting.xy_name);
+          var _0x35213c = http.postJson(setting.api_domain + "add_yanghao_log", {
+            "ou_id": _0x17f54b,
+            "u_name": setting.xy_name,
+            "ou_name": _0xf0889c,
+            "like": _0x2102d9,
+            "want": _0x1e9b53,
+            "collect": _0x44fa7e,
+            "care": _0x4cf92e,
+            "total": _0x4e91a5,
+            "access_token": setting.s.get("access_token")
+          });
+          console.verbose(_0x35213c.body.string());
+        }
+      }
+    }
+  }
+  toastLog("互助结束");
+  common.back_xy_home();
+}
+function look_tiezi() {
+  var _0x599bbc = setting.configure.yanghao_tz_scroll_num;
+  var _0x1a87d9 = setting.configure.yanghao_tz_like_percent;
+  enter_yanghao_tz();
+  for (let _0x42c45c = 0; _0x42c45c < _0x599bbc; _0x42c45c++) {
+    {
+      if (common.is_runtime()) {
+        let _0xf3df3d = Math.round(device.getAvailMem() / 1048576);
+        if (_0xf3df3d < setting.min_mem) {
+          {
+            if (setting.is_root) {
+              {
+                console.error("内存剩余:" + _0xf3df3d + "M");
+                shell("am force-stop com.taobao.idlefish", true);
+                toastLog("内存优化中...");
+                sleep(7000);
+                toastLog("内存已优化");
+                common.xy_home();
+                sleep(7000);
+                enter_yanghao_tz();
+              }
+            } else {
+              toastLog("设备内存优化中...");
+              common.closeapp(setting.xy_pname);
+              common.xy_home();
+              sleep(7000);
+              enter_yanghao_tz();
+              console.error("内存剩余量过低可能造成运行软件不稳定，请尽量关闭其他占用内存的应用");
+              sleep(10000);
+            }
+          }
+        }
+        if (!text("发帖子").exists() && !descStartsWith("会玩，").clickable().indexInParent(1).exists()) {
+          {
+            console.verbose("当前不在帖子列表，开始进入帖子列表...");
+            enter_yanghao_tz();
+            sleep(5000);
+          }
+        }
+        common.my_swipe(device.width / 2, device.height * 8 / 10, device.width / 2, device.height * 2 / 10, random(500, 1500));
+        sleep(2000);
+        toastLog("第" + (_0x42c45c + 1) + "次翻动会玩帖子列表..");
+        sleep(random(1500, 3500));
+        if (_0x1a87d9 > random(0, 100)) {
+          console.verbose("准备进入会玩帖子详情页...");
+          if (random(0, 1) === 0) {
+            common.my_click(device.width / 10, device.height / 2);
+            sleep(1000);
+          } else {
+            common.my_click(device.width / 10 * 6, device.height / 2);
+            sleep(1000);
+          }
+          if (id("fun_video_like").exists()) {
+            common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 5 / 10, 500);
+            toastLog("视频内容");
+            sleep(random(3000, 12000));
+            id("fun_video_like").findOne().click();
+            sleep(1000);
+            toastLog("超赞了帖子视频");
+            sleep(2000);
+          } else {
+            toastLog("进入会玩帖子详情页..");
+            sleep(3000);
+            toastLog("开始模拟人工浏览帖子...");
+            if (random(0, 1) === 0) {
+              common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, random(900, 2000));
+              sleep(2000);
+            }
+            if (desc("表态按钮").exists()) {
+              desc("表态按钮").findOne().click();
+              sleep(500);
+              if (descStartsWith("赞一个").exists()) {
+                descStartsWith("赞一个").findOne().click();
+              } else if (descStartsWith("鱿意思").exists()) {
+                {
+                  descStartsWith("鱿意思").findOne().click();
+                }
+              } else if (descStartsWith("鲸呆了").exists()) {
+                descStartsWith("鲸呆了").findOne().click();
+              } else if (descStartsWith("赞一个\n").exists()) {
+                {
+                  descStartsWith("赞一个\n").findOne().click();
+                }
+              } else if (descStartsWith("鱿意思\n").exists()) {
+                descStartsWith("鱿意思\n").findOne().click();
+              } else if (descStartsWith("鲸呆了\n").exists()) {
+                descStartsWith("鲸呆了\n").findOne().click();
+              }
+              sleep(1000);
+              toastLog("表态成功");
+            } else if (device.release.split(".")[0] >= 7 && !id("more").exists()) {
+              sleep(2000);
+              console.verbose("准备点赞帖子");
+              click(device.width / 2, device.height * 1 / 10);
+              sleep(100);
+              click(device.width / 2, device.height * 1 / 10);
+              sleep(2000);
+            } else {
+              {
+                console.verbose("仅浏览帖子不做其他操作");
+              }
+            }
+            for (let _0x42c45c = 0; _0x42c45c <= 3; _0x42c45c++) {
+              {
+                if (random(0, 15) < 2) {
+                  {
+                    common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 7 / 10, random(900, 2000));
+                  }
+                } else {
+                  common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, random(900, 2000));
+                }
+                sleep(random(300, 2000));
+              }
+            }
+          }
+          back();
+          sleep(6000);
+        }
+      } else {
+        toastLog("当前为休眠时间段..");
+        sleep(600000);
+      }
+      sleep(1000);
+    }
+  }
+  common.back_xy_home();
+}
+function enter_yanghao() {
+  common.xy_home();
+  sleep(2000);
+  common.enter_tab("闲鱼");
+  sleep(1000);
+  console.log("已进入宝贝列表，准备开始养号...");
+}
+function enter_yanghao_tz() {
+  common.xy_home();
+  sleep(3000);
+  descStartsWith("会玩，").findOne().click();
+  sleep(1000);
+  sleep(random(3000, 6000));
+  console.log("已进入会玩帖子，准备开始养号...");
+}
+function enter_qwc(_0x40a988) {
+  let _0xb9af77 = _0x40a988.depth();
+  let _0x2b7a2f = _0x40a988.indexInParent();
+  for (let _0x45cda0 = 5; _0x45cda0 < 15; _0x45cda0++) {
+    {
+      try {
+        let _0x4ede81 = depth(_0xb9af77).indexInParent(_0x2b7a2f + _0x45cda0).findOne().child(0).text();
+        if (_0x4ede81 == "去完成") {
+          {
+            depth(_0xb9af77).indexInParent(_0x2b7a2f + _0x45cda0).findOne().child(0).click();
+            sleep(2000);
+            console.verbose("点击'去完成'");
+            return true;
+          }
+        } else if (_0x4ede81 == "已完成") {
+          {
+            return false;
+          }
+        } else if (depth(_0xb9af77).text("去完成").indexInParent(_0x2b7a2f + _0x45cda0).exists()) {
+          depth(_0xb9af77).text("去完成").indexInParent(_0x2b7a2f + _0x45cda0).click();
+          sleep(2000);
+          console.verbose("点击'去完成'2");
+          return true;
+        }
+      } catch (_0xba14d1) {}
+    }
+  }
+  return false;
+}
+function enter_qwc_xf(_0x3ede55) {
+  console.verbose("检测任务: " + _0x3ede55);
+  if (!setting.xyb_list.includes(_0x3ede55) && setting.all_xyb_task_name.includes(_0x3ede55)) {
+    {
+      let _0x72469f = text(_0x3ede55).algorithm(setting.xyb_algorithm).findOnce();
+      if (_0x72469f) {
+        {
+          setting.xyb_list.push(_0x3ede55);
+          let _0x5a0a2c = _0x72469f.indexInParent();
+          let _0x1af3c0 = _0x72469f.parent().children();
+          for (let _0x3420b5 = 5; _0x3420b5 < 15; _0x3420b5++) {
+            try {
+              let _0x17b99b = _0x1af3c0[_0x5a0a2c + _0x3420b5].child(0).text();
+              if (_0x17b99b == "去完成") {
+                _0x1af3c0[_0x5a0a2c + _0x3420b5].child(0).click();
+                sleep(2000);
+                console.verbose("进入'" + _0x3ede55 + "'");
+                return true;
+              } else if (_0x17b99b == "已完成") {
+                {
+                  toastLog(_0x3ede55 + " 已完成");
+                  return false;
+                }
+              }
+            } catch (_0x1d7172) {}
           }
         }
       }
     }
   }
-  console.verbose("分类/品牌/属性 选择结束");
+  return false;
 }
-function click_price_ele_e() {
-  while (!descStartsWith("价格设置, 商品规格").exists() && !descStartsWith("价格设置, 发货方式").exists() && !descStartsWith("价格设置, 交付方式").exists() && !desc("价格设置").clickable(false).exists()) {
-    console.verbose("价格设置不存在，开始下滑");
-    common.push_goods_page_down();
-    sleep(2000);
+function xyb_register_d(_0x423a41) {
+  enter_xyb_register_d_son();
+  if (textEndsWith("领取酬金").exists()) {
+    toastLog("领取酬金");
+    textEndsWith("领取酬金").findOne().click();
+    sleep(3000);
   }
-  if (desc("价格设置").clickable(false).exists()) {
-    {
-      if (desc("价格设置").clickable(false).findOne().bounds().height() < 90) {
-        {
-          common.push_goods_page_down();
-          sleep(2000);
-        }
+  {
+    toastLog("领取奖励");
+    for (let _0x43eff7 = 0; _0x43eff7 < 8; _0x43eff7++) {
+      sleep(1000);
+      if (text("闲鱼币抵扣").exists()) {
+        break;
       }
     }
-  } else if (descStartsWith("价格设置, 商品规格").exists()) {
-    if (descStartsWith("价格设置, 商品规格").findOne().bounds().height() < 180) {
+    sleep(3000);
+    let _0x4463b0 = text("闲鱼币抵扣").findOne().parent().bounds();
+    let _0x1bd1de = device.width;
+    let _0x54c5ae = _0x4463b0.height();
+    if (!text("去完成").exists()) {
       {
-        common.push_goods_page_down();
-        sleep(2000);
+        common.my_click(_0x1bd1de * 7.5 / 10, _0x4463b0.top - _0x54c5ae * 2 / 3);
       }
     }
-  } else if (descStartsWith("价格设置, 发货方式").exists()) {
-    if (descStartsWith("价格设置, 发货方式").findOne().bounds().height() < 180) {
-      common.push_goods_page_down();
-      sleep(2000);
-    }
-  } else if (descStartsWith("价格设置, 交付方式").exists()) {
-    if (descStartsWith("价格设置, 交付方式").findOne().bounds().height() < 180) {
+    for (let _0x43eff7 = 0; _0x43eff7 < 100; _0x43eff7++) {
       {
-        common.push_goods_page_down();
         sleep(2000);
-      }
-    }
-  }
-  if (descStartsWith("商品规格").exists() && desc("价格设置").exists()) {
-    if (descStartsWith("商品规格").findOne().bounds().top == desc("价格设置").findOne().bounds().top) {
-      let _0x17e62e = desc("价格设置").findOne().bounds().height();
-      if (_0x17e62e > 450) {
-        console.verbose("价格控件和商品规格控件顶部坐标重合，价格设置控件高度大于450");
-      } else {
-        {
-          console.verbose("价格设置控件高度：" + _0x17e62e);
-          console.verbose("价格控件和商品规格控件顶部坐标重合。价格设置控件高度小于450，下滑一次");
-          common.push_goods_page_down();
+        console.verbose("等待赚鱼币任务列表出现");
+        if (text("领取奖励").exists()) {
+          {
+            break;
+          }
+        }
+        if (text("去完成").exists()) {
+          break;
+        }
+        if (text("重新进入").exists()) {
+          {
+            console.verbose("地图加载失败，重新加载");
+            text("重新进入").findOne().click();
+            sleep(5000);
+          }
+        }
+        if (text("刷新一下").exists()) {
+          {
+            console.verbose("地图加载失败，点击刷新");
+            text("刷新一下").findOne().click();
+            sleep(5000);
+          }
+        }
+        if (_0x43eff7 == 7) {
+          console.verbose("重新进入鱼币任务页面");
+          back();
           sleep(2000);
-        }
-      }
-    }
-  }
-  if (descStartsWith("价格设置, 商品规格").exists()) {
-    {
-      let _0x48eb84 = descStartsWith("价格设置, 商品规格").findOne().bounds();
-      console.verbose("价格设置, 商品规格");
-      common.my_click(_0x48eb84.centerX(), _0x48eb84.centerY());
-    }
-  } else if (descStartsWith("价格设置, 发货方式").exists()) {
-    {
-      let _0x17fe7f = descStartsWith("价格设置, 发货方式").findOne().bounds();
-      console.verbose("价格设置, 发货方式");
-      common.my_click(_0x17fe7f.centerX(), _0x17fe7f.top + 50);
-    }
-  } else if (descStartsWith("价格设置, 交付方式").exists()) {
-    let _0x2552f8 = descStartsWith("价格设置, 交付方式").findOne().bounds();
-    console.verbose("价格设置, 交付方式");
-    common.my_click(_0x2552f8.centerX(), _0x2552f8.top + 50);
-  } else if (desc("价格设置").clickable(false).exists()) {
-    console.verbose("价格设置");
-    let _0x5033ce = desc("价格设置").clickable(false).findOne().bounds();
-    console.verbose("价格设置控件高度：" + _0x5033ce.height());
-    common.my_click(_0x5033ce.centerX(), _0x5033ce.centerY());
-  } else {
-    console.verbose("价格控件未出现1");
-  }
-  for (let _0x1decf2 = 0; _0x1decf2 < 6; _0x1decf2++) {
-    console.verbose("等待价格编辑页面'确定'按钮出现");
-    sleep(1000);
-    if (desc("确定").exists()) {
-      console.verbose("价格编辑页面出现...");
-      break;
-    }
-  }
-  if (!desc("确定").exists()) {
-    {
-      console.verbose("检测是否被识别为租赁");
-      if (descStartsWith("价格设置, 商品规格").exists()) {
-        console.verbose("价格设置, 商品规格");
-        var _0xe9a4ee = descStartsWith("价格设置, 商品规格").findOne().bounds();
-      } else if (descStartsWith("价格设置, 发货方式").exists()) {
-        {
-          console.verbose("价格设置, 发货方式");
-          var _0xe9a4ee = descStartsWith("价格设置, 发货方式").findOne().bounds();
-        }
-      } else if (descStartsWith("价格设置, 交付方式").exists()) {
-        {
-          console.verbose("价格设置, 交付方式");
-          var _0xe9a4ee = descStartsWith("价格设置, 交付方式").findOne().bounds();
-        }
-      } else if (desc("价格设置").clickable(false).exists()) {
-        {
-          console.verbose("价格设置");
-          var _0xe9a4ee = desc("价格设置").clickable(false).findOne().bounds();
-          console.verbose("价格设置控件高度：" + _0xe9a4ee.height());
-        }
-      } else {
-        {
-          console.verbose("价格控件未出现2，重新检测");
-          click_price_ele_e();
+          xyb_register_d(_0x423a41);
           return false;
         }
       }
-      if (_0xe9a4ee.height() > 200) {
-        console.verbose("识别为租赁模式，切换回售卖模式");
-        let _0x46a922 = _0xe9a4ee.right - 90 - 30 * setting.zl_xy_add;
-        let _0x739e35 = _0xe9a4ee.top + 30 + 20 * setting.zl_xy_add;
-        common.my_click(_0x46a922, _0x739e35);
-        sleep(2000);
-        setting.zl_xy_add = setting.zl_xy_add + 1;
-        console.verbose("切换完成，重新检测");
-        click_price_ele_e();
-        return false;
-      }
     }
-  }
-  desc("确定").waitFor();
-  sleep(600);
-  setting.zl_xy_add = 1;
-}
-function click_select_location_ele_f() {
-  if (!desc("选择位置").exists()) {
-    console.verbose("选择位置");
-    common.push_goods_page_down();
     sleep(2000);
-  }
-  if (!desc("选择位置").exists()) {
-    {
-      console.verbose("选择位置");
-      common.push_goods_page_down();
-      sleep(2000);
-    }
-  }
-  if (desc("选择位置").clickable(false).exists()) {
-    if (desc("选择位置").clickable(false).findOne().bounds().height() < 90) {
-      common.push_goods_page_down();
-      sleep(2000);
-    }
-  }
-  if (desc("选择位置").exists()) {
-    for (let _0x57cccb = 1; _0x57cccb < 6; _0x57cccb++) {
-      if (desc("选择位置").exists()) {
+    if (false && !setting.xyb_list.includes("去浏览全新好物") && text("去浏览全新好物xxxxx").exists()) {
+      setting.xyb_list.push("去浏览全新好物");
+      toastLog("去浏览全新好物");
+      let _0x2d8144 = text("去浏览全新好物").findOne();
+      if (enter_qwc(_0x2d8144)) {
         {
-          let _0x33a2ae = desc("选择位置").findOne().bounds();
-          console.verbose("点击选择位置按钮");
-          common.my_click(_0x33a2ae.centerX(), _0x33a2ae.bottom - 10 * _0x57cccb);
+          console.verbose("进入'去浏览全新好物'");
+          for (let _0x3ba3dd = 0; _0x3ba3dd < 30; _0x3ba3dd++) {
+            if (!textStartsWith("滑动浏览").exists()) {
+              break;
+            }
+            common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, 1000);
+            sleep(100);
+          }
+          back();
           sleep(1000);
         }
-      } else {
-        {
-          return true;
-        }
       }
     }
-  } else {
-    console.verbose("选择位置按钮不存在");
-    return false;
-  }
-}
-function goods_ykj_price(_0x47dab3) {
-  console.verbose("填写价格相关信息......");
-  click_price_ele_e();
-  if (descStartsWith("库存").exists()) {
-    {
-      console.verbose("开始设置库存");
-      desc("库存设置").findOne().click();
-      if (_0x47dab3.kc) {
-        let _0x46efa4 = String(_0x47dab3.kc);
-        console.verbose("库存数量：" + _0x46efa4);
-        common.enter_num(_0x46efa4);
-        sleep(500);
-      } else {
-        {
-          common.enter_num("1999");
-          sleep(500);
-          let _0x4bf64f = "该闲鱼号支持库存但后台未设置库存，默认设置为1999";
-          console.verbose(_0x4bf64f);
-          toast(_0x4bf64f);
-        }
-      }
-    }
-  }
-  if (_0x47dab3.ykj_fsj) {
-    console.verbose("设置粉丝价");
-    common.fensijia(_0x47dab3.ykj_fsj);
-  }
-  desc("确定").findOne().click();
-  sleep(500);
-  descStartsWith("发布").clickable().waitFor();
-  sleep(600);
-  goods_ykj_fhfs(_0x47dab3);
-}
-function goods_ykj_fhfs(_0x5e10a3) {
-  console.verbose("设置发货方式");
-  if (descEndsWith("到店发货").exists()) {
-    console.verbose("出现到店发货，无法设置运费或包邮");
-  } else if (descStartsWith("发货方式").exists() || descStartsWith("交付方式").exists() || descStartsWith("价格设置, 发货方式").exists()) {
-    if (descStartsWith("发货方式").exists()) {
-      descStartsWith("发货方式").findOne().click();
-      sleep(1000);
-    }
-    if (descStartsWith("交付方式").exists()) {
-      descStartsWith("交付方式").findOne().click();
-      sleep(1000);
-    } else if (descStartsWith("价格设置, 发货方式").exists()) {
-      {
-        descStartsWith("价格设置, 发货方式").findOne().click();
-        sleep(1000);
-      }
-    }
-    for (let _0x1966d4 = 0; _0x1966d4 < 10; _0x1966d4++) {
-      {
-        if (desc("确定").exists()) {
-          break;
-        }
-        sleep(1000);
-      }
-    }
-    if (_0x5e10a3.ykj_wxyj == 1) {
-      {
-        console.verbose("点击无需邮寄");
-        let _0x27d4a1 = descStartsWith("邮寄").findOne().find(className("android.widget.ImageView"))[3].bounds();
-        common.my_click(_0x27d4a1.centerX(), _0x27d4a1.centerY());
-        sleep(1000);
-      }
-    } else if (_0x5e10a3.ykj_yunfei) {
-      console.verbose("填写运费");
-      let _0x297511 = descStartsWith("邮寄").findOne().find(className("android.widget.ImageView"))[2].bounds();
-      common.my_click(_0x297511.centerX(), _0x297511.centerY());
-      sleep(1000);
-      setText(_0x5e10a3.ykj_yunfei);
-      _0x297511 = desc("确定").find()[1].bounds();
-      common.my_click(_0x297511.centerX(), _0x297511.centerY());
-      sleep(1000);
-    } else {}
-    if (_0x5e10a3.ykj_zt == 1) {
-      if (desc("买家自提").exists()) {
-        {
-          console.verbose("点击自提");
-          let _0x161e5a = desc("买家自提").findOne().bounds();
-          common.my_click(_0x161e5a.left + _0x161e5a.width() * 9 / 10, _0x161e5a.centerY());
-          sleep(1000);
-        }
-      } else {
-        {
-          console.verbose("自提按钮不存在");
-        }
-      }
-    }
-    if (desc("确定").clickable(true).exists()) {
-      {
-        desc("确定").clickable(true).findOne().click();
-        sleep(500);
-      }
-    } else if (desc("确定").clickable(false).exists()) {
-      let _0x529bcf = desc("确定").clickable(false).findOne().bounds();
-      common.my_click(_0x529bcf.centerX(), _0x529bcf.centerY());
-      sleep(500);
-      if (desc("确定").exists()) {
-        console.verbose("'确定'按钮依然存在，再点击一次");
-        sleep(2000);
-        common.my_click(100, _0x529bcf.centerY());
-        sleep(1000);
-      }
-    } else {
-      console.verbose("确定按钮不存在");
-    }
-    descStartsWith("发布").clickable().waitFor();
-    sleep(600);
-  }
-}
-function goods_ykj_add_skuf(_0x24b376) {
-  descStartsWith("商品规格").findOne().click();
-  sleep(2500);
-  while (true) {
-    {
-      if (desc("设置宝贝规格").exists()) {
-        console.verbose("宝贝规格编辑框出现");
-        break;
-      }
-      if (textContains("\n删除\n").exists()) {
-        console.verbose("宝贝规格编辑框出现2");
-        break;
-      }
-      console.verbose("等待多规格宝贝的运费填写框出现...");
-      sleep(1000);
-    }
-  }
-  sleep(2000);
-  var _0x51ce8e = className("android.widget.EditText").findOne().bounds();
-  var _0x5b0546 = _0x51ce8e.left + _0x51ce8e.width() * 93 / 100;
-  for (let _0x57c976 = 0; _0x57c976 < 3; _0x57c976++) {
-    common.my_click(_0x5b0546, _0x51ce8e.top + 50 + 30 * _0x57c976);
-    sleep(600);
-    common.my_click(_0x5b0546, _0x51ce8e.top + 50 + 30 * _0x57c976);
-    sleep(600);
-    if (desc("完整聊天").exists()) {
-      back();
-      sleep(1000);
-      common.my_click(_0x5b0546, _0x51ce8e.top + 50 + 30 * _0x57c976);
-      sleep(600);
-      common.my_click(_0x5b0546, _0x51ce8e.top + 50 + 30 * _0x57c976);
-      sleep(600);
-    }
-  }
-  console.verbose("开始填写规格名");
-  let _0x123ae3 = JSON.parse(_0x24b376.sku_name);
-  let _0x4b3cfb = JSON.parse(_0x24b376.skus);
-  if (_0x4b3cfb.length > 100) {
-    console.error("检测到您的宝贝规格数量已超过100个，建议您立即进行精简。\n过多的规格设置会给发布效率和买家体验带来严重负面影响：\n1. 影响卖家效率与系统稳定：\n发布耗时： 创建和编辑大量规格会极大消耗您的发布时间。\n系统风险： 在闲鱼平台，过多规格易导致发布控件（如点击、填写、返回）响应异常或卡顿，造成发布失败。\n管理困难：规格过多会使库存管理变得极其复杂，容易出错（如超卖、错发）。\n2. 损害买家体验与转化率：\n选择困难： 繁杂的选项列表（SKU）会使买家无所适从，增加选择和决策难度，容易导致用户流失。\n加载缓慢： 宝贝页面加载时间过长，严重影响浏览体验，降低购买意愿。");
-  }
-  for (let _0x57c976 = 0; _0x57c976 < _0x123ae3.length; _0x57c976++) {
-    var _0xd83e31 = _0x123ae3[_0x57c976].split("#");
-    var _0x309f3f = _0xd83e31.shift();
-    if (_0x57c976 == 0) {
-      {
-        if (className("android.widget.EditText").clickable(true).find().length == 1) {
-          {
-            className("android.widget.EditText").clickable(true).find()[0].click();
-            sleep(1000);
-          }
-        }
-      }
-    }
-    if (_0x57c976 == 1) {
-      scrollDown(0);
-      sleep(1000);
-      let _0x51ce8e = desc("添加规格类型").findOne().bounds();
-      common.my_click(_0x51ce8e.centerX(), _0x51ce8e.centerY());
-      sleep(1000);
-      console.verbose("点击 添加规格类型");
-      descStartsWith("支持添加图片").findOne().child(0).click();
-      sleep(1000);
-    }
-    console.verbose("填写 " + _0x309f3f);
-    setText(_0x309f3f);
-    sleep(500);
-    setText(_0x309f3f);
-    sleep(500);
-    console.verbose("注意：如文字输入失败，请检查屏幕是否有特殊悬浮窗遮挡点击，闲鱼和系统是否有剪切板读写权限");
-    common.my_click(10, device.height * 3 / 10);
-    sleep(300);
-    common.my_click(device.width - 10, device.height * 3 / 10);
-    sleep(1000);
-    if (common.getIME() == "youhu.laixijs/.KeyboardServices.AdbIME") {
-      {
-        console.verbose("来喜输入法");
-        var _0x4fcf36 = true;
-      }
-    } else {
-      {
-        var _0x4fcf36 = false;
-      }
-    }
-    _0xd83e31.reverse();
-    for (let _0x4ae516 = 0; _0x4ae516 < _0xd83e31.length; _0x4ae516++) {
-      let _0x539eb8 = _0xd83e31[_0x4ae516];
-      console.verbose("开始输入 " + _0x539eb8);
-      if (_0x57c976 == 1) {
-        {
-          let _0x28a350 = className("android.widget.ImageView").clickable(true).find().length;
-          let _0x599393 = className("android.widget.EditText").clickable(true).find().length;
-          if (_0x28a350 > 0) {
-            {
-              console.verbose("ImageView");
-              className("android.widget.ImageView").clickable(true).find()[0].click();
-              sleep(1000);
-            }
-          } else if (_0x599393 == 1) {
-            {
-              className("android.widget.EditText").clickable(true).find()[0].click();
-              sleep(1000);
-            }
-          } else if (_0x599393 == 2) {
-            className("android.widget.EditText").clickable(true).find()[1].click();
-            sleep(1000);
-          }
-        }
-      } else {
-        {
-          if (className("android.widget.ImageView").clickable(true).find().length > 0) {
-            console.verbose("ImageView");
-            className("android.widget.ImageView").clickable(true).find()[0].click();
-            sleep(1000);
-          } else if (className("android.widget.EditText").clickable(true).find().length > 0) {
-            className("android.widget.EditText").clickable(true).find()[0].click();
-            sleep(1000);
-          }
-        }
-      }
-      console.verbose("点击完成");
-      setText(_0x539eb8);
-      sleep(500);
-      common.my_click(10, device.height * 3 / 10);
-      sleep(100);
-      common.my_click(device.width - 10, device.height * 3 / 10);
-      sleep(500);
-      console.verbose(_0x539eb8 + " 添加完成");
-    }
-  }
-  console.verbose("点击下一步 设置价格和库存");
-  var _0x51ce8e = desc("下一步 设置价格和库存").findOne().bounds();
-  common.my_click(_0x51ce8e.centerX(), _0x51ce8e.centerY());
-  sleep(2000);
-  for (let _0x57c976 = 0; _0x57c976 < Math.ceil(_0x4b3cfb.length / 4); _0x57c976++) {
-    descEndsWith("价格 ¥0.00  库存 0件").findOne().parent().scrollForward();
-    sleep(100);
-  }
-  sleep(1000);
-  if (_0x4b3cfb.length > 100) {
-    {
-      console.error("检测到您的宝贝规格数量已超过100个，建议您立即进行精简。\n过多的规格设置会给发布效率和买家体验带来严重负面影响：\n1. 影响卖家效率与系统稳定：\n发布耗时： 创建和编辑大量规格会极大消耗您的发布时间。\n系统风险： 在闲鱼平台，过多规格易导致发布控件（如点击、填写、返回）响应异常或卡顿，造成发布失败。\n管理困难：规格过多会使库存管理变得极其复杂，容易出错（如超卖、错发）。\n2. 损害买家体验与转化率：\n选择困难： 繁杂的选项列表（SKU）会使买家无所适从，增加选择和决策难度，容易导致用户流失。\n加载缓慢： 宝贝页面加载时间过长，严重影响浏览体验，降低购买意愿。");
-    }
-  }
-  _0x4b3cfb.reverse();
-  for (let _0x57c976 = 0; _0x57c976 < _0x4b3cfb.length; _0x57c976++) {
-    {
-      if (_0x123ae3.length == 1) {
-        {
-          var _0x539eb8 = _0x4b3cfb[_0x57c976].sku1.slice(0, 12);
-        }
-      } else if (_0x123ae3.length == 2) {
-        {
-          var _0x539eb8 = _0x4b3cfb[_0x57c976].sku1.slice(0, 12) + "\n" + _0x4b3cfb[_0x57c976].sku2.slice(0, 12);
-        }
-      }
-      console.verbose(_0x539eb8);
-      while (!descStartsWith(_0x539eb8).exists()) {
-        sleep(2000);
-        if (descStartsWith(_0x539eb8).exists()) {
-          {
-            break;
-          }
-        }
-        common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 7 / 10, 1000);
-        sleep(2000);
-        console.verbose("下滑");
-      }
-      var _0x231064 = descStartsWith(_0x539eb8 + "\n").findOne().bounds();
-      while (_0x231064.height() < 150) {
-        console.verbose("滑动一次");
-        descEndsWith("价格 ¥0.00  库存 0件").findOne().parent().scrollBackward();
-        sleep(1000);
-        _0x231064 = descStartsWith(_0x539eb8 + "\n").findOne().bounds();
-      }
-      common.my_click(_0x231064.centerX(), _0x231064.centerY());
-      sleep(500);
-      console.verbose("设置价格：" + _0x4b3cfb[_0x57c976].price);
-      setText(_0x4b3cfb[_0x57c976].price);
-      sleep(500);
-      console.verbose("设置库存：" + _0x4b3cfb[_0x57c976].number);
-      className("android.widget.EditText").find()[1].click();
-      sleep(1000);
-      if (_0x4b3cfb[_0x57c976].number > 9999) {
-        {
-          _0x4b3cfb[_0x57c976].number = 9999;
-          console.log("宝贝规格库存数量不能大于9999，已自动设置9999");
-        }
-      }
-      setText(_0x4b3cfb[_0x57c976].number);
-      sleep(500);
-      var _0x23a090 = desc("确定").findOne().bounds();
-      common.my_click(_0x23a090.centerX(), _0x23a090.centerY());
-      sleep(1000);
-    }
-  }
-  sleep(1200);
-  var _0x7384a0 = desc("完成").findOne().bounds();
-  common.my_click(_0x7384a0.centerX(), _0x7384a0.centerY());
-  sleep(1000);
-  toastLog("多规格选择完毕");
-}
-function goods_ykj_add_skue(_0x1765a3) {
-  descStartsWith("商品规格").findOne().click();
-  sleep(2500);
-  while (true) {
-    if (desc("设置宝贝规格").exists()) {
-      {
-        console.verbose("宝贝规格编辑框出现");
-        break;
-      }
-    }
-    if (textContains("\n删除\n").exists()) {
-      {
-        console.verbose("宝贝规格编辑框出现2");
-        break;
-      }
-    }
-    console.verbose("等待多规格宝贝的运费填写框出现...");
-    sleep(1000);
-  }
-  sleep(2000);
-  while (textContains("\n删除\n").exists()) {
-    let _0x5b4a5a = textContains("\n删除\n").findOne().bounds();
-    var _0x352391 = _0x5b4a5a.left + _0x5b4a5a.width() * 93 / 100;
-    for (let _0x17afe3 = 0; _0x17afe3 < 3; _0x17afe3++) {
-      common.my_click(_0x352391, _0x5b4a5a.top + 50 + 30 * _0x17afe3);
-      sleep(600);
-      if (desc("完整聊天").exists()) {
-        back();
-        sleep(1000);
-      }
-      if (!textContains("\n删除\n").exists()) {
-        {
-          break;
-        }
-      }
-    }
-  }
-  let _0x5a7746 = JSON.parse(_0x1765a3.sku_name);
-  let _0x2b065c = JSON.parse(_0x1765a3.skus);
-  if (_0x2b065c.length > 100) {
-    {
-      console.error("检测到您的宝贝规格数量已超过100个，建议您立即进行精简。\n过多的规格设置会给发布效率和买家体验带来严重负面影响：\n1. 影响卖家效率与系统稳定：\n发布耗时： 创建和编辑大量规格会极大消耗您的发布时间。\n系统风险： 在闲鱼平台，过多规格易导致发布控件（如点击、填写、返回）响应异常或卡顿，造成发布失败。\n管理困难：规格过多会使库存管理变得极其复杂，容易出错（如超卖、错发）。\n2. 损害买家体验与转化率：\n选择困难： 繁杂的选项列表（SKU）会使买家无所适从，增加选择和决策难度，容易导致用户流失。\n加载缓慢： 宝贝页面加载时间过长，严重影响浏览体验，降低购买意愿。");
-    }
-  }
-  for (let _0x17afe3 = 0; _0x17afe3 < _0x5a7746.length; _0x17afe3++) {
-    {
-      var _0xec04d8 = _0x5a7746[_0x17afe3].split("#");
-      var _0x4e92b7 = _0xec04d8.shift();
-      if (_0x17afe3 == 1) {
-        scrollDown(0);
-        sleep(1000);
-        let _0x5b4a5a = desc("添加规格类型").findOne().bounds();
-        common.my_click(_0x5b4a5a.centerX(), _0x5b4a5a.centerY());
-        sleep(1000);
-        text("添加规格类型").findOne().click();
-        sleep(1000);
-      }
-      console.verbose("填写 " + _0x4e92b7);
-      setText(_0x4e92b7);
-      sleep(500);
-      console.verbose("注意：如文字输入失败，请检查屏幕是否有特殊悬浮窗遮挡点击，闲鱼和系统是否有剪切板读写权限");
-      common.my_click(10, device.height * 3 / 10);
-      sleep(300);
-      common.my_click(device.width - 10, device.height * 3 / 10);
-      sleep(1000);
-      if (common.getIME() == "youhu.laixijs/.KeyboardServices.AdbIME") {
-        {
-          console.verbose("来喜输入法");
-          var _0x197665 = true;
-        }
-      } else {
-        var _0x197665 = false;
-      }
-      _0xec04d8.reverse();
-      for (let _0x8899fd = 0; _0x8899fd < _0xec04d8.length; _0x8899fd++) {
-        {
-          let _0x55df0d = _0xec04d8[_0x8899fd];
-          while (!textEndsWith("\n" + _0x55df0d + "\n请输入具体的" + _0x4e92b7).exists()) {
-            if (_0x197665 && (_0x17afe3 !== 0 || _0x8899fd >= 7)) {
-              common.my_swipe(device.width / 2, device.height * 50 / 100, device.width / 2, device.height * 37 / 100, 500);
-              sleep(1200);
-            }
-            if (textEndsWith("请输入具体的" + _0x4e92b7).exists()) {
-              console.verbose("开始输入 " + _0x55df0d);
-              let _0x5b4a5a = textEndsWith("请输入具体的" + _0x4e92b7).findOne().bounds();
-              let _0x352391 = device.width / 2;
-              let _0x1d4b67 = _0x5b4a5a.bottom - 120;
-              common.my_click(_0x352391, _0x1d4b67);
-              sleep(1000);
-              setText(_0x55df0d);
-              sleep(500);
-              common.my_click(10, device.height * 3 / 10);
-              sleep(100);
-              common.my_click(device.width - 10, device.height * 3 / 10);
-              sleep(500);
-            } else {
+    if (!setting.xyb_list.includes("搜一搜喜欢的商品") && text("搜一搜喜欢的商品").exists()) {
+      setting.xyb_list.push("搜一搜喜欢的商品");
+      toastLog("搜一搜喜欢的商品");
+      let _0x1d7eb6 = text("搜一搜喜欢的商品").findOne();
+      if (enter_qwc(_0x1d7eb6)) {
+        sleep(3000);
+        if (text("1688").exists()) {
+          console.verbose("在1688搜一搜喜欢的商品");
+          for (let _0x3ba3dd = 0; _0x3ba3dd < 30; _0x3ba3dd++) {
+            if (!textStartsWith("滑动浏览").exists()) {
               {
                 break;
               }
             }
+            if (Math.random() < 0.4) {
+              {
+                common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 7 / 10, 1000);
+                sleep(100);
+              }
+            } else {
+              {
+                common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, 1000);
+                sleep(100);
+              }
+            }
           }
-          console.verbose(_0x55df0d + " 添加完成");
+          back();
+          sleep(1000);
+        } else {
+          {
+            console.verbose("进入'搜一搜喜欢的商品'");
+            if (className("android.view.View").depth(13).clickable().exists()) {
+              className("android.view.View").depth(13).clickable().find()[0].click();
+              sleep(2000);
+              for (let _0x3ba3dd = 0; _0x3ba3dd < 10; _0x3ba3dd++) {
+                if (text("任务完成，再逛逛").exists()) {
+                  {
+                    break;
+                  }
+                }
+                common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, 500);
+                sleep(2000);
+              }
+              back();
+              sleep(1000);
+            }
+            back();
+            sleep(1000);
+          }
         }
       }
     }
-  }
-  console.verbose("点击下一步 设置价格和库存");
-  let _0x5b4a5a = desc("下一步 设置价格和库存").findOne().bounds();
-  common.my_click(_0x5b4a5a.centerX(), _0x5b4a5a.centerY());
-  sleep(2000);
-  for (let _0x17afe3 = 0; _0x17afe3 < Math.ceil(_0x2b065c.length / 4); _0x17afe3++) {
-    {
-      descEndsWith("价格 ¥0.00  库存 0件").findOne().parent().scrollForward();
-      sleep(100);
-    }
-  }
-  sleep(1000);
-  if (_0x2b065c.length > 100) {
-    console.error("检测到您的宝贝规格数量已超过100个，建议您立即进行精简。\n过多的规格设置会给发布效率和买家体验带来严重负面影响：\n1. 影响卖家效率与系统稳定：\n发布耗时： 创建和编辑大量规格会极大消耗您的发布时间。\n系统风险： 在闲鱼平台，过多规格易导致发布控件（如点击、填写、返回）响应异常或卡顿，造成发布失败。\n管理困难：规格过多会使库存管理变得极其复杂，容易出错（如超卖、错发）。\n2. 损害买家体验与转化率：\n选择困难： 繁杂的选项列表（SKU）会使买家无所适从，增加选择和决策难度，容易导致用户流失。\n加载缓慢： 宝贝页面加载时间过长，严重影响浏览体验，降低购买意愿。");
-  }
-  _0x2b065c.reverse();
-  for (let _0x17afe3 = 0; _0x17afe3 < _0x2b065c.length; _0x17afe3++) {
-    {
-      if (_0x5a7746.length == 1) {
-        {
-          var _0x55df0d = _0x2b065c[_0x17afe3].sku1.slice(0, 12);
-        }
-      } else if (_0x5a7746.length == 2) {
-        var _0x55df0d = _0x2b065c[_0x17afe3].sku1.slice(0, 12) + "\n" + _0x2b065c[_0x17afe3].sku2.slice(0, 12);
+    while (text("领取奖励").clickable(true).exists()) {
+      {
+        text("领取奖励").clickable(true).findOne().click();
+        sleep(2000);
       }
-      console.verbose(_0x55df0d);
-      while (!descStartsWith(_0x55df0d).exists()) {
-        {
-          sleep(2000);
-          if (descStartsWith(_0x55df0d).exists()) {
+    }
+    if (!setting.xyb_list.includes("好物夺宝试试手气") && text("好物夺宝试试手气").exists()) {
+      setting.xyb_list.push("好物夺宝试试手气");
+      toastLog("好物夺宝试试手气");
+      let _0x2d265f = text("好物夺宝试试手气").findOne();
+      if (enter_qwc(_0x2d265f)) {
+        console.verbose("进入'好物夺宝试试手气'");
+        for (let _0x43eff7 = 0; _0x43eff7 < 10; _0x43eff7++) {
+          if (text("100闲鱼币夺宝").exists()) {
             {
+              sleep(1000);
               break;
             }
           }
-          common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 7 / 10, 1000);
+          if (desc("100闲鱼币夺宝").exists() || desc("已参与").exists() || descEndsWith("夺得宝贝").exists()) {
+            sleep(1000);
+            break;
+          }
+          if (text("确认授权").exists()) {
+            {
+              console.verbose("出现淘宝登录界面，自动跳过");
+              back();
+              sleep(2000);
+            }
+          }
+          sleep(1000);
+        }
+        if (desc("100闲鱼币夺宝").boundsInside(0, 0, device.width, device.height * 9 / 10).exists() && !desc("已参与").exists() && !descEndsWith("夺得宝贝").exists()) {
+          sleep(1000);
+          let _0x3d9d49 = desc("100闲鱼币夺宝").findOne().bounds();
+          common.my_click(_0x3d9d49.centerX(), _0x3d9d49.centerY());
+          sleep(3000);
+          _0x3d9d49 = desc("100闲鱼币夺宝").findOne().bounds();
+          common.my_click(_0x3d9d49.centerX(), _0x3d9d49.centerY());
           sleep(2000);
-          console.verbose("下滑");
+          console.verbose("开始设置投注量");
+          setText("1");
+          sleep(1000);
+          if (descContains("闲鱼币不足").exists()) {
+            toastLog("闲鱼币不足最小投注额");
+          } else {
+            {
+              console.verbose("点击确定投注");
+              desc("去投注").findOne().click();
+              sleep(500);
+              desc("直接投1注").findOne().parent().click();
+              sleep(500);
+            }
+          }
+          back();
+          sleep(2000);
+          console.verbose("返回");
+        } else if (text("100闲鱼币夺宝").boundsInside(0, 0, device.width, device.height * 9 / 10).exists() && !desc("已参与").exists() && !descEndsWith("夺得宝贝").exists()) {
+          sleep(1000);
+          let _0x8b29b6 = text("100闲鱼币夺宝").findOne().bounds();
+          common.my_click(_0x8b29b6.centerX(), _0x8b29b6.centerY());
+          sleep(3000);
+          console.verbose("第一次点击100闲鱼币夺宝");
+          _0x8b29b6 = text("100闲鱼币夺宝").findOne().bounds();
+          common.my_click(_0x8b29b6.centerX(), _0x8b29b6.centerY());
+          sleep(3000);
+          console.verbose("第二次点击100闲鱼币夺宝");
+          console.verbose("开始设置投注量");
+          setText("1");
+          sleep(1200);
+          if (descContains("闲鱼币不足").exists()) {
+            {
+              toastLog("闲鱼币不足最小投注额");
+            }
+          } else {
+            console.verbose("点击确定投注");
+            if (text("确定投注").exists()) {
+              {
+                text("确定投注").findOne().click();
+                sleep(1000);
+              }
+            } else {
+              {
+                console.verbose("确定投注按钮加载失败，无法投注");
+              }
+            }
+            if (text("直接投1注").exists()) {
+              console.verbose("直接投1注");
+              text("直接投1注").findOne().parent().click();
+              sleep(500);
+            } else if (text("直接投3注").exists()) {
+              {
+                console.verbose("直接投3注");
+                text("直接投3注").findOne().parent().click();
+                sleep(500);
+              }
+            }
+          }
+          back();
+          sleep(2000);
+          console.verbose("返回");
+        } else {
+          toastLog("已参与无好物夺宝或今日已无好物夺宝");
+        }
+        back();
+        sleep(2000);
+        console.verbose("返回");
+      }
+    }
+    if (!setting.xyb_list.includes("去借钱频道看一看") && text("去借钱频道看一看").exists()) {
+      setting.xyb_list.push("去借钱频道看一看");
+      toastLog("去借钱频道看一看");
+      let _0x332c71 = text("去借钱频道看一看").findOne();
+      if (enter_qwc(_0x332c71)) {
+        sleep(2000);
+        console.verbose("进入'去借钱频道看一看'");
+        back();
+        sleep(2000);
+      }
+    }
+    if (register_jump == "关") {} else if (common.getVersionName(setting.zfb_pname) == "未安装") {
+      console.verbose("未安装支付宝，跳过支付宝相关任务");
+    } else {
+      {
+        if (!setting.xyb_list.includes("去支付宝领积分") && text("去支付宝领积分").exists()) {
+          setting.xyb_list.push("去支付宝领积分");
+          toastLog("去支付宝领积分");
+          let _0x277ca5 = text("去支付宝领积分").findOne();
+          if (enter_qwc(_0x277ca5)) {
+            {
+              console.verbose("进入'去支付宝领积分'");
+              sleep(3000);
+              common.allow_access();
+              sleep(7000);
+              common.start_double_xy_son();
+              sleep(5000);
+              if (!text("去完成").exists()) {
+                {
+                  back();
+                  sleep(2000);
+                }
+              }
+            }
+          }
+        }
+        if (!setting.xyb_list.includes("去支付宝农场领水果") && text("去支付宝农场领水果").exists()) {
+          setting.xyb_list.push("去支付宝农场领水果");
+          toastLog("去支付宝农场领水果");
+          let _0x4c9eb7 = text("去支付宝农场领水果").findOne();
+          if (enter_qwc(_0x4c9eb7)) {
+            console.verbose("进入'去支付宝农场领水果'");
+            sleep(3000);
+            common.allow_access();
+            sleep(7000);
+            common.start_double_xy_son();
+            sleep(5000);
+            if (!text("去完成").exists()) {
+              {
+                back();
+                sleep(2000);
+              }
+            }
+          }
+        }
+        if (!setting.xyb_list.includes("去蚂蚁森林逛一逛") && text("去蚂蚁森林逛一逛").exists()) {
+          setting.xyb_list.push("去蚂蚁森林逛一逛");
+          toastLog("去蚂蚁森林逛一逛");
+          let _0xa57490 = text("去蚂蚁森林逛一逛").findOne();
+          if (enter_qwc(_0xa57490)) {
+            console.verbose("进入'去蚂蚁森林逛一逛'");
+            sleep(3000);
+            common.allow_access();
+            sleep(7000);
+            common.start_double_xy_son();
+            sleep(5000);
+            if (!text("去完成").exists()) {
+              {
+                back();
+                sleep(2000);
+              }
+            }
+          }
+        }
+        if (!setting.xyb_list.includes("去蚂蚁庄园逛一逛") && text("去蚂蚁庄园逛一逛").exists()) {
+          {
+            setting.xyb_list.push("去蚂蚁庄园逛一逛");
+            toastLog("去蚂蚁庄园逛一逛");
+            let _0xfc60c4 = text("去蚂蚁庄园逛一逛").findOne();
+            if (enter_qwc(_0xfc60c4)) {
+              console.verbose("进入'去蚂蚁庄园逛一逛'");
+              sleep(3000);
+              common.allow_access();
+              sleep(7000);
+              common.start_double_xy_son();
+              sleep(5000);
+              if (!text("去完成").exists()) {
+                {
+                  back();
+                  sleep(2000);
+                }
+              }
+            }
+          }
         }
       }
-      var _0x2da7b8 = descStartsWith(_0x55df0d + "\n").findOne().bounds();
-      while (_0x2da7b8.height() < 150) {
-        console.verbose("滑动一次");
-        descEndsWith("价格 ¥0.00  库存 0件").findOne().parent().scrollBackward();
+    }
+    if (register_jump == "关") {} else if (common.getVersionName(setting.tb_pname) == "未安装") {
+      console.verbose("未安装淘宝，跳过淘宝相关任务");
+    } else {
+      {
+        if (!setting.xyb_list.includes("去淘宝签到领红包") && text("去淘宝签到领红包").exists()) {
+          setting.xyb_list.push("去淘宝签到领红包");
+          toastLog("去淘宝签到领红包");
+          let _0x138dc8 = text("去淘宝签到领红包").findOne();
+          if (enter_qwc(_0x138dc8)) {
+            {
+              console.verbose("进入'去淘宝签到领红包'");
+              sleep(3000);
+              common.allow_access();
+              sleep(7000);
+              back();
+              sleep(2000);
+              if (!text("打开淘宝").exists()) {
+                back();
+                sleep(2000);
+              }
+              if (!text("打开淘宝").exists()) {
+                back();
+                sleep(2000);
+              }
+              common.start_double_xy_son();
+              sleep(5000);
+              back();
+              sleep(2000);
+            }
+          }
+        }
+        if (!setting.xyb_list.includes("去芭芭农场领水果") && text("去芭芭农场领水果").exists()) {
+          setting.xyb_list.push("去芭芭农场领水果");
+          toastLog("去芭芭农场领水果");
+          let _0x559259 = text("去芭芭农场领水果").findOne();
+          if (enter_qwc(_0x559259)) {
+            console.verbose("进入'去芭芭农场领水果'");
+            sleep(3000);
+            common.allow_access();
+            sleep(7000);
+            back();
+            sleep(2000);
+            if (!text("打开淘宝").exists()) {
+              back();
+              sleep(2000);
+            }
+            if (!text("打开淘宝").exists()) {
+              back();
+              sleep(2000);
+            }
+            common.start_double_xy_son();
+            sleep(5000);
+            back();
+            sleep(2000);
+          }
+        }
+        if (!setting.xyb_list.includes("逛短视频领现金") && text("逛短视频领现金").exists()) {
+          {
+            setting.xyb_list.push("逛短视频领现金");
+            toastLog("逛短视频领现金");
+            let _0x51216c = text("逛短视频领现金").findOne();
+            if (enter_qwc(_0x51216c)) {
+              console.verbose("进入'逛短视频领现金'");
+              sleep(3000);
+              common.allow_access();
+              sleep(7000);
+              back();
+              sleep(2000);
+              if (!text("打开淘宝").exists()) {
+                back();
+                sleep(2000);
+              }
+              if (!text("打开淘宝").exists()) {
+                {
+                  back();
+                  sleep(2000);
+                }
+              }
+              common.start_double_xy_son();
+              sleep(5000);
+              back();
+              sleep(2000);
+            }
+          }
+        }
+      }
+    }
+    if (register_jump == "关") {} else if (common.getVersionName(setting.ksjs_pname) == "未安装") {
+      console.verbose("未安装快手极速版，跳过快手极速版相关任务");
+    } else {
+      {
+        if (!setting.xyb_list.includes("去快手极速版领红包") && text("去快手极速版领红包").exists()) {
+          setting.xyb_list.push("去快手极速版领红包");
+          toastLog("去快手极速版领红包");
+          let _0x209084 = text("去快手极速版领红包").findOne();
+          if (enter_qwc(_0x209084)) {
+            console.verbose("进入'去快手极速版领红包'");
+            sleep(3000);
+            common.allow_access();
+            sleep(7000);
+            common.start_double_xy_son();
+            sleep(5000);
+            if (!text("去完成").exists()) {
+              back();
+              sleep(2000);
+            }
+          }
+        }
+      }
+    }
+    if (register_jump == "关") {} else if (common.getVersionName(setting.tt_pname) == "未安装") {
+      console.verbose("未安装淘特，跳过淘特相关任务");
+    } else {
+      {
+        if (!setting.xyb_list.includes("去淘特领好礼") && text("去淘特领好礼").exists()) {
+          setting.xyb_list.push("去淘特领好礼");
+          toastLog("去淘特领好礼");
+          let _0x1037ce = text("去淘特领好礼").findOne();
+          if (enter_qwc(_0x1037ce)) {
+            console.verbose("进入'去淘特领好礼'");
+            sleep(3000);
+            common.allow_access();
+            sleep(7000);
+            common.start_double_xy_son();
+            sleep(5000);
+            if (!text("去完成").exists()) {
+              {
+                back();
+                sleep(2000);
+              }
+            }
+          }
+        }
+      }
+    }
+    if (register_jump == "关") {} else if (common.getVersionName(setting.zgyd_pname) == "未安装") {
+      console.verbose("未安装中国移动，跳过中国移动相关任务");
+    } else {
+      if (!setting.xyb_list.includes("去中国移动签到领话费") && text("去中国移动签到领话费").exists()) {
+        setting.xyb_list.push("去中国移动签到领话费");
+        toastLog("去中国移动签到领话费");
+        let _0x25428d = text("去中国移动签到领话费").findOne();
+        if (enter_qwc(_0x25428d)) {
+          console.verbose("进入'去中国移动签到领话费'");
+          sleep(3000);
+          if (id("wx-open-app-button").exists()) {
+            id("wx-open-app-button").findOne().click();
+            sleep(2000);
+          }
+          common.allow_access();
+          sleep(7000);
+          common.start_double_xy_son();
+          sleep(5000);
+          if (!text("去完成").exists()) {
+            {
+              back();
+              sleep(2000);
+            }
+          }
+        }
+      }
+      if (!setting.xyb_list.includes("去中国移动领话费") && text("去中国移动领话费").exists()) {
+        {
+          setting.xyb_list.push("去中国移动领话费");
+          toastLog("去中国移动领话费");
+          let _0x4d435 = text("去中国移动领话费").findOne();
+          if (enter_qwc(_0x4d435)) {
+            {
+              console.verbose("进入'去中国移动领话费'");
+              sleep(3000);
+              if (id("wx-open-app-button").exists()) {
+                {
+                  id("wx-open-app-button").findOne().click();
+                  sleep(2000);
+                }
+              }
+              common.allow_access();
+              sleep(7000);
+              common.start_double_xy_son();
+              sleep(5000);
+              if (!text("去完成").exists()) {
+                back();
+                sleep(2000);
+              }
+            }
+          }
+        }
+      }
+    }
+    if (register_jump == "关") {} else if (common.getVersionName(setting.bd_pname) == "未安装") {
+      console.verbose("未安装百度，跳过百度相关任务");
+    } else {
+      {
+        if (!setting.xyb_list.includes("去百度逛一逛") && text("去百度逛一逛").exists()) {
+          {
+            setting.xyb_list.push("去百度逛一逛");
+            toastLog("去百度逛一逛");
+            let _0x113495 = text("去百度逛一逛").findOne();
+            if (enter_qwc(_0x113495)) {
+              console.verbose("进入'去百度逛一逛'");
+              sleep(3000);
+              common.allow_access();
+              sleep(12000);
+              sleep(5000);
+              common.start_double_xy_son();
+              sleep(5000);
+              if (!text("去完成").exists()) {
+                back();
+                sleep(2000);
+              }
+            }
+          }
+        }
+      }
+    }
+    if (register_jump == "关") {} else if (common.getVersionName(setting.bddt_pname) == "未安装") {
+      console.verbose("未安装百度地图，跳过百度地图相关任务");
+    } else {
+      {
+        if (!setting.xyb_list.includes("去百度地图逛一逛") && text("去百度地图逛一逛").exists()) {
+          {
+            setting.xyb_list.push("去百度地图逛一逛");
+            toastLog("去百度地图逛一逛");
+            let _0x40993e = text("去百度地图逛一逛").findOne();
+            if (enter_qwc(_0x40993e)) {
+              console.verbose("进入'去百度地图逛一逛'");
+              sleep(3000);
+              common.allow_access();
+              sleep(7000);
+              common.start_double_xy_son();
+              sleep(5000);
+              if (!text("去完成").exists()) {
+                back();
+                sleep(2000);
+              }
+            }
+          }
+        }
+      }
+    }
+    if (!setting.xyb_list.includes("浏览鱼小铺工作台") && text("浏览鱼小铺工作台").exists()) {
+      setting.xyb_list.push("浏览鱼小铺工作台");
+      toastLog("浏览鱼小铺工作台");
+      let _0x557f22 = text("浏览鱼小铺工作台").findOne();
+      if (enter_qwc(_0x557f22)) {
+        sleep(2000);
+        console.verbose("进入'浏览鱼小铺工作台'");
+        back();
+        sleep(2000);
+      }
+    }
+    if (!setting.xyb_list.includes("去看一看闲鱼直播") && text("去看一看闲鱼直播").exists()) {
+      {
+        setting.xyb_list.push("去看一看闲鱼直播");
+        toastLog("去看一看闲鱼直播");
+        let _0x451fd5 = text("去看一看闲鱼直播").findOne();
+        if (enter_qwc(_0x451fd5)) {
+          sleep(2000);
+          console.verbose("进入'去看一看闲鱼直播'");
+          back();
+          sleep(2000);
+        }
+      }
+    }
+    if (!setting.xyb_list.includes("点击指定频道好物") && text("点击指定频道好物").exists()) {
+      {
+        setting.xyb_list.push("点击指定频道好物");
+        toastLog("点击指定频道好物");
+        let _0x4f897c = text("点击指定频道好物").findOne();
+        if (enter_qwc(_0x4f897c)) {
+          console.verbose("进入'点击指定频道好物'");
+          depth(8).scrollable().findOne().scrollForward();
+          sleep(500);
+          depth(8).scrollable().findOne().scrollForward();
+          sleep(500);
+          if (textStartsWith("再点").exists()) {
+            for (let _0x43eff7 = 0; _0x43eff7 < 17; _0x43eff7++) {
+              {
+                if (textStartsWith("再点").exists()) {
+                  common.my_click(device.width * 3 / 10, device.height / 2);
+                  sleep(1000);
+                  console.verbose("进入宝贝详情...");
+                  for (let _0x43eff7 = 0; _0x43eff7 < 8; _0x43eff7++) {
+                    if (text("加入购物车").exists()) {
+                      break;
+                    }
+                    if (desc("我想要").exists() || desc("立即购买").exists()) {
+                      break;
+                    }
+                    if (desc("我想要, 我想要").exists() || desc("留言按钮").exists()) {
+                      break;
+                    }
+                    sleep(1000);
+                  }
+                  if (!desc("闲鱼币首页").exists()) {
+                    console.verbose("返回频道宝贝列表...");
+                    back();
+                    sleep(2000);
+                  }
+                }
+                if (text("点击领取").exists()) {
+                  break;
+                }
+                depth(8).scrollable().findOne().scrollForward();
+                sleep(500);
+              }
+            }
+          } else {
+            for (let _0x43eff7 = 0; _0x43eff7 < 17; _0x43eff7++) {
+              if (_0x43eff7 == 1 && !textStartsWith("继续浏览").exists()) {
+                break;
+              }
+              if (text("点击领取").exists()) {
+                {
+                  break;
+                }
+              }
+              depth(8).scrollable().findOne().scrollForward();
+              sleep(2000);
+            }
+          }
+          back();
+          sleep(2000);
+          enter_xyb_register_d_son();
+        }
+      }
+    }
+    while (text("领取奖励").clickable(true).exists()) {
+      text("领取奖励").clickable(true).findOne().click();
+      sleep(2000);
+    }
+    while (text("领取").exists()) {
+      text("领取").findOne().parent().click();
+      sleep(2000);
+    }
+    if (text("签到").exists()) {
+      {
+        toastLog("签到");
+        text("签到").findOne().click();
         sleep(1000);
-        _0x2da7b8 = descStartsWith(_0x55df0d + "\n").findOne().bounds();
       }
-      common.my_click(_0x2da7b8.centerX(), _0x2da7b8.centerY());
-      sleep(500);
-      console.verbose("设置价格：" + _0x2b065c[_0x17afe3].price);
-      setText(_0x2b065c[_0x17afe3].price);
-      sleep(500);
-      console.verbose("设置库存：" + _0x2b065c[_0x17afe3].number);
-      textEndsWith("0").findOne().click();
-      sleep(500);
-      if (_0x2b065c[_0x17afe3].number > 9999) {
-        _0x2b065c[_0x17afe3].number = 9999;
-        console.log("宝贝规格库存数量不能大于9999，已自动设置9999");
+    }
+    if (false && text("倒计时15s获得1个骰子").exists()) {
+      for (let _0x43eff7 = 0; _0x43eff7 < 3; _0x43eff7++) {
+        {
+          if (text("领取奖励").exists()) {
+            {
+              break;
+            }
+          } else if (text("倒计时15s获得1个骰子").exists()) {
+            toastLog("倒计时15s获得1个骰子");
+            sleep(6000);
+          }
+        }
       }
-      setText(_0x2b065c[_0x17afe3].number);
-      sleep(500);
-      textEndsWith(", ¥").findOne().click();
-      sleep(500);
-      var _0x4bd5be = desc("确定").findOne().bounds();
-      common.my_click(_0x4bd5be.centerX(), _0x4bd5be.centerY());
+      if (!text("领取奖励").exists()) {
+        {
+          common.my_click(_0x1bd1de * 7.5 / 10, _0x4463b0.top - 5 * _0x54c5ae);
+          sleep(1000);
+          common.my_click(_0x1bd1de * 7.5 / 10, _0x4463b0.top - _0x54c5ae);
+          sleep(1000);
+        }
+      }
+      while (text("领取奖励").clickable(true).exists()) {
+        text("领取奖励").clickable(true).findOne().click();
+        sleep(2000);
+      }
+    }
+    if (false && text("倒计时30s获得1个骰子").exists()) {
+      {
+        let _0x287543 = text("倒计时30s获得1个骰子").findOne();
+        let _0x437711 = _0x287543.depth();
+        let _0x3219b8 = _0x287543.indexInParent();
+        var _0x4d4a81 = false;
+        for (let _0x43eff7 = 0; _0x43eff7 < 10; _0x43eff7++) {
+          {
+            if (depth(_0x437711).text("已完成").indexInParent(_0x3219b8 + _0x43eff7).exists()) {
+              {
+                console.verbose("倒计时30s获得1个骰子已完成");
+                var _0x4d4a81 = true;
+                break;
+              }
+            }
+          }
+        }
+        if (!_0x4d4a81) {
+          for (let _0x43eff7 = 0; _0x43eff7 < 6; _0x43eff7++) {
+            if (text("领取奖励").exists()) {
+              break;
+            } else if (text("倒计时30s获得1个骰子").exists()) {
+              {
+                toastLog("倒计时30s获得1个骰子");
+                sleep(6000);
+              }
+            }
+          }
+          if (!text("领取奖励").exists()) {
+            {
+              common.my_click(_0x1bd1de * 7.5 / 10, _0x4463b0.top - 5 * _0x54c5ae);
+              sleep(1000);
+              common.my_click(_0x1bd1de * 7.5 / 10, _0x4463b0.top - _0x54c5ae);
+              sleep(1000);
+            }
+          }
+          while (text("领取奖励").exists()) {
+            text("领取奖励").findOne().click();
+            sleep(2000);
+          }
+        }
+      }
+    }
+    console.verbose("关闭赚鱼币任务列表");
+    common.my_click(_0x1bd1de * 7.5 / 10, parseInt(device.height / 7));
+    sleep(2000);
+  }
+  for (let _0xc0bc8 = 0; _0xc0bc8 < 7; _0xc0bc8++) {
+    {
+      if (textMatches(/×\d{1,2}/).exists()) {
+        {
+          console.verbose("点击扔骰子寻宝");
+          textMatches(/×\d{1,2}/).findOne().click();
+          sleep(7000);
+          if (text("有机会获得闲鱼币奖励哦！").exists()) {
+            console.verbose("出现开九个盒子小游戏，该游戏无收益，跳过");
+            back();
+            sleep(1000);
+            enter_xyb_register_d_son();
+          }
+          if (text("猜中可赢200闲鱼币! 幸运之神眷顾你").exists()) {
+            {
+              console.verbose("出现'猜中可赢200闲鱼币! 幸运之神眷顾你'，该游戏无收益，跳过");
+              back();
+              sleep(1000);
+              enter_xyb_register_d_son();
+            }
+          }
+          if (text("闲鱼币! 幸运之神眷顾你").exists()) {
+            console.verbose("出现'闲鱼币! 幸运之神眷顾你'，该游戏无收益，跳过");
+            back();
+            sleep(1000);
+            enter_xyb_register_d_son();
+          }
+        }
+      } else {
+        {
+          break;
+        }
+      }
       sleep(1000);
     }
   }
-  sleep(1200);
-  var _0x519130 = desc("完成").findOne().bounds();
-  common.my_click(_0x519130.centerX(), _0x519130.centerY());
+  back();
   sleep(1000);
-  toastLog("多规格选择完毕");
 }
-function goods_pm_price(_0x3a77e6) {
-  console.verbose("填写起拍价");
-  descStartsWith("起拍价").click();
-  sleep(500);
-  common.enter_num(_0x3a77e6.pm_start_price);
-  desc("确定").findOne().click();
-  sleep(500);
-  console.verbose("填写保证金");
-  descStartsWith("保证金").click();
-  sleep(500);
-  common.enter_num(_0x3a77e6.pm_bzj);
-  desc("确定").findOne().click();
-  sleep(500);
-  console.verbose("填写加价幅度");
-  descStartsWith("加价幅度").click();
-  sleep(500);
-  common.enter_num(_0x3a77e6.pm_step);
-  desc("确定").findOne().click();
-  sleep(500);
-  toastLog("开始选择拍卖时间...");
-  console.verbose("拍卖开始时间");
-  descStartsWith("开始时间").click();
-  sleep(1000);
-  desc("分").findOne().find(className("android.widget.SeekBar"))[0].scrollForward();
-  desc("确定").className("android.widget.Button").findOne().click();
-  sleep(500);
-  console.verbose("拍卖结束时间");
-  descStartsWith("结束时间").click();
-  sleep(1000);
-  select_pm_end_time(_0x3a77e6);
-  sleep(500);
-  desc("确定").className("android.widget.Button").findOne().click();
-  sleep(500);
-  desc("确认").findOne().click();
-  sleep(2000);
-}
-function select_pm_end_time(_0x4a94cc) {
-  var _0x3acca8 = new Date();
-  let _0x426974 = _0x4a94cc.pm_end_time_day;
-  if (_0x4a94cc.pm_end_time_hour) {
+function enter_xyb_register_d_son() {
+  if (id("right_title_view").desc("闲鱼签到").exists()) {
     {
-      var _0x1377c0 = _0x4a94cc.pm_end_time_hour.split(":")[0];
-      var _0x5580ab = _0x4a94cc.pm_end_time_hour.split(":")[1];
+      id("right_title_view").desc("闲鱼签到").findOne().click();
     }
-  } else if (_0x4a94cc.pm_end_time_hour2) {
-    var _0x1377c0 = _0x3acca8.getHours() + parseInt(_0x4a94cc.pm_end_time_hour2);
-    var _0x5580ab = _0x3acca8.getMinutes();
+  } else if (id("right_title_view_lottie").exists()) {
+    id("right_title_view_lottie").findOne().click();
+  } else if (id("icon_entry_lottie").exists()) {
+    {
+      console.verbose("icon_entry_lottie");
+      id("icon_entry_lottie").findOne().click();
+    }
+  } else if (id("icon_entry_wrapper").exists()) {
+    console.verbose("icon_entry_wrapper");
+    id("icon_entry_wrapper").findOne().click();
   } else {
     {
-      var _0x1377c0 = _0x3acca8.getHours() + 1;
-      var _0x5580ab = _0x3acca8.getMinutes();
-      toastLog("您未设置拍卖结束时间，自动设置为拍卖一小时后结束");
+      console.error("进入鱼币任务按钮不存在");
     }
   }
-  let _0x15d6e3 = new Date(new Date().setHours(_0x1377c0, _0x5580ab, 0, 0));
-  _0x15d6e3.setDate(_0x15d6e3.getDate() + Number(_0x426974));
-  if (_0x15d6e3 < _0x3acca8) {
-    _0x15d6e3.setDate(_0x15d6e3.getDate() + 1);
-    console.warn("设置的发布时间小于当前时间，自动加一天");
+  console.verbose("等待签到页面出现");
+  for (let _0x149757 = 0; _0x149757 < 8; _0x149757++) {
+    sleep(2000);
+    if (text("+").exists()) {
+      console.verbose("等待地图页面加载完毕...");
+      sleep(2000);
+      break;
+    }
   }
-  let _0x3a8616 = _0x15d6e3.getFullYear();
-  let _0x140401 = _0x15d6e3.getMonth() + 1;
-  let _0x3ca285 = _0x15d6e3.getDate();
-  let _0x287e40 = _0x15d6e3.getHours();
-  let _0x4f6861 = _0x15d6e3.getMinutes();
-  var _0x164be8 = Number(desc("年").findOne().find(className("android.widget.SeekBar"))[0].desc());
-  var _0x731223 = desc("月").findOne().find(className("android.widget.SeekBar"))[0].desc();
-  var _0x30462f = Number(_0x731223.substring(0, _0x731223.length - 1));
-  var _0x5db7bd = desc("日").findOne().find(className("android.widget.SeekBar"))[0].desc();
-  var _0x7f1f35 = Number(_0x5db7bd.substring(0, _0x5db7bd.length - 1));
-  var _0x4151ab = Number(desc("时").findOne().find(className("android.widget.SeekBar"))[0].desc());
-  var _0x27a148 = Number(desc("分").findOne().find(className("android.widget.SeekBar"))[0].desc());
-  console.log("云端日期", _0x3a8616 + "年" + _0x140401 + "月" + _0x3ca285 + "日" + _0x287e40 + "时" + _0x4f6861 + "分");
-  console.log("本地日期", _0x164be8 + "年" + _0x30462f + "月" + _0x7f1f35 + "日" + _0x4151ab + "时" + _0x27a148 + "分");
-  if (_0x3a8616 > _0x164be8) {
-    while (true) {
-      desc("年").findOne().find(className("android.widget.SeekBar"))[0].scrollForward();
-      sleep(200);
-      if (String(_0x3a8616) === desc("年").findOne().find(className("android.widget.SeekBar"))[0].desc()) {
-        break;
+  sleep(1000);
+}
+function xyb_register_f(_0x15fef3) {
+  setting.all_xyb_task_name = [];
+  enter_xyb_register_f_son();
+  {
+    {
+      sleep(3000);
+      var _0x1006ad = null;
+      if (setting.xyb_register_f_xf_xybdk_rect) {
+        {
+          _0x1006ad = setting.xyb_register_f_xf_xybdk_rect;
+        }
+      } else {
+        _0x1006ad = text("闲鱼币抵扣").algorithm(setting.xyb_algorithm).findOne().parent().bounds();
+        setting.xyb_register_f_xf_xybdk_rect = _0x1006ad;
       }
-    }
-  } else if (_0x3a8616 < _0x164be8) {
-    while (true) {
-      {
-        desc("年").findOne().find(className("android.widget.SeekBar"))[0].scrollBackward();
-        sleep(200);
-        if (String(_0x3a8616) === desc("年").findOne().find(className("android.widget.SeekBar"))[0].desc()) {
-          break;
+      let _0x3b87a1 = device.width;
+      let _0xae7c26 = _0x1006ad.height();
+      console.verbose("检测赚鱼币任务列表是否已出现");
+      try {
+        {
+          var _0x5a6f20 = text("去完成").findOnce().parent().parent().children();
+        }
+      } catch (_0x2cece0) {
+        if (_0x15fef3 == 1) {
+          console.verbose("未出现'去完成'，重新进入鱼币任务页面");
+          back();
+          sleep(2000);
+          xyb_register_f(2);
+          return false;
+        } else {
+          console.verbose("未出现'去完成'");
+          common.my_click(_0x3b87a1 * 7.5 / 10, _0x1006ad.top - _0xae7c26 * 2 / 3);
+          var _0x5a6f20 = text("去完成").findOne().parent().parent().children();
         }
       }
-    }
-  } else {}
-  if (_0x140401 > _0x30462f) {
-    while (true) {
-      desc("月").findOne().find(className("android.widget.SeekBar"))[0].scrollForward();
-      sleep(200);
-      if (String(_0x140401) + "月" === desc("月").findOne().find(className("android.widget.SeekBar"))[0].desc()) {
-        break;
-      }
-    }
-  } else if (_0x140401 < _0x30462f) {
-    {
-      while (true) {
-        desc("月").findOne().find(className("android.widget.SeekBar"))[0].scrollBackward();
-        sleep(200);
-        if (String(_0x140401) + "月" === desc("月").findOne().find(className("android.widget.SeekBar"))[0].desc()) {
-          break;
+      for (let _0x8d7f04 = 0; _0x8d7f04 < _0x5a6f20.length; _0x8d7f04++) {
+        let _0xb2c9ec = _0x5a6f20[_0x8d7f04].text();
+        if (_0xb2c9ec.length > 5 && !setting.all_xyb_task_name.includes(_0xb2c9ec)) {
+          setting.all_xyb_task_name.push(_0xb2c9ec);
         }
       }
-    }
-  } else {}
-  if (_0x3ca285 > _0x7f1f35) {
-    while (true) {
-      desc("日").findOne().find(className("android.widget.SeekBar"))[0].scrollForward();
-      sleep(200);
-      if (String(_0x3ca285) + "日" === desc("日").findOne().find(className("android.widget.SeekBar"))[0].desc()) {
-        break;
-      }
-    }
-  } else if (_0x3ca285 < _0x7f1f35) {
-    {
-      while (true) {
-        desc("日").findOne().find(className("android.widget.SeekBar"))[0].scrollBackward();
-        sleep(200);
-        if (String(_0x3ca285) + "日" === desc("日").findOne().find(className("android.widget.SeekBar"))[0].desc()) {
-          break;
+      sleep(2000);
+      if (enter_qwc_xf("搜一搜喜欢的商品")) {
+        {
+          if (text("1688").algorithm(setting.xyb_algorithm).exists()) {
+            console.verbose("在1688搜一搜喜欢的商品");
+            for (let _0x2fb2ec = 0; _0x2fb2ec < 30; _0x2fb2ec++) {
+              if (!textStartsWith("滑动浏览").exists()) {
+                break;
+              }
+              if (Math.random() < 0.4) {
+                {
+                  common.my_swipe(device.width / 2, device.height * 3 / 10, device.width / 2, device.height * 7 / 10, 1000);
+                  sleep(100);
+                }
+              } else {
+                {
+                  common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, 1000);
+                  sleep(100);
+                }
+              }
+            }
+            back();
+            sleep(1000);
+          } else {
+            {
+              console.verbose("进入'搜一搜喜欢的商品'");
+              if (className("android.view.View").depth(13).clickable().exists()) {
+                className("android.view.View").depth(13).clickable().find()[0].click();
+                sleep(2000);
+                for (let _0x46a991 = 0; _0x46a991 < 10; _0x46a991++) {
+                  {
+                    if (text("任务完成，再逛逛").exists()) {
+                      break;
+                    }
+                    common.my_swipe(device.width / 2, device.height * 7 / 10, device.width / 2, device.height * 3 / 10, 500);
+                    sleep(2000);
+                  }
+                }
+                back();
+                sleep(1000);
+              }
+              back();
+              sleep(1000);
+            }
+          }
         }
       }
-    }
-  } else {}
-  if (_0x287e40 < 10) {
-    {
-      _0x287e40 = "0" + String(_0x287e40);
-    }
-  } else {
-    _0x287e40 = String(_0x287e40);
-  }
-  if (_0x287e40 > _0x4151ab) {
-    while (true) {
-      desc("时").findOne().find(className("android.widget.SeekBar"))[0].scrollForward();
-      sleep(100);
-      if (_0x287e40 === desc("时").findOne().find(className("android.widget.SeekBar"))[0].desc()) {
-        break;
-      }
-    }
-  } else if (_0x287e40 < _0x4151ab) {
-    {
-      while (true) {
-        desc("时").findOne().find(className("android.widget.SeekBar"))[0].scrollBackward();
-        sleep(100);
-        if (_0x287e40 === desc("时").findOne().find(className("android.widget.SeekBar"))[0].desc()) {
+      if (_0x15fef3 == 1) {
+        text("领取奖励").clickable(true).algorithm(setting.xyb_algorithm).find().forEach(_0x20a1ef => {
           {
-            break;
+            console.verbose("点击 领取奖励");
+            _0x20a1ef.click();
+            sleep(500);
+          }
+        });
+      }
+      if (enter_qwc_xf("好物夺宝试试手气")) {
+        {
+          for (let _0x101e8e = 0; _0x101e8e < 10; _0x101e8e++) {
+            if (text("100闲鱼币夺宝").algorithm(setting.xyb_algorithm).exists()) {
+              sleep(1000);
+              break;
+            }
+            if (desc("100闲鱼币夺宝").algorithm(setting.xyb_algorithm).exists() || desc("已参与").algorithm(setting.xyb_algorithm).exists() || descEndsWith("夺得宝贝").algorithm(setting.xyb_algorithm).exists()) {
+              {
+                sleep(1000);
+                break;
+              }
+            }
+            if (text("确认授权").algorithm(setting.xyb_algorithm).exists()) {
+              {
+                console.verbose("出现淘宝登录界面，自动跳过");
+                back();
+                sleep(2000);
+              }
+            }
+            sleep(1000);
+          }
+          if (text("100闲鱼币夺宝").boundsInside(0, 0, device.width, device.height * 9 / 10).exists() && !desc("已参与").exists() && !descEndsWith("夺得宝贝").exists()) {
+            sleep(1000);
+            let _0xf1b56c = text("100闲鱼币夺宝").findOne().bounds();
+            common.my_click(_0xf1b56c.centerX(), _0xf1b56c.centerY());
+            sleep(3000);
+            console.verbose("第一次点击100闲鱼币夺宝");
+            _0xf1b56c = text("100闲鱼币夺宝").findOne().bounds();
+            common.my_click(_0xf1b56c.centerX(), _0xf1b56c.centerY());
+            sleep(3000);
+            console.verbose("第二次点击100闲鱼币夺宝");
+            console.verbose("开始设置投注量");
+            setText("1");
+            sleep(1200);
+            if (descContains("闲鱼币不足").exists()) {
+              {
+                toastLog("闲鱼币不足最小投注额");
+              }
+            } else {
+              console.verbose("点击确定投注");
+              if (text("确定投注").exists()) {
+                {
+                  text("确定投注").findOne().click();
+                  sleep(1000);
+                }
+              } else {
+                console.verbose("确定投注按钮加载失败，无法投注");
+              }
+              if (text("直接投1注").exists()) {
+                console.verbose("直接投1注");
+                text("直接投1注").findOne().parent().click();
+                sleep(500);
+              } else if (text("直接投3注").exists()) {
+                console.verbose("直接投3注");
+                text("直接投3注").findOne().parent().click();
+                sleep(500);
+              }
+            }
+            back();
+            sleep(2000);
+            console.verbose("返回");
+          } else if (desc("100闲鱼币夺宝").boundsInside(0, 0, device.width, device.height * 9 / 10).exists() && !desc("已参与").exists() && !descEndsWith("夺得宝贝").exists()) {
+            sleep(1000);
+            let _0x4eeb09 = desc("100闲鱼币夺宝").findOne().bounds();
+            common.my_click(_0x4eeb09.centerX(), _0x4eeb09.centerY());
+            sleep(3000);
+            _0x4eeb09 = desc("100闲鱼币夺宝").findOne().bounds();
+            common.my_click(_0x4eeb09.centerX(), _0x4eeb09.centerY());
+            sleep(2000);
+            console.verbose("开始设置投注量");
+            setText("1");
+            sleep(1000);
+            if (descContains("闲鱼币不足").exists()) {
+              toastLog("闲鱼币不足最小投注额");
+            } else {
+              {
+                console.verbose("点击确定投注");
+                desc("去投注").findOne().click();
+                sleep(500);
+                desc("直接投1注").findOne().parent().click();
+                sleep(500);
+              }
+            }
+            back();
+            sleep(2000);
+            console.verbose("返回");
+          } else {
+            toastLog("已参与无好物夺宝或今日已无好物夺宝");
+          }
+          back();
+          sleep(2000);
+          console.verbose("返回");
+        }
+      }
+      if (enter_qwc_xf("去借钱频道看一看")) {
+        back();
+        sleep(2000);
+      }
+      if (register_jump == "关") {} else if (common.getVersionName(setting.zfb_pname) == "未安装") {
+        {
+          console.verbose("未安装支付宝，跳过支付宝相关任务");
+        }
+      } else {
+        if (enter_qwc_xf("去支付宝领积分")) {
+          sleep(3000);
+          common.allow_access();
+          sleep(7000);
+          common.start_double_xy_son();
+          sleep(5000);
+          if (!text("去完成").algorithm(setting.xyb_algorithm).exists()) {
+            back();
+            sleep(2000);
+          }
+        }
+        if (enter_qwc_xf("去支付宝农场领水果")) {
+          sleep(3000);
+          common.allow_access();
+          sleep(7000);
+          common.start_double_xy_son();
+          sleep(5000);
+          if (!text("去完成").algorithm(setting.xyb_algorithm).exists()) {
+            back();
+            sleep(2000);
+          }
+        }
+        if (enter_qwc_xf("去蚂蚁森林逛一逛")) {
+          sleep(3000);
+          common.allow_access();
+          sleep(7000);
+          common.start_double_xy_son();
+          sleep(5000);
+          if (!text("去完成").algorithm(setting.xyb_algorithm).exists()) {
+            back();
+            sleep(2000);
+          }
+        }
+        if (enter_qwc_xf("去蚂蚁庄园逛一逛")) {
+          sleep(3000);
+          common.allow_access();
+          sleep(7000);
+          common.start_double_xy_son();
+          sleep(5000);
+          if (!text("去完成").algorithm(setting.xyb_algorithm).exists()) {
+            back();
+            sleep(2000);
           }
         }
       }
-    }
-  } else {}
-  if (_0x4f6861 < 10) {
-    _0x4f6861 = "0" + String(_0x4f6861);
-  } else {
-    {
-      _0x4f6861 = String(_0x4f6861);
+      if (register_jump == "关") {} else if (common.getVersionName(setting.tb_pname) == "未安装") {
+        console.verbose("未安装淘宝，跳过淘宝相关任务");
+      } else {
+        if (enter_qwc_xf("去淘宝签到领红包")) {
+          {
+            sleep(3000);
+            common.allow_access();
+            sleep(7000);
+            back();
+            sleep(2000);
+            if (!text("打开淘宝").exists()) {
+              {
+                back();
+                sleep(2000);
+              }
+            }
+            if (!text("打开淘宝").exists()) {
+              {
+                back();
+                sleep(2000);
+              }
+            }
+            common.start_double_xy_son();
+            sleep(5000);
+            back();
+            sleep(2000);
+          }
+        }
+        if (enter_qwc_xf("去芭芭农场领水果")) {
+          {
+            sleep(3000);
+            common.allow_access();
+            sleep(7000);
+            back();
+            sleep(2000);
+            if (!text("打开淘宝").exists()) {
+              back();
+              sleep(2000);
+            }
+            if (!text("打开淘宝").exists()) {
+              back();
+              sleep(2000);
+            }
+            common.start_double_xy_son();
+            sleep(5000);
+            back();
+            sleep(2000);
+          }
+        }
+        if (enter_qwc_xf("逛短视频领现金")) {
+          sleep(3000);
+          common.allow_access();
+          sleep(7000);
+          back();
+          sleep(2000);
+          if (!text("打开淘宝").exists()) {
+            back();
+            sleep(2000);
+          }
+          if (!text("打开淘宝").exists()) {
+            back();
+            sleep(2000);
+          }
+          common.start_double_xy_son();
+          sleep(5000);
+          back();
+          sleep(2000);
+        }
+      }
+      if (register_jump == "关") {} else if (common.getVersionName(setting.ksjs_pname) == "未安装") {
+        console.verbose("未安装快手极速版，跳过快手极速版相关任务");
+      } else {
+        {
+          if (enter_qwc_xf("去快手极速版领红包")) {
+            sleep(3000);
+            common.allow_access();
+            sleep(7000);
+            common.start_double_xy_son();
+            sleep(5000);
+            if (!text("去完成").algorithm(setting.xyb_algorithm).exists()) {
+              back();
+              sleep(2000);
+            }
+          }
+        }
+      }
+      if (register_jump == "关") {} else if (common.getVersionName(setting.tt_pname) == "未安装") {
+        console.verbose("未安装淘特，跳过淘特相关任务");
+      } else {
+        if (enter_qwc_xf("去淘特领好礼")) {
+          {
+            sleep(3000);
+            common.allow_access();
+            sleep(7000);
+            common.start_double_xy_son();
+            sleep(5000);
+            if (!text("去完成").algorithm(setting.xyb_algorithm).exists()) {
+              back();
+              sleep(2000);
+            }
+          }
+        }
+      }
+      if (register_jump == "关") {} else if (common.getVersionName(setting.zgyd_pname) == "未安装") {
+        console.verbose("未安装中国移动，跳过中国移动相关任务");
+      } else {
+        if (false && !setting.xyb_list.includes("去中国移动签到领话费") && text("去中国移动签到领话费").algorithm(setting.xyb_algorithm).exists()) {
+          setting.xyb_list.push("去中国移动签到领话费");
+          toastLog("去中国移动签到领话费");
+          let _0xc3733f = text("去中国移动签到领话费").algorithm(setting.xyb_algorithm).findOne();
+          let _0x5343c4 = _0xc3733f.depth();
+          let _0x49ab43 = _0xc3733f.indexInParent();
+          for (let _0x101e8e = 0; _0x101e8e < 10; _0x101e8e++) {
+            if (depth(_0x5343c4).text("去完成").indexInParent(_0x49ab43 + _0x101e8e).algorithm(setting.xyb_algorithm).exists()) {
+              {
+                depth(_0x5343c4).text("去完成").indexInParent(_0x49ab43 + _0x101e8e).algorithm(setting.xyb_algorithm).findOne().click();
+                sleep(2000);
+                console.verbose("进入'去中国移动签到领话费'");
+                sleep(3000);
+                if (id("wx-open-app-button").algorithm(setting.xyb_algorithm).exists()) {
+                  id("wx-open-app-button").algorithm(setting.xyb_algorithm).findOne().click();
+                  sleep(2000);
+                }
+                common.allow_access();
+                sleep(7000);
+                common.start_double_xy_son();
+                sleep(5000);
+                if (!text("去完成").algorithm(setting.xyb_algorithm).exists()) {
+                  {
+                    back();
+                    sleep(2000);
+                  }
+                }
+                break;
+              }
+            }
+          }
+        }
+        if (enter_qwc_xf("去中国移动领话费")) {
+          sleep(3000);
+          if (id("wx-open-app-button").algorithm(setting.xyb_algorithm).exists()) {
+            id("wx-open-app-button").algorithm(setting.xyb_algorithm).findOne().click();
+            sleep(2000);
+          }
+          common.allow_access();
+          sleep(7000);
+          common.start_double_xy_son();
+          sleep(5000);
+          if (!text("去完成").algorithm(setting.xyb_algorithm).exists()) {
+            back();
+            sleep(2000);
+          }
+        }
+      }
+      if (register_jump == "关") {} else if (common.getVersionName(setting.bd_pname) == "未安装") {
+        {
+          console.verbose("未安装百度，跳过百度相关任务");
+        }
+      } else {
+        if (enter_qwc_xf("去百度逛一逛")) {
+          sleep(3000);
+          common.allow_access();
+          sleep(12000);
+          sleep(5000);
+          common.start_double_xy_son();
+          sleep(5000);
+          if (!text("去完成").algorithm(setting.xyb_algorithm).exists()) {
+            back();
+            sleep(2000);
+          }
+        }
+      }
+      if (register_jump == "关") {} else if (common.getVersionName(setting.bddt_pname) == "未安装") {
+        console.verbose("未安装百度地图，跳过百度地图相关任务");
+      } else {
+        if (enter_qwc_xf("去百度地图逛一逛")) {
+          {
+            sleep(3000);
+            common.allow_access();
+            sleep(7000);
+            common.start_double_xy_son();
+            sleep(5000);
+            if (!text("去完成").algorithm(setting.xyb_algorithm).exists()) {
+              back();
+              sleep(2000);
+            }
+          }
+        }
+      }
+      if (enter_qwc_xf("浏览鱼小铺工作台")) {
+        sleep(2000);
+        back();
+        sleep(2000);
+      }
+      if (enter_qwc_xf("去看一看闲鱼直播")) {
+        sleep(2000);
+        back();
+        sleep(2000);
+      }
+      if (enter_qwc_xf("点击指定频道好物")) {
+        depth(8).scrollable().algorithm(setting.xyb_algorithm).findOne().scrollForward();
+        sleep(500);
+        depth(8).scrollable().algorithm(setting.xyb_algorithm).findOne().scrollForward();
+        sleep(500);
+        if (textStartsWith("再点").algorithm(setting.xyb_algorithm).exists()) {
+          {
+            for (let _0x86827c = 0; _0x86827c < 17; _0x86827c++) {
+              if (textStartsWith("再点").algorithm(setting.xyb_algorithm).exists()) {
+                {
+                  common.my_click(device.width * 3 / 10, device.height / 2);
+                  sleep(1000);
+                  console.verbose("进入宝贝详情...");
+                  for (let _0x1887a4 = 0; _0x1887a4 < 8; _0x1887a4++) {
+                    {
+                      if (text("加入购物车").algorithm(setting.xyb_algorithm).exists()) {
+                        break;
+                      }
+                      if (desc("聊一聊按钮").algorithm(setting.xyb_algorithm).exists()) {
+                        break;
+                      }
+                      if (desc("我想要").algorithm(setting.xyb_algorithm).exists() || desc("立即购买").algorithm(setting.xyb_algorithm).exists()) {
+                        {
+                          break;
+                        }
+                      }
+                      sleep(1000);
+                    }
+                  }
+                  if (!desc("闲鱼币首页").algorithm(setting.xyb_algorithm).exists()) {
+                    {
+                      console.verbose("返回频道宝贝列表...");
+                      back();
+                      sleep(2000);
+                    }
+                  }
+                }
+              }
+              if (text("点击领取").algorithm(setting.xyb_algorithm).exists()) {
+                {
+                  break;
+                }
+              }
+              depth(8).scrollable().algorithm(setting.xyb_algorithm).findOne().scrollForward();
+              sleep(500);
+            }
+          }
+        } else {
+          for (let _0x4e87ce = 0; _0x4e87ce < 17; _0x4e87ce++) {
+            if (_0x4e87ce == 1 && !textStartsWith("继续浏览").algorithm(setting.xyb_algorithm).exists()) {
+              {
+                break;
+              }
+            }
+            if (text("点击领取").algorithm(setting.xyb_algorithm).exists()) {
+              {
+                break;
+              }
+            }
+            depth(8).scrollable().algorithm(setting.xyb_algorithm).findOne().scrollForward();
+            sleep(2000);
+          }
+        }
+        back();
+        sleep(2000);
+        enter_xyb_register_f_son();
+      }
+      console.verbose("准备领取奖励");
+      text("领取奖励").clickable(true).algorithm(setting.xyb_algorithm).find().forEach(_0x5a1156 => {
+        {
+          console.verbose("点击 领取奖励");
+          _0x5a1156.click();
+          sleep(500);
+        }
+      });
+      console.verbose("领取奖励完成");
+      try {
+        if (_0x15fef3 == 3) {
+          text("签到").algorithm(setting.xyb_algorithm).findOnce().click();
+          sleep(1000);
+          toastLog("签到");
+        }
+      } catch (_0x5e4399) {}
+      if (false && !setting.xyb_list.includes("倒计时30s获得1个骰子") && text("倒计时30s获得1个骰子").algorithm(setting.xyb_algorithm).exists()) {
+        {
+          setting.xyb_list.push("倒计时30s获得1个骰子");
+          let _0x5ee9d9 = text("倒计时30s获得1个骰子").findOne();
+          let _0x5343c4 = _0x5ee9d9.depth();
+          let _0x49ab43 = _0x5ee9d9.indexInParent();
+          var _0x2dab59 = false;
+          for (let _0x101e8e = 0; _0x101e8e < 10; _0x101e8e++) {
+            if (depth(_0x5343c4).text("已完成").indexInParent(_0x49ab43 + _0x101e8e).algorithm(setting.xyb_algorithm).exists()) {
+              {
+                console.verbose("倒计时30s获得1个骰子已完成");
+                var _0x2dab59 = true;
+                break;
+              }
+            }
+          }
+          if (!_0x2dab59) {
+            {
+              for (let _0x101e8e = 0; _0x101e8e < 6; _0x101e8e++) {
+                {
+                  if (text("领取奖励").algorithm(setting.xyb_algorithm).exists()) {
+                    break;
+                  } else if (text("倒计时30s获得1个骰子").algorithm(setting.xyb_algorithm).exists()) {
+                    toastLog("倒计时30s获得1个骰子");
+                    sleep(6000);
+                  }
+                }
+              }
+              if (!text("领取奖励").algorithm(setting.xyb_algorithm).exists()) {
+                common.my_click(_0x3b87a1 * 7.5 / 10, _0x1006ad.top - 5 * _0xae7c26);
+                sleep(1000);
+                common.my_click(_0x3b87a1 * 7.5 / 10, _0x1006ad.top - _0xae7c26);
+                sleep(1000);
+              }
+              while (text("领取奖励").algorithm(setting.xyb_algorithm).exists()) {
+                text("领取奖励").findOne().click();
+                sleep(2000);
+              }
+            }
+          }
+        }
+      }
+      console.verbose("关闭赚鱼币任务列表");
+      common.my_click(_0x3b87a1 * 7.5 / 10, parseInt(device.height / 7));
+      sleep(2000);
     }
   }
-  if (_0x4f6861 > _0x27a148) {
-    while (true) {
-      desc("分").findOne().find(className("android.widget.SeekBar"))[0].scrollForward();
-      sleep(100);
-      if (_0x4f6861 === desc("分").findOne().find(className("android.widget.SeekBar"))[0].desc()) {
-        {
-          break;
-        }
-      }
-    }
-  } else if (_0x4f6861 < _0x27a148) {
+  for (let _0x1e0915 = 0; _0x1e0915 < 7; _0x1e0915++) {
     {
-      while (true) {
+      if (id("mapDiceBtn").algorithm(setting.xyb_algorithm).findOne().child(0).text() == "赚") {
         {
-          desc("分").findOne().find(className("android.widget.SeekBar"))[0].scrollBackward();
-          sleep(100);
-          if (_0x4f6861 === desc("分").findOne().find(className("android.widget.SeekBar"))[0].desc()) {
-            break;
-          }
-        }
-      }
-    }
-  } else {}
-  sleep(1000);
-}
-function fbxz_title_content(_0x5b2c93) {
-  for (let _0x1b6ad7 = 0; _0x1b6ad7 < 300; _0x1b6ad7++) {
-    {
-      if (desc("发布").exists()) {
-        sleep(500);
-        setting.goods_dep = desc("发布").findOne().depth();
-        break;
-      } else if (desc("发布, 发布").exists()) {
-        {
-          sleep(500);
-          setting.goods_dep = desc("发布, 发布").findOne().depth();
           break;
         }
       } else {
-        if (_0x1b6ad7 > 8) {
-          let _0x1a3147 = "1.请确保当前闲鱼版本为稳定版 2.请授予助手后台弹出界面权限或打开悬浮运行日志或根据总控 系统主页->常见问题 第四条设置手机";
-          console.verbose(_0x1a3147);
-          console.verbose(_0x1a3147);
-          console.verbose(_0x1a3147);
-          toast(_0x1a3147);
-        } else {
-          {
-            if (_0x1b6ad7 % 2 == 0) {
-              {
-                toastLog("准备开始填写宝贝内容...");
-                if (_0x5b2c93.content2) {
-                  var _0x17d111 = _0x5b2c93.content2;
-                  console.verbose("已自动将原描述替换为改写描述");
-                } else {
-                  var _0x17d111 = _0x5b2c93.content;
-                }
-                if (_0x17d111.indexOf(_0x5b2c93.title) == 0) {
-                  {
-                    _0x17d111 = _0x17d111;
-                  }
-                } else {
-                  {
-                    _0x17d111 = _0x5b2c93.title + "\n" + _0x17d111;
-                  }
-                }
-                if (clear_emoji == "open") {
-                  var _0x53dcb1 = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
-                  if (_0x53dcb1.test(_0x17d111)) {
-                    toastLog("检测到在闲鱼中非法的 Emoji，准备清理...");
-                    _0x17d111 = _0x17d111.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, "");
-                    console.verbose("清理后内容：" + _0x17d111);
-                  }
-                }
-                app.startActivity({
-                  "action": "VIEW",
-                  "data": "fleamarket://simple_post?desc=" + encodeURIComponent(_0x17d111) + "&price=" + _0x5b2c93.ykj_price2 + "&originalPrice=" + _0x5b2c93.ykj_price
-                });
-                common.start_click_xy_double();
-                sleep(3000);
-                if (descStartsWith("你有未编辑完成的宝贝").exists() && desc("放弃").exists()) {
-                  desc("放弃").findOne().click();
-                  sleep(500);
-                }
-              }
-            }
-          }
-        }
-        sleep(1000);
+        toastLog("点击扔骰子寻宝");
+        id("mapDiceBtn").algorithm(setting.xyb_algorithm).findOne().click();
+        sleep(7000);
       }
+      sleep(1000);
     }
   }
-  if (_0x5b2c93.ykj_theme != "[]" && _0x5b2c93.ykj_theme != null) {
-    toastLog("开始添加主题：" + _0x5b2c93.ykj_theme);
-    if (descStartsWith(_0x5b2c93.title).exists()) {
-      descStartsWith(_0x5b2c93.title).findOne().parent().parent().click();
-      sleep(1000);
-    } else if (descContains(_0x17d111.slice(-5).replace(/\r?\n|\r/g, "")).exists()) {
-      console.verbose("点击内容结尾字符点击");
-      descContains(_0x17d111.slice(-5).replace(/\r?\n|\r/g, "")).findOne().parent().parent().click();
-      sleep(1000);
-    } else {
-      console.error("点击内容输入框失败");
-    }
-    if (desc("主题").exists()) {
-      {
-        let _0x2fdffb = JSON.parse(_0x5b2c93.ykj_theme);
-        for (let _0x1b6ad7 = 0; _0x1b6ad7 < _0x2fdffb.length; _0x1b6ad7++) {
-          console.verbose("准备输入：" + _0x2fdffb[_0x1b6ad7]);
-          desc("主题").findOne().click();
-          sleep(1000);
-          if (setting.xf) {
-            {
-              className("android.widget.EditText").findOne().click();
-              sleep(1000);
-            }
-          } else {
-            {
-              text("搜索你想添加的主题").findOne().click();
-              sleep(1000);
-            }
-          }
-          setText(_0x2fdffb[_0x1b6ad7]);
-          sleep(3000);
-          console.verbose("注意：如文字输入失败，请授予闲鱼和系统剪切板读写权限");
-          if (descEndsWith("件宝贝").exists()) {
-            descEndsWith("件宝贝").findOne().click();
-            sleep(1000);
-          } else {
-            {
-              console.verbose("小闲鱼没有搜到这个主题~");
-              while (!desc("主题").exists()) {
-                {
-                  back();
-                  sleep(1000);
-                }
-              }
-            }
-          }
-        }
-        if (desc("收起键盘").exists()) {
-          {
-            desc("收起键盘").findOne().click();
-          }
-        }
-      }
-    } else {
-      {
-        console.error("未出现添加主题按钮，跳过添加主题");
-        console.verbose("可能是因为闲鱼出现bug或使用了来喜输入法造成无法弹出添加主题按钮");
-      }
-    }
-  }
-  console.verbose("宝贝内容填写完毕");
+  back();
+  sleep(1000);
 }
-function fbxz_title_content_b(_0x48832d) {
-  for (let _0x3563f5 = 0; _0x3563f5 < 10; _0x3563f5++) {
+function enter_xyb_register_f_son() {
+  if (id("right_title_view").desc("闲鱼签到").exists()) {
+    id("right_title_view").desc("闲鱼签到").findOne().click();
+  } else if (id("right_title_view_lottie").exists()) {
+    id("right_title_view_lottie").findOne().click();
+  } else if (id("icon_entry_lottie").exists()) {
     {
-      sleep(2000);
-      if (descStartsWith("发布").exists()) {
-        break;
-      }
-      console.verbose("等待发布页面加载完毕...");
-      common.allow_access();
+      console.verbose("icon_entry_lottie");
+      id("icon_entry_lottie").findOne().click();
     }
-  }
-  if (_0x48832d.content2) {
+  } else if (id("icon_entry_wrapper").exists()) {
     {
-      var _0x2f50fc = _0x48832d.content2;
+      console.verbose("icon_entry_wrapper");
+      id("icon_entry_wrapper").findOne().click();
     }
   } else {
     {
-      var _0x2f50fc = _0x48832d.content;
+      console.error("进入鱼币任务按钮不存在");
     }
   }
-  _0x2f50fc = _0x48832d.title + "\n" + _0x2f50fc;
-  descStartsWith("描述,").findOne().click();
-  sleep(1500);
-  common.my_input(_0x2f50fc);
+  console.verbose("等待鱼币任务列表页面出现");
+  id("mapDiceBtn").findOne(8000);
+  console.verbose("等待地图页面加载完毕...");
+  text("去完成").findOne(3000);
   sleep(1000);
-  console.verbose("宝贝内容填写完毕");
 }
-function select_aibum(_0xce8476) {
-  console.verbose("开始选择宝贝图片...");
-  while (true) {
+function shanchu_dongtai() {
+  common.enter_tab("我的");
+  sleep(2000);
+  scrollUp();
+  sleep(500);
+  scrollUp();
+  sleep(500);
+  scrollUp();
+  sleep(500);
+  desc("设置").findOne().parent().click();
+  console.verbose("等待账号动态出现...");
+  descContains("动态").waitFor();
+  sleep(500);
+  if (descStartsWith("动态\n").exists()) {
+    descStartsWith("动态\n").findOne().click();
+    sleep(1500);
+  } else if (descStartsWith("动态").exists()) {
     {
-      sleep(1000);
-      if (descStartsWith("发布").exists()) {
-        console.verbose("进入发布页面");
-        desc("添加图片").findOne().click();
-        sleep(1000);
-        console.verbose("点击添加图片按钮");
-        break;
-      }
+      descStartsWith("动态").findOne().parent().parent().click();
+      sleep(1500);
     }
+  } else if (descEndsWith("动态").exists()) {
+    descEndsWith("动态").findOne().click();
+    sleep(1500);
   }
-  sleep(1000);
-  common.allow_access();
-  if (descStartsWith("相册").exists()) {
+  console.verbose("准备点击删除动态按钮");
+  if (descStartsWith("你还没有过动态").exists()) {
     {
-      descStartsWith("相册").findOne().click();
-      sleep(2000);
-      console.verbose("进入相册列表页");
+      toastLog("动态已清空...");
+      return true;
     }
-  }
-  common.allow_access();
-  for (let _0x38813e = 0; _0x38813e < 10; _0x38813e++) {
-    {
-      sleep(1000);
-      if (desc("所有图片和视频").exists() || desc("所有文件").exists()) {
-        break;
-      }
-    }
-  }
-  if (desc("所有图片和视频").exists()) {
-    console.verbose("所有图片和视频");
-    desc("所有图片和视频").click();
+  } else {
+    console.verbose("等待出现动态列表...");
     sleep(1000);
-    descStartsWith("所有图片和视频 ·").waitFor();
-    sleep(2000);
-    toastLog("相册列表加载完毕");
-    do {
-      sleep(800);
-      if (className("ImageView").descStartsWith(_0xce8476.title_md5).exists()) {
-        className("ImageView").descStartsWith(_0xce8476.title_md5).findOne().click();
-        toastLog("进入相册");
-        sleep(2300);
-        for (let _0x49faba = 0; _0x49faba < 9; _0x49faba++) {
-          let _0x410cb3 = desc("双击选择当前图片").findOnce();
-          if (_0x410cb3) {
-            _0x410cb3.click();
-            sleep(450);
-          }
-        }
-        descStartsWith("下一步").findOne().click();
-        sleep(1000);
-        break;
-      }
-    } while (className("android.view.View").depth(9).scrollable().findOne().scrollForward());
-    console.verbose("宝贝图片选择完毕...");
-  } else if (desc("所有文件").exists()) {
-    {
-      console.verbose("所有文件");
-      desc("所有文件").click();
-      sleep(1200);
-      descStartsWith("所有文件·").waitFor();
-      sleep(2000);
-      toastLog("相册列表加载完毕");
-      var _0x2ae53f = false;
-      for (let _0x238361 = 0; _0x238361 < 25; _0x238361++) {
-        if (className("ImageView").descStartsWith(_0xce8476.title_md5).exists()) {
-          {
-            console.verbose("点击：" + _0xce8476.title_md5);
-            className("ImageView").descStartsWith(_0xce8476.title_md5).findOne().click();
-            toastLog("进入相册");
-            sleep(2300);
-            var _0xdfb45f = desc("选择").clickable(true).find();
-            _0xdfb45f.reverse();
-            for (let _0x238361 = 0; _0x238361 < _0xdfb45f.length; _0x238361++) {
+    if (desc("鱼小铺新人手册").exists()) {
+      console.verbose("关闭页面中的干扰元素");
+      let _0xa44bd8 = desc("关闭").findOne().bounds();
+      common.my_click(_0xa44bd8.centerX(), _0xa44bd8.centerY());
+      sleep(1000);
+    }
+    for (let _0x3c1c8f = 0; _0x3c1c8f < 10; _0x3c1c8f++) {
+      while (true) {
+        {
+          if (desc("删除动态").exists()) {
+            let _0x1a69d3 = desc("删除动态").findOne().bounds();
+            common.my_click(_0x1a69d3.centerX(), _0x1a69d3.centerY());
+            sleep(2000);
+            desc("确定").waitFor();
+            sleep(1000);
+            let _0x5ee86f = desc("确定").findOne().bounds();
+            common.my_click(_0x5ee86f.centerX(), _0x5ee86f.centerY());
+            sleep(2000);
+            toast("动态删除成功");
+            sleep(time_blank * 1000);
+            if (!desc("删除动态").exists()) {
               {
-                sleep(120);
-                _0xdfb45f[_0x238361].click();
+                break;
               }
             }
-            descStartsWith("下一步").findOne().click();
-            sleep(1000);
-            _0x2ae53f = true;
+          } else {
             break;
+          }
+        }
+      }
+      console.verbose("第" + (_0x3c1c8f + 1) + "次向下滑动");
+      common.my_swipe(device.width / 2, device.height * 8 / 10, device.width / 2, device.height * 2 / 10, 1000);
+      sleep(2000);
+      if (desc("没有更多了～").exists()) {
+        toastLog("动态已清空...");
+        return true;
+      }
+    }
+    console.verbose("该页动态已清空...");
+    common.back_xy_home();
+  }
+}
+function shanchu_liuyan(_0x35df14) {
+  let _0x5b2dd8 = [];
+  var _0x2b5850 = text("编辑").find();
+  for (let _0x48907f = 0; _0x48907f < _0x2b5850.length; _0x48907f++) {
+    var _0x2b5850 = text("编辑").find();
+    var _0x34edbb = _0x2b5850[_0x48907f].parent().parent().parent().parent().find(textStartsWith("曝光"))[0].text();
+    var _0x5204b8 = _0x2b5850[_0x48907f].parent().parent().find(indexInParent(0).depth(setting.glist_dep - 1))[0].find(indexInParent(1).depth(setting.glist_dep))[0];
+    title = _0x5204b8.text() || _0x5204b8.find(indexInParent(0))[0].text();
+    if (title.indexOf(".png_110x10000.jpg_") != -1) {
+      _0x5204b8 = _0x2b5850[_0x48907f].parent().parent().find(indexInParent(0).depth(setting.glist_dep - 1))[0].find(indexInParent(2).depth(setting.glist_dep))[0];
+      title = _0x5204b8.text() || _0x5204b8.find(indexInParent(0))[0].text();
+    }
+    var _0x17617e = title + _0x34edbb;
+    if (_0x5b2dd8.indexOf(_0x17617e) == -1) {
+      {
+        let _0x3439e2 = "删除第" + (_0x5b2dd8.length + 1) + "个宝贝的留言";
+        console.verbose(_0x3439e2);
+        toast(_0x3439e2);
+        console.verbose(_0x17617e);
+        _0x5b2dd8.push(_0x17617e);
+        _0x2b5850[_0x48907f].parent().parent().click();
+        for (let _0x48907f = 0; _0x48907f < 5; _0x48907f++) {
+          {
+            sleep(2000);
+            if (desc("管理").exists()) {
+              break;
+            } else if (desc("管理, 管理").exists()) {
+              break;
+            } else if (desc("管理按钮").exists()) {
+              break;
+            }
+          }
+        }
+        console.verbose("开始寻找留言");
+        if (setting.xf) {
+          while (id("ll_comment").exists()) {
+            id("ll_comment").findOne().longClick();
+            sleep(1000);
+            text("删除留言").findOne().click();
+            sleep(1000);
+            text("确定").findOne().click();
+            sleep(1000);
+            console.verbose("留言删除成功");
           }
         } else {
-          aibum_list_down();
-        }
-        console.verbose(_0x238361);
-        sleep(800);
-      }
-      if (!_0x2ae53f) {
-        console.error("相册列表加载失败，准备重新加载...");
-        back();
-        sleep(1000);
-        select_aibum(_0xce8476);
-        return false;
-      }
-      console.verbose("宝贝图片选择完毕...");
-    }
-  } else {
-    for (let _0x1d32ac = 0; _0x1d32ac < 100; _0x1d32ac++) {
-      let _0x4e5ad7 = "相册列表长时间未出现，请前往手机的软件权限设置里授予闲鱼访问相册权限或读取文件权限，授予闲鱼权限后请重新运行任务";
-      toast(_0x4e5ad7);
-      console.error(_0x4e5ad7);
-      console.verbose("出现该提示的原因是闲鱼在申请访问相册/读取文件权限时您长时间未同意或点了拒绝");
-      sleep(30000);
-    }
-  }
-  if (_0xce8476.tab != "[]" && _0xce8476.tab != null) {
-    {
-      console.verbose("等待添加标签页面出现");
-      for (let _0x5db23f = 0; _0x5db23f < 10; _0x5db23f++) {
-        if (desc("贴纸").exists()) {
-          {
-            break;
-          }
-        }
-        if (desc("点击添加标签").exists()) {
-          {
-            break;
-          }
-        }
-        sleep(1000);
-      }
-      toastLog("标签：" + _0xce8476.tab);
-      let _0xbb9d22 = JSON.parse(_0xce8476.tab);
-      console.verbose("开始添加标签...");
-      if (desc("下一步").exists()) {
-        console.verbose("原7.4.10有该界面，现在该界面可能已消失");
-      } else if (desc("完成").exists()) {
-        console.verbose("[完成]界面");
-        if (desc("点击添加标签").indexInParent(0).exists()) {
-          let _0xa0e59b = desc("点击添加标签").indexInParent(0).findOnce().bounds();
-          console.verbose(_0xa0e59b);
-          try {
+          while (!descEndsWith("留言").exists()) {
             {
-              for (let _0x5db23f = 0; _0x5db23f < _0xbb9d22.length; _0x5db23f++) {
-                desc("完成").waitFor();
-                var _0x2ca939 = _0xbb9d22[_0x5db23f];
-                toastLog("添加标签：" + _0x2ca939);
-                if (_0x2ca939.length > 12) {
-                  console.error("7.14.50及以上版本闲鱼图片标签最多可输入12个字符，'" + _0x2ca939 + "'已超12字符，请缩短标签长度");
-                }
-                var _0x461cc4 = [0.35, 0.4, 0.45, 0.5, 0.55];
-                var _0xcfde7e = Math.floor(Math.random() * _0x461cc4.length);
-                if (_0x5db23f % 3 == 0) {
-                  common.my_click(parseInt(_0xa0e59b.width() * _0x461cc4[_0xcfde7e]), parseInt(_0xa0e59b.centerY() - _0xa0e59b.height() * 0.17));
-                }
-                if (_0x5db23f % 3 == 1) {
-                  {
-                    common.my_click(parseInt(_0xa0e59b.width() * _0x461cc4[_0xcfde7e]), parseInt(_0xa0e59b.centerY()));
-                  }
-                }
-                if (_0x5db23f % 3 == 2) {
-                  common.my_click(parseInt(_0xa0e59b.width() * _0x461cc4[_0xcfde7e]), parseInt(_0xa0e59b.centerY() + _0xa0e59b.height() * 0.17));
-                }
-                console.verbose("等待出现标签输入页面...");
-                for (let _0x5db23f = 0; _0x5db23f < 10; _0x5db23f++) {
-                  if (desc("输入你独一无二的标签").exists() || text("输入你独一无二的标签").exists()) {
-                    break;
-                  } else {
-                    sleep(500);
-                  }
-                }
-                sleep(500);
-                console.verbose("注意：如文字输入失败，请尝试重新运行'绑定闲鱼'任务");
-                if (desc("输入你独一无二的标签").exists()) {
-                  {
-                    console.verbose("准备开始粘贴标签desc...");
-                    desc("输入你独一无二的标签").findOne().click();
-                    sleep(500);
-                    common.my_input(_0x2ca939);
-                    desc("完成").findOne().click();
-                    sleep(1000);
-                    sleep(2000);
-                  }
-                } else if (text("输入你独一无二的标签").exists()) {
-                  console.verbose("准备开始粘贴标签text...");
-                  setClip(_0x2ca939);
-                  sleep(500);
-                  text("输入你独一无二的标签").findOne().click();
-                  sleep(500);
-                  text("输入你独一无二的标签").findOne().paste();
-                  sleep(1000);
-                  console.verbose("等待出现自定义标签...");
-                  for (let _0x5db23f = 0; _0x5db23f < 10; _0x5db23f++) {
+              className("android.widget.ScrollView").scrollForward();
+              sleep(700);
+            }
+          }
+          if (descStartsWith("宝贝评价").exists()) {
+            className("android.widget.ScrollView").scrollForward();
+            sleep(700);
+          }
+          let _0x183097 = 0;
+          for (let _0x48907f = 0; _0x48907f < 20; _0x48907f++) {
+            let _0x8cf927 = desc("头像").find();
+            let _0x1d160a = false;
+            for (let _0xcc28b = 0; _0xcc28b < _0x8cf927.length; _0xcc28b++) {
+              if (_0x8cf927[_0xcc28b].parent().find(descStartsWith("回复")).length == 0 && _0x8cf927[_0xcc28b].parent().desc() != null && _0x8cf927[_0xcc28b].parent().desc().indexOf("出价") == -1) {
+                {
+                  if (_0x8cf927[_0xcc28b].parent().desc().indexOf("该留言已删除") == -1) {
                     {
-                      console.verbose("等待出现自定义标签..");
-                      sleep(2000);
-                      if (descEndsWith("自定义标签").exists()) {
-                        console.verbose("“自定义标签”出现...");
-                        descEndsWith("自定义标签").findOne().click();
-                        for (let _0x5db23f = 0; _0x5db23f < 12; _0x5db23f++) {
-                          sleep(1000);
-                          if (!descEndsWith("自定义标签").exists()) {
-                            console.verbose("“自定义标签”消失");
-                            sleep(1000);
-                            break;
-                          }
-                        }
-                      } else {
-                        console.verbose("自定义标签选择成功...");
+                      if (_0x8cf927[_0xcc28b].parent().longClickable()) {
+                        _0x1d160a = true;
+                        _0x8cf927[_0xcc28b].parent().longClick();
+                        sleep(1000);
+                        desc("删除留言").findOne().click();
+                        sleep(1000);
+                        desc("确定").findOne().click();
+                        sleep(2000);
+                        console.verbose("留言删除成功");
                         break;
                       }
                     }
                   }
-                  sleep(2000);
-                } else {
-                  console.verbose("选择" + _0x2ca939 + "时出现异常，已跳过该标签...");
                 }
-                if (_0x5db23f % 3 == 2) {
-                  {
-                    let _0xe4d082 = parseInt(_0xa0e59b.centerY() - _0xa0e59b.height() * 0.1);
-                    if (setting.xf) {
-                      common.my_swipe(device.width * 9 / 10, device.height * 5 / 10, device.width * 6 / 10, device.height * 5 / 10, 500);
-                      sleep(1000);
-                      if (!desc("点击添加标签").exists()) {
-                        console.verbose("第二种滑动方式");
-                        if (className("android.view.View").scrollable(true).find().length >= 2) {
-                          className("android.view.View").scrollable(true).find()[1].scrollForward();
-                          sleep(500);
-                        }
-                      }
-                    } else {
-                      common.my_swipe(_0xa0e59b.width() * 0.9, _0xe4d082, _0xa0e59b.width() * 0.1, _0xe4d082, 1000);
+              }
+            }
+            if (!_0x1d160a) {
+              if (desc("查看全部留言").exists()) {
+                {
+                  desc("查看全部留言").click();
+                  sleep(1000);
+                  if (descStartsWith("留言").findOne().find(className("android.widget.ImageView")).length != 0) {
+                    {
+                      descStartsWith("留言").findOne().find(className("android.widget.ImageView"))[0].click();
                     }
+                  } else {
+                    let _0x18accc = descStartsWith("留言").findOne();
+                    className("ImageView").indexInParent(_0x18accc.indexInParent() + 1).depth(_0x18accc.depth()).clickable().findOne().click();
+                    sleep(500);
+                  }
+                }
+              } else {
+                className("android.widget.ScrollView").scrollForward();
+                sleep(700);
+                _0x183097 += 1;
+                console.verbose("未发现新留言：" + _0x183097);
+              }
+            }
+            if (_0x183097 > 2) {
+              break;
+            }
+            sleep(1200);
+          }
+        }
+        back();
+        sleep(1200);
+        sleep(_0x35df14 * 1000);
+      }
+    } else {}
+  }
+}
+function goods_shelf_up() {
+  if (desc("下架宝贝").exists()) {
+    {
+      desc("下架宝贝").clickable().findOne().click();
+      sleep(500);
+    }
+  } else if (text("下架宝贝").exists()) {
+    text("下架宝贝").clickable().findOne().click();
+    sleep(500);
+  } else if (text("已下架").exists()) {
+    text("已下架").clickable().findOne().click();
+    sleep(500);
+  }
+  sleep(2000);
+  if (text("你没有下架的宝贝哦").exists()) {
+    toastLog("你没有下架的宝贝哦");
+    return true;
+  }
+  text("下架原因").waitFor();
+  sleep(500);
+  toastLog("准备开始重新上架");
+  while (text("下架原因").exists()) {
+    if (text("重新上架").exists()) {
+      {
+        console.verbose("重新上架1");
+        var _0x531271 = text("重新上架").clickable().findOne();
+        _0x531271.click();
+        console.verbose("成功点击'重新上架'按钮");
+        common.goods_publish();
+        back();
+        sleep(2000);
+      }
+    } else if (text("下架原因").exists()) {
+      console.verbose("重新上架2");
+      text("下架原因").findOne().parent().parent().click();
+      for (let _0x25db06 = 0; _0x25db06 < 10; _0x25db06++) {
+        sleep(1000);
+        if (className("android.view.View").descStartsWith("管理").exists()) {
+          className("android.view.View").descStartsWith("管理").findOne().click();
+          sleep(800);
+        } else if (desc("管理按钮").exists()) {
+          descStartsWith("管理按钮").findOne().click();
+          sleep(800);
+        } else {
+          console.verbose("管理 按钮按钮未出现");
+        }
+      }
+      if (desc("编辑").exists()) {
+        desc("编辑").click();
+      } else if (text("重新发布").exists()) {
+        text("重新发布").click();
+      } else if (desc("重新发布").exists()) {
+        desc("重新发布").click();
+      }
+      console.verbose("成功点击'重新上架2'按钮");
+      common.goods_publish();
+      while (className("android.view.View").descStartsWith("管理").exists()) {
+        back();
+        sleep(2000);
+      }
+      common.down_pull();
+      sleep(2000);
+    } else {
+      console.verbose("没有找到'重新上架'按钮");
+      break;
+    }
+    if (time_blank) {
+      {
+        m = time_blank + "秒后开始上架";
+        console.log(m);
+        toast(m);
+        sleep(time_blank * 1000);
+      }
+    }
+  }
+  toastLog("本轮重新上架结束");
+  return false;
+}
+function start_flow_search(_0x193e40) {
+  var _0x348241 = [];
+  while (true) {
+    var _0x2a300e = textContains("人想要").clickable(false).find().length > textContains("已售").clickable(false).find().length ? "人想要" : "已售";
+    items = textContains(_0x2a300e).clickable(false).find();
+    for (let _0x367037 = 0; _0x367037 < items.length; _0x367037++) {
+      {
+        items = textContains(_0x2a300e).clickable(false).find();
+        if (!items[_0x367037]) {
+          continue;
+        } else {
+          {
+            var _0x22d423 = items[_0x367037].text();
+            var _0x9a52a0 = items[_0x367037].parent().find(className("android.widget.TextView"))[1].text();
+            var _0x1659d1 = _0x9a52a0 + "元，" + _0x22d423;
+          }
+        }
+        if (_0x348241.indexOf(_0x1659d1) == -1) {
+          {
+            _0x348241.push(_0x1659d1);
+            console.verbose("第" + _0x348241.length + "个宝贝");
+            if (_0x193e40.click_percent > random(0, 100)) {
+              console.verbose("准备点击宝贝进入详情页...");
+              if (items[_0x367037].parent().parent().clickable()) {
+                items[_0x367037].parent().parent().click();
+              } else if (items[_0x367037].parent().clickable()) {
+                items[_0x367037].parent().click();
+                console.verbose("第二种点击方式");
+              }
+              for (let _0x367037 = 0; _0x367037 < 10; _0x367037++) {
+                sleep(1000);
+                if (desc("聊一聊按钮").exists()) {
+                  break;
+                } else if (desc("我想要").exists()) {
+                  break;
+                } else if (desc("我想要, 我想要").exists()) {
+                  break;
+                } else if (desc("聊一聊, 聊一聊").exists()) {
+                  {
+                    break;
+                  }
+                }
+              }
+              if (desc("立即租, 立即租").exists()) {
+                console.verbose("立即租");
+                back();
+                sleep(3000);
+                continue;
+              }
+              if (!desc("我想要").exists() && !desc("聊一聊, 聊一聊").exists() && !desc("我想要, 我想要").exists() && !desc("聊一聊按钮").exists()) {
+                console.verbose("我想要或聊一聊 不存在");
+                back();
+                sleep(3000);
+                if (desc("我想要").exists() || desc("聊一聊按钮").exists()) {
+                  {
+                    back();
+                    sleep(3000);
+                  }
+                } else if (desc("聊一聊, 聊一聊").exists()) {
+                  {
+                    back();
+                    sleep(3000);
+                  }
+                } else if (desc("我想要, 我想要").exists()) {
+                  back();
+                  sleep(3000);
+                }
+                continue;
+              }
+              if (text("我要兑换").exists() || text("出个价").exists() || text("加入购物车").exists()) {
+                {
+                  console.verbose("该宝贝为免费送或拍卖...");
+                  back();
+                  sleep(3000);
+                  continue;
+                }
+              }
+              toastLog("进入详情页...");
+              sleep(2300);
+              if (_0x193e40.collect_percent > random(0, 100)) {
+                {
+                  console.verbose("开始收藏...");
+                  if (desc("收藏").exists()) {
+                    desc("收藏").findOne().click();
+                    sleep(1000);
+                    toastLog("收藏了宝贝");
+                    sleep(2000);
+                  } else if (desc("收藏按钮").exists()) {
+                    {
+                      desc("收藏按钮").findOne().click();
+                      sleep(1000);
+                      toastLog("收藏了宝贝");
+                      sleep(2000);
+                    }
+                  }
+                }
+              }
+              if (_0x193e40.want_percent > random(0, 100)) {
+                console.verbose("开始想要...");
+                if (desc("聊一聊按钮").exists()) {
+                  {
+                    console.verbose("点击 聊一聊按钮");
+                    desc("聊一聊按钮").click();
+                    sleep(3000);
+                    if (_0x193e40.want_content) {
+                      {
+                        console.verbose("准备发送私信...");
+                        common.send(_0x193e40.want_content);
+                      }
+                    }
+                    while (!desc("聊一聊按钮").exists()) {
+                      console.verbose("聊天内容发送成功，返回宝贝详情页面...");
+                      back();
+                      sleep(2000);
+                    }
+                  }
+                } else if (desc("聊一聊, 聊一聊").exists()) {
+                  {
+                    console.verbose("点击聊一聊");
+                    desc("聊一聊, 聊一聊").click();
+                    sleep(3000);
+                    if (_0x193e40.want_content) {
+                      {
+                        console.verbose("准备发送私信...");
+                        common.send(_0x193e40.want_content);
+                      }
+                    }
+                    while (!desc("聊一聊, 聊一聊").exists()) {
+                      {
+                        console.verbose("聊天内容发送成功，返回宝贝详情页面...");
+                        back();
+                        sleep(2000);
+                      }
+                    }
+                  }
+                } else if (desc("我想要, 我想要").exists()) {
+                  console.verbose("点击我想要");
+                  desc("我想要, 我想要").click();
+                  sleep(3000);
+                  if (_0x193e40.want_content) {
+                    {
+                      console.verbose("准备发送私信...");
+                      common.send(_0x193e40.want_content);
+                    }
+                  }
+                  while (!desc("我想要, 我想要").exists()) {
+                    console.verbose("聊天内容发送成功，返回宝贝详情页面...");
+                    back();
                     sleep(2000);
                   }
                 }
               }
-            }
-          } catch (_0x49343f) {
-            {
-              console.error(_0x49343f);
-              console.verbose("选择标签异常，自动跳过选择标签步骤");
-              while (!desc("完成").exists()) {
+              if (_0x193e40.care_percent > random(0, 100)) {
                 {
-                  back();
-                  sleep(2000);
+                  console.verbose("开始关注...");
+                  if (id("user_info_avatar_wrapper").exists()) {
+                    id("user_info_avatar_wrapper").findOne().parent().click();
+                  } else if (descContains("来过").clickable().exists()) {
+                    {
+                      descContains("来过").clickable().findOne().click();
+                    }
+                  } else if (descContains("发布于").clickable().exists()) {
+                    descContains("发布于").clickable().findOne().click();
+                  } else if (descContains("刚刚擦亮").clickable().exists()) {
+                    {
+                      descContains("刚刚擦亮").clickable().findOne().click();
+                    }
+                  }
+                  for (let _0x367037 = 0; _0x367037 < 3; _0x367037++) {
+                    sleep(3000);
+                    if (desc("关注").exists()) {
+                      console.verbose("卖家详情页加载完毕");
+                      break;
+                    }
+                  }
+                  if (desc("关注").exists()) {
+                    if (descContains("相互关注").exists() || descContains("已关注").exists()) {
+                      toastLog("已关注");
+                    } else if (desc("关注").exists()) {
+                      let _0x18623a = desc("关注").find();
+                      if (_0x18623a.length == 2) {
+                        let _0x5980ee = _0x18623a[1].bounds();
+                        common.my_click(_0x5980ee.centerX(), _0x5980ee.centerY());
+                        sleep(500);
+                        console.verbose("关注成功");
+                        sleep(2000);
+                      } else {
+                        console.verbose(_0x18623a.length);
+                      }
+                    } else {
+                      console.verbose("关注按钮不存在");
+                    }
+                    if (descStartsWith("关注成功！请设置通知接收范围").exists()) {
+                      {
+                        back();
+                        sleep(1000);
+                      }
+                    }
+                    sleep(2000);
+                    back();
+                    sleep(2000);
+                  } else {
+                    console.verbose("卖家详情页加载失败");
+                  }
                 }
               }
-            }
-          }
-        } else {
-          console.verbose("未发现图片控件");
-        }
-        desc("完成").findOne().click();
-        sleep(1000);
-      }
-      console.log("添加标签结束");
-    }
-  }
-  while (true) {
-    if (desc("下一步").clickable().exists()) {
-      {
-        sleep(1000);
-        console.verbose("点击'下一步'");
-        desc("下一步").findOne().click();
-        sleep(1000);
-        break;
-      }
-    } else if (desc("完成").clickable().exists()) {
-      sleep(1000);
-      console.verbose("点击'完成'");
-      if (desc("完成").clickable().exists()) {
-        sleep(2000);
-        console.verbose("准备第一次点击'完成'");
-        if (desc("完成").clickable().exists()) {
-          desc("完成").clickable().findOne().click();
-          sleep(1000);
-        }
-      }
-      if (desc("完成").clickable().exists()) {
-        sleep(2000);
-        console.verbose("准备第二次点击'完成'");
-        if (desc("完成").clickable().exists()) {
-          desc("完成").clickable().findOne().click();
-          sleep(1000);
-        }
-      }
-      break;
-    } else if (descStartsWith("发布").clickable().exists()) {
-      console.log("跳过'下一步'检测");
-      break;
-    } else {
-      sleep(1000);
-      console.verbose("准备点击下一步/完成");
-    }
-  }
-  console.log("准备进入发布页...");
-  console.verbose("宝贝图片选择完毕");
-}
-function fbxz_select_video(_0x3ff907) {
-  console.verbose("等待发布页面加载");
-  if (_0x3ff907.vcode || _0x3ff907.auto_video) {
-    {
-      toastLog("开始选择视频...");
-      desc("添加图片").findOne().click();
-      sleep(1000);
-      descStartsWith("相册").findOne().click();
-      sleep(800);
-      console.verbose("由于视频转码需占用大量 CPU 资源，若手机配置较低并且连续发布多个视频宝贝，可能会导致应用卡顿或闪退。");
-      for (let _0x12c8db = 0; _0x12c8db < 10; _0x12c8db++) {
-        sleep(1000);
-        if (desc("所有图片和视频").exists() || desc("所有文件").exists()) {
-          {
-            break;
-          }
-        }
-      }
-      if (desc("所有图片和视频").exists()) {
-        console.verbose("选择视频-所有图片和视频");
-        desc("所有图片和视频").click();
-        sleep(1000);
-        descStartsWith("所有图片和视频 ·").waitFor();
-        sleep(2000);
-        toastLog("相册列表加载完毕");
-        do {
-          {
-            sleep(800);
-            let _0x394d9d = "v_" + _0x3ff907.title_md5;
-            console.verbose("等待视频" + _0x394d9d + "出现...");
-            if (className("ImageView").descStartsWith(_0x394d9d).exists()) {
-              {
-                className("ImageView").descStartsWith(_0x394d9d).findOne().click();
-                toastLog("进入视频相册...");
+              if (_0x193e40.comment_percent > random(0, 100)) {
+                console.verbose("开始留言...");
                 sleep(2000);
-                descStartsWith("这是第1个").click();
-                sleep(2500);
-                desc("完成").waitFor();
-                sleep(1000);
-                desc("完成").findOne().click();
-                toastLog("等待视频处理完成...");
-                descStartsWith("发布").waitFor();
-                sleep(500);
+                let _0x269ca5 = _0x193e40.comment_content.split("#").filter(function (_0x18dc92) {
+                  {
+                    return _0x18dc92 && _0x18dc92.trim();
+                  }
+                });
+                let _0xf5f0a2 = Math.floor(Math.random() * _0x269ca5.length);
+                var _0x86f4b5 = _0x269ca5[_0xf5f0a2];
+                if (desc("评论按钮").exists()) {
+                  desc("评论按钮").findOne().click();
+                  sleep(1000);
+                }
+                if (desc("留言按钮").exists()) {
+                  desc("留言按钮").findOne().click();
+                  sleep(1000);
+                } else if (desc("留言").exists()) {
+                  {
+                    desc("留言").findOne().click();
+                    sleep(1000);
+                  }
+                }
+                console.verbose("留言内容：" + _0x86f4b5);
+                if (descStartsWith("看对眼就留言").exists()) {
+                  descStartsWith("看对眼就留言").click();
+                  sleep(1000);
+                } else if (textStartsWith("看对眼就留言").exists()) {
+                  textStartsWith("看对眼就留言").click();
+                  sleep(1000);
+                }
+                common.my_input(_0x86f4b5);
+                if (desc("发送").exists()) {
+                  desc("发送").findOne().click();
+                  sleep(3000);
+                } else if (text("发送").exists()) {
+                  text("发送").findOne().click();
+                  sleep(3000);
+                }
+                if (descStartsWith("看对眼就留言").exists()) {
+                  back();
+                  sleep(1000);
+                }
+              }
+            } else {
+              {
+                console.verbose("跳过该宝贝...");
+              }
+            }
+            while (!text("筛选").exists() && !text("全部").exists()) {
+              {
+                console.verbose("返回搜索宝贝列表页...");
+                back();
+                sleep(2000);
+              }
+            }
+            if (_0x348241.length == _0x193e40.num) {
+              {
                 break;
               }
             }
-          }
-        } while (className("android.view.View").depth(9).scrollable().findOne().scrollForward());
-      } else if (desc("所有文件").exists()) {
-        {
-          console.verbose("选择视频-所有文件");
-          desc("所有文件").click();
-          sleep(1000);
-          descStartsWith("所有文件·").waitFor();
-          sleep(2000);
-          toastLog("相册列表加载完毕");
-          var _0xb7d637 = false;
-          for (let _0xd6a6f4 = 0; _0xd6a6f4 < 25; _0xd6a6f4++) {
-            {
-              let _0x394d9d = "v_" + _0x3ff907.title_md5;
-              if (className("ImageView").descStartsWith(_0x394d9d).exists()) {
-                {
-                  console.verbose("点击：" + _0x394d9d);
-                  className("ImageView").descStartsWith(_0x394d9d).findOne().click();
-                  toastLog("进入视频相册...");
-                  sleep(2000);
-                  descContains(":").click();
-                  sleep(2500);
-                  desc("完成").waitFor();
-                  sleep(1000);
-                  desc("完成").findOne().click();
-                  toastLog("等待视频处理完成...");
-                  descStartsWith("发布").waitFor();
-                  sleep(500);
-                  _0xb7d637 = true;
-                  break;
-                }
-              } else {
-                aibum_list_down();
-              }
-              console.verbose(_0xd6a6f4);
-              sleep(800);
-            }
-          }
-          if (!_0xb7d637) {
-            console.error("相册列表加载失败，准备重新加载...");
-            back();
-            sleep(1000);
-            fbxz_select_video(_0x3ff907);
-            return false;
+            toastLog("睡眠" + _0x193e40.time_blank + "秒");
+            sleep(_0x193e40.time_blank * 1000);
           }
         }
       }
-      console.log("视频选择完毕...");
-      descStartsWith("发布").clickable().waitFor();
-      console.verbose("发布页面加载完毕..");
-      sleep(500);
     }
-  }
-}
-function add_wait(_0x4bc8a4, _0x274bf4) {
-  let _0x134ad8 = "";
-  if (_0x4bc8a4 > 0 && time_blank) {
-    threads.start(function () {
+    if (_0x348241.length == _0x193e40.num) {
       {
-        _0x134ad8 = "共" + _0x274bf4.length + "个宝贝，" + time_blank + "秒后开始发布第" + (_0x4bc8a4 + 1) + "个宝贝";
-        console.log(_0x134ad8);
-        toast(_0x134ad8);
-        common.web_log(_0x134ad8, "info");
+        console.verbose("累计操作宝贝数" + _0x193e40.num + "，任务结束");
+        break;
       }
-    });
-    sleep(time_blank * 1000);
-  } else {
-    threads.start(function () {
-      _0x134ad8 = "共" + _0x274bf4.length + "个宝贝，开始发布第" + (_0x4bc8a4 + 1) + "个宝贝";
-      common.web_log(_0x134ad8, "info");
-      console.log(_0x134ad8);
-      toast(_0x134ad8);
-    });
-  }
-}
-function get_images(_0x114c0d, _0x2f13bb) {
-  let _0x49178d = _0x114c0d.vcode || _0x114c0d.auto_video;
-  let _0x34457b = _0x2f13bb && _0x2f13bb.insert_image_type != "" && _0x2f13bb.insert_image_url;
-  let _0x5457d9 = [];
-  if (_0x49178d && _0x34457b) {
-    _0x5457d9 = _0x114c0d.images.slice(0, 7);
-  } else if (_0x49178d || _0x34457b) {
-    _0x5457d9 = _0x114c0d.images.slice(0, 8);
-  } else {
-    {
-      _0x5457d9 = _0x114c0d.images.slice(0, 9);
     }
-  }
-  if (_0x34457b) {
-    console.verbose("插入图片：" + _0x2f13bb.insert_image_url);
-    _0x5457d9.splice(Number(_0x2f13bb.insert_image_type), 0, _0x2f13bb.insert_image_url);
-  }
-  console.verbose("下载图片：" + _0x5457d9.length + "张");
-  return _0x5457d9;
-}
-function aibum_list_down() {
-  if (className("android.view.View").depth(setting.goods_dep + 7).scrollable().exists()) {
-    return className("android.view.View").depth(setting.goods_dep + 7).scrollable().findOne().scrollForward();
-  } else {
-    console.verbose("滑动控件不存在，无需滑动");
-    return false;
+    common.my_swipe(device.width / 2, device.height * 9 / 10, device.width / 2, device.height * 1 / 10, 800);
+    sleep(1000);
   }
 }
-module.exports = goods_add;
+function del_empty(_0x2b499b) {
+  return _0x2b499b && _0x2b499b.trim();
+}
+module.exports = goods_manage_b;
